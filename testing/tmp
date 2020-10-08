@@ -1,0 +1,68 @@
+Usage: voltdb start [ OPTIONS ... ]
+
+Starts a database, which has been initialized.
+
+Options:
+  --version             show program's version number and exit
+  -h, --help            show this help message and exit
+  -v, --verbose         display verbose messages and external commands
+  --admin=ADMINPORT     specify the admin port as [ipaddress:]port-number
+  --client=CLIENTPORT   specify the client port as [ipaddress:]port-number
+  --drpublic=DRPUBLIC   Specifies the interface (ipaddress[:port-number])
+                        advertised to consumer clusters as the DR interface,
+                        used in hosted environments where internal interfaces
+                        are not reachable
+  --externalinterface=EXTERNALINTERFACE
+                        specify the network interface to use for external
+                        ports, such as the admin and client ports
+  --http=HTTPPORT       specify the http port as [ipaddress:]port-number
+  --ignore=SKIP_REQUIREMENTS
+                        requirements to skip when start voltdb:
+                        thp - Checking for Transparent Huge Pages (THP) has
+                        been disabled.  Use of THP can cause VoltDB to run out
+                        of memory. Do not disable this check on production
+                        systems. (default=None)
+  --internal=INTERNALPORT
+                        specify the internal port as [ipaddress:]port-number
+                        used to communicate between cluster nodes
+  --internalinterface=INTERNALINTERFACE
+                        specify the network interface to use for internal
+                        communication, such as the internal and zookeeper
+                        ports
+  --publicinterface=PUBLICINTERFACE
+                        For hosted or cloud environments with non-public
+                        interfaces, this argument specifies a publicly-
+                        accessible alias for reaching the server. Particularly
+                        useful for remote access to the VoltDB Management
+                        Center.
+  --replication=REPLICATIONPORT
+                        specify the replication port as [ipaddress:]port-
+                        number (1st of 3 sequential ports)
+  --topicsport=TOPICSPORT
+                        specify the topics port as [ipaddress:]port-number
+  --zookeeper=ZKPORT    specify the zookeeper port as [ipaddress:]port-number
+  -A, --add             allows the server to elastically expand the cluster if
+                        the cluster is already complete (default=False)
+  -B, --background      run the VoltDB server in the background (as a daemon
+                        process)
+  -c HOSTCOUNT, --count=HOSTCOUNT
+                        number of hosts in the cluster
+  -D DIRECTORY_SPEC, --dir=DIRECTORY_SPEC
+                        Specifies the root directory for the database. The
+                        default is voltdbroot under the current working
+                        directory. (default=None)
+  -g PLACEMENTGROUP, --placement-group=PLACEMENTGROUP
+                        placement group (default="0")
+  -H SERVER_LIST, --host=SERVER_LIST
+                        {hostname-or-ip[,...]}, Specifies the leader(s) for
+                        coordinating cluster startup.  (default="")
+  -l LICENSE, --license=LICENSE
+                        specify the location of the license file
+  -m MISSING, --missing=MISSING
+                        specifying how many nodes are missing at K-safe
+                        cluster startup
+  -p, --pause           Start Database in paused mode.
+  -r, --replica         start replica cluster (deprecated, please use
+                        role="replica" in the deployment file) (default=False)
+
+

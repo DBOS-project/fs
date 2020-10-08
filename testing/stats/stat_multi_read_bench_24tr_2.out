@@ -1,0 +1,58 @@
+--------------------------------------------------------------------------------
+ Running Performance Benchmark for 24 Transactions
+--------------------------------------------------------------------------------
+Oct 08, 2020 10:47:00 AM org.voltcore.logging.VoltUtilLoggingLogger log
+WARNING: Strict java memory checking is enabled, don't do release builds or performance runs with this enabled. Invoke "ant clean" and "ant -Djmemcheck=NO_MEMCHECK" to disable.
+
+Time     Txn/sec Aborts Failures
+-------- ------- ------ --------
+
+--------------------------------------------------------------------------------
+ Benchmark Statistics
+--------------------------------------------------------------------------------
+
+Average throughput:                   51 txns/sec
+Average latency:                  337.78 ms
+10th percentile latency:           13.18 ms
+25th percentile latency:           25.73 ms
+50th percentile latency:          468.99 ms
+75th percentile latency:          489.47 ms
+90th percentile latency:          495.62 ms
+95th percentile latency:          499.71 ms
+99th percentile latency:          501.76 ms
+99.5th percentile latency:        501.76 ms
+99.9th percentile latency:        501.76 ms
+
+--------------------------------------------------------------------------------
+ System Server Statistics
+--------------------------------------------------------------------------------
+
+Reported Internal Avg Latency:    335.04 ms
+
+--------------------------------------------------------------------------------
+ Latency Histogram
+--------------------------------------------------------------------------------
+
+       Value     Percentile TotalCount
+
+        1.76 0.000000000000          1
+      468.99 0.500000000000         12
+      489.47 0.750000000000          7
+      495.62 0.875000000000          3
+      499.71 0.937500000000          2
+      501.76 0.968750000000          1
+      501.76 1.000000000000
+#[Mean    =       337.77, StdDeviation   =       213.75]
+#[Max     =       501.76, Total count    =           26]
+#[Buckets =           12, SubBuckets     =          256]
+
+
+--------------------------------------------------------------------------------
+ Transaction Results
+--------------------------------------------------------------------------------
+
+  Read
+        calls: 48
+      commits: 48
+    rollbacks: 48
+
