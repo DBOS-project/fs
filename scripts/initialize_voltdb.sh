@@ -6,6 +6,7 @@ SCRIPT_DIR=$(dirname $(readlink -f $0))
 cd ${SCRIPT_DIR}/../
 
 export PATH=$PATH:/home/gridsan/dhong98/DBOS_shared/daniel/VoltDB/bin
+export PATH=$PATH:/home/gridsan/askiad/DBOS_shared/askiad/VoltDB/bin
 
 voltdb init -f --dir=testing
 voltdb start -B --dir=testing
