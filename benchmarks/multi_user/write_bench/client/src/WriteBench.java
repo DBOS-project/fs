@@ -26,7 +26,7 @@
  *
  */
 
-package org.voltdb.populate;
+package org.voltdb.write;
 
 import java.util.Random;
 import org.voltdb.*;
@@ -37,7 +37,7 @@ import org.voltdb.client.ProcedureCallback;
 import org.voltdb.util.BenchmarkCallback;
 import org.voltdb.util.BenchmarkStats;
 
-public class PopulateBench {
+public class WriteBench {
 
     private Client client;
     private BenchmarkStats stats;
@@ -45,7 +45,7 @@ public class PopulateBench {
 	private String userName;
 	private int kiloBytes;
     
-    public PopulateBench (String servers, int size, String username, int kb) throws Exception {
+    public WriteBench (String servers, int size, String username, int kb) throws Exception {
 	this.benchmarkSize = size;
 	this.userName = username;
 	this.kiloBytes = kb;
@@ -70,13 +70,13 @@ public class PopulateBench {
 	// To make an asynchronous procedure call, you need a callback object
 	// BenchmarkCallback is a generic callback that keeps track of the transaction results
 	// for any given procedure name, which should match the procedure called below.
-	ProcedureCallback callback = new BenchmarkCallback("Populate");
+	ProcedureCallback callback = new BenchmarkCallback("Write");
 	
 	// call the procedure asynchronously, passing in the callback and the procedure name,
 	// followed by the input parameters
 	client.callProcedure(callback,
 			     "Populate",
-			     "file" + String.valueOf(file_num),
+			     "file" + String.valueOf(file_num % 32),
 				 kiloBytes,
 			     userName
 			     );
@@ -126,7 +126,7 @@ public class PopulateBench {
 	    transactions = Integer.parseInt(args[1]);
 	}
 
-	// the third parameter can be the user name for the files populated
+	// the third parameter can be the user name for the files written
 	String username = "user1";
 	if (args.length > 2) {
 	    username = args[2];
@@ -135,10 +135,10 @@ public class PopulateBench {
 	// the fourth parameter can be the number of kilobytes we write
 	int kb = 1024;
 	if (args.length > 3) {
-	    transactions = Integer.parseInt(args[3]);
+	    kb = Integer.parseInt(args[3]);
 	}
 
-	PopulateBench benchmark = new PopulateBench(serverlist, transactions, username, kb);
+	WriteBench benchmark = new WriteBench(serverlist, transactions, username, kb);
 	benchmark.runBenchmark();
 
     }

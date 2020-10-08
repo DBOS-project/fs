@@ -1,0 +1,58 @@
+Oct 08, 2020 9:00:37 AM org.voltcore.logging.VoltUtilLoggingLogger log
+WARNING: Strict java memory checking is enabled, don't do release builds or performance runs with this enabled. Invoke "ant clean" and "ant -Djmemcheck=NO_MEMCHECK" to disable.
+--------------------------------------------------------------------------------
+ Running Performance Benchmark for 10000 Transactions
+--------------------------------------------------------------------------------
+
+Time     Txn/sec Aborts Failures
+-------- ------- ------ --------
+
+--------------------------------------------------------------------------------
+ Benchmark Statistics
+--------------------------------------------------------------------------------
+
+Average throughput:                3,419 txns/sec
+Average latency:                  762.96 ms
+10th percentile latency:          270.34 ms
+25th percentile latency:          598.02 ms
+50th percentile latency:          925.70 ms
+75th percentile latency:        1,003.52 ms
+90th percentile latency:        1,011.71 ms
+95th percentile latency:        1,011.71 ms
+99th percentile latency:        1,245.18 ms
+99.5th percentile latency:      1,245.18 ms
+99.9th percentile latency:      1,245.18 ms
+
+--------------------------------------------------------------------------------
+ System Server Statistics
+--------------------------------------------------------------------------------
+
+Reported Internal Avg Latency:    320.02 ms
+
+--------------------------------------------------------------------------------
+ Latency Histogram
+--------------------------------------------------------------------------------
+
+       Value     Percentile TotalCount
+
+        1.66 0.000000000000          1
+      925.70 0.500000000000       6060
+     1003.52 0.750000000000       1601
+     1011.71 0.875000000000       1838
+     1011.71 0.937500000000          0
+     1245.18 0.968750000000        500
+     1245.18 1.000000000000
+#[Mean    =       762.80, StdDeviation   =       301.48]
+#[Max     =      1245.18, Total count    =        10000]
+#[Buckets =           12, SubBuckets     =          256]
+
+
+--------------------------------------------------------------------------------
+ Transaction Results
+--------------------------------------------------------------------------------
+
+  Write
+        calls: 20000
+      commits: 20000
+    rollbacks: 20000
+

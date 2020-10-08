@@ -11,7 +11,7 @@ public class Populate extends VoltProcedure {
     public final SQLStmt write =
 		new SQLStmt("UPDATE file SET bytes = ? WHERE file_name= ?;");
 
-    public VoltTable[] run (String file_name, int Mbytes, String user_name)
+    public VoltTable[] run (String file_name, int Kbytes, String user_name)
 		throws VoltAbortException {
 	    
 	    if (!file_name.startsWith("/")) {
@@ -20,11 +20,11 @@ public class Populate extends VoltProcedure {
 			file_name = "/" + user_name + "/" + file_name;
 	    }
 
-		byte[] data1M = new byte[1024*1024*Mbytes];
-		Arrays.fill(data1M, (byte) 1);
+		byte[] data = new byte[1024*Kbytes];
+		Arrays.fill(data, (byte) 1);
 	
 		voltQueueSQL(write,
-					 data1M,
+					 data,
 					 file_name);
 		
 		return voltExecuteSQL();

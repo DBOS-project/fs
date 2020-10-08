@@ -1,0 +1,876 @@
+Time: 2020-10-08 07:01:40.514000
+Message: Some partitions have no replicas.  Cluster has become unviable.
+
+Platform Properties:
+CPU INFO:         40 Cores, 2 Sockets, 80 Hardware Threads
+CPU DESC:         Intel(R) Xeon(R) Gold 6248 CPU @ 2.50GHz 28160 KB cache
+HOST MEMORY (MB): 386647
+OS PROFILE:       Linux 4.14.182-llgrid-10ms amd64 en_US
+DB VERSION:       10.1
+JAVA VERSION:     1.8.0_265
+JAVA RUNTIME:     OpenJDK Runtime Environment (1.8.0_265-8u265-b01-0ubuntu2~18.04-b01)
+JAVA VM:          OpenJDK 64-Bit Server VM (25.265-b01, mixed mode)
+
+****** Current Thread ****** 
+Stack trace from crashLocalVoltDB() method:
+java.lang.Thread.dumpThreads(Native Method)
+java.lang.Thread.getAllStackTraces(Thread.java:1610)
+org.voltdb.VoltDB.printStackTraces(VoltDB.java:1200)
+org.voltdb.VoltDB.crashLocalVoltDB(VoltDB.java:1349)
+org.voltdb.VoltDB.crashLocalVoltDB(VoltDB.java:1263)
+org.voltdb.RealVoltDB$1.run(RealVoltDB.java:2036)
+java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+com.google_voltpatches.common.util.concurrent.TrustedListenableFutureTask$TrustedFutureInterruptibleTask.runInterruptibly(TrustedListenableFutureTask.java:111)
+com.google_voltpatches.common.util.concurrent.InterruptibleTask.run(InterruptibleTask.java:58)
+com.google_voltpatches.common.util.concurrent.TrustedListenableFutureTask.run(TrustedListenableFutureTask.java:75)
+java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+org.voltcore.utils.CoreUtils$7$1.run(CoreUtils.java:806)
+java.lang.Thread.run(Thread.java:748)
+****** All Threads ******
+"StartAction ZK Watcher" Id=140 TIMED_WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@27984118
+	at sun.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@27984118
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.voltcore.utils.CoreUtils$7$1.run(CoreUtils.java:806)
+	...
+
+
+"LeaderAppointer-Babysitters" Id=139 TIMED_WAITING
+	at java.lang.Thread.sleep(Native Method)
+	at org.voltdb.VoltDB.crashGlobalVoltDB(VoltDB.java:1440)
+	at org.voltdb.iv2.LeaderAppointer$PartitionCallback.run(LeaderAppointer.java:202)
+	at org.voltcore.zk.BabySitter$1.call(BabySitter.java:164)
+	-  locked org.voltcore.zk.BabySitter@48bb2c2c
+	at org.voltcore.zk.BabySitter$1.call(BabySitter.java:152)
+	at com.google_voltpatches.common.util.concurrent.TrustedListenableFutureTask$TrustedFutureInterruptibleTask.runInterruptibly(TrustedListenableFutureTask.java:111)
+	at com.google_voltpatches.common.util.concurrent.InterruptibleTask.run(InterruptibleTask.java:58)
+	at com.google_voltpatches.common.util.concurrent.TrustedListenableFutureTask.run(TrustedListenableFutureTask.java:75)
+	...
+
+	Number of locked synchronizers = 1
+	- java.util.concurrent.ThreadPoolExecutor$Worker@1cd37d8f
+
+
+"Failed Host monitor" Id=138 RUNNABLE
+	at sun.management.ThreadImpl.dumpThreads0(Native Method)
+	at sun.management.ThreadImpl.dumpAllThreads(ThreadImpl.java:454)
+	at org.voltdb.VoltDB.printStackTraces(VoltDB.java:1214)
+	at org.voltdb.VoltDB.crashLocalVoltDB(VoltDB.java:1349)
+	at org.voltdb.VoltDB.crashLocalVoltDB(VoltDB.java:1263)
+	at org.voltdb.RealVoltDB$1.run(RealVoltDB.java:2036)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at com.google_voltpatches.common.util.concurrent.TrustedListenableFutureTask$TrustedFutureInterruptibleTask.runInterruptibly(TrustedListenableFutureTask.java:111)
+	...
+
+	Number of locked synchronizers = 1
+	- java.util.concurrent.ThreadPoolExecutor$Worker@4eee2337
+
+
+"qtp509832867-137" Id=137 TIMED_WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@331c79ca
+	at sun.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@331c79ca
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.idleJobPoll(QueuedThreadPool.java:656)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.access$800(QueuedThreadPool.java:46)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$2.run(QueuedThreadPool.java:720)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"InternalHandlerExecutor - 16383" Id=133 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@7eab9520
+	at sun.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@7eab9520
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:442)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.voltcore.utils.CoreUtils$7$1.run(CoreUtils.java:806)
+	...
+
+
+"qtp509832867-128-acceptor-3@2d9ae990-VoltDB-HTTPD@188936dc{HTTP/1.1,[http/1.1]}{0.0.0.0:8080}" Id=128 BLOCKED on java.lang.Object@81995c6 owned by "qtp509832867-125-acceptor-0@16a3b15e-VoltDB-HTTPD@188936dc{HTTP/1.1,[http/1.1]}{0.0.0.0:8080}" Id=125
+	at sun.nio.ch.ServerSocketChannelImpl.accept(ServerSocketChannelImpl.java:231)
+	-  blocked on java.lang.Object@81995c6
+	at org.eclipse.jetty.server.ServerConnector.accept(ServerConnector.java:385)
+	at org.eclipse.jetty.server.AbstractConnector$Acceptor.run(AbstractConnector.java:648)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:765)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$2.run(QueuedThreadPool.java:683)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"qtp509832867-127-acceptor-2@5a2b9ffb-VoltDB-HTTPD@188936dc{HTTP/1.1,[http/1.1]}{0.0.0.0:8080}" Id=127 BLOCKED on java.lang.Object@81995c6 owned by "qtp509832867-125-acceptor-0@16a3b15e-VoltDB-HTTPD@188936dc{HTTP/1.1,[http/1.1]}{0.0.0.0:8080}" Id=125
+	at sun.nio.ch.ServerSocketChannelImpl.accept(ServerSocketChannelImpl.java:231)
+	-  blocked on java.lang.Object@81995c6
+	at org.eclipse.jetty.server.ServerConnector.accept(ServerConnector.java:385)
+	at org.eclipse.jetty.server.AbstractConnector$Acceptor.run(AbstractConnector.java:648)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:765)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$2.run(QueuedThreadPool.java:683)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"qtp509832867-126-acceptor-1@2d3d4a20-VoltDB-HTTPD@188936dc{HTTP/1.1,[http/1.1]}{0.0.0.0:8080}" Id=126 BLOCKED on java.lang.Object@81995c6 owned by "qtp509832867-125-acceptor-0@16a3b15e-VoltDB-HTTPD@188936dc{HTTP/1.1,[http/1.1]}{0.0.0.0:8080}" Id=125
+	at sun.nio.ch.ServerSocketChannelImpl.accept(ServerSocketChannelImpl.java:231)
+	-  blocked on java.lang.Object@81995c6
+	at org.eclipse.jetty.server.ServerConnector.accept(ServerConnector.java:385)
+	at org.eclipse.jetty.server.AbstractConnector$Acceptor.run(AbstractConnector.java:648)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:765)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$2.run(QueuedThreadPool.java:683)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"qtp509832867-125-acceptor-0@16a3b15e-VoltDB-HTTPD@188936dc{HTTP/1.1,[http/1.1]}{0.0.0.0:8080}" Id=125 RUNNABLE (in native)
+	at sun.nio.ch.ServerSocketChannelImpl.accept0(Native Method)
+	at sun.nio.ch.ServerSocketChannelImpl.accept(ServerSocketChannelImpl.java:419)
+	at sun.nio.ch.ServerSocketChannelImpl.accept(ServerSocketChannelImpl.java:247)
+	-  locked java.lang.Object@81995c6
+	at org.eclipse.jetty.server.ServerConnector.accept(ServerConnector.java:385)
+	at org.eclipse.jetty.server.AbstractConnector$Acceptor.run(AbstractConnector.java:648)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:765)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$2.run(QueuedThreadPool.java:683)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"qtp509832867-124" Id=124 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked sun.nio.ch.Util$3@7a7af201
+	-  locked java.util.Collections$UnmodifiableSet@2a7806ad
+	-  locked sun.nio.ch.EPollSelectorImpl@8588457
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.eclipse.jetty.io.ManagedSelector$SelectorProducer.select(ManagedSelector.java:466)
+	at org.eclipse.jetty.io.ManagedSelector$SelectorProducer.produce(ManagedSelector.java:403)
+	...
+
+
+"qtp509832867-123" Id=123 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked sun.nio.ch.Util$3@4c2b873f
+	-  locked java.util.Collections$UnmodifiableSet@616c9e41
+	-  locked sun.nio.ch.EPollSelectorImpl@b4ba1af
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.eclipse.jetty.io.ManagedSelector$SelectorProducer.select(ManagedSelector.java:466)
+	at org.eclipse.jetty.io.ManagedSelector$SelectorProducer.produce(ManagedSelector.java:403)
+	...
+
+
+"Scheduler-65984201" Id=122 TIMED_WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@477df6ad
+	at sun.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@477df6ad
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1093)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	...
+
+
+"qtp509832867-121" Id=121 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked sun.nio.ch.Util$3@577f8302
+	-  locked java.util.Collections$UnmodifiableSet@5264913a
+	-  locked sun.nio.ch.EPollSelectorImpl@4f40400
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.eclipse.jetty.io.ManagedSelector$SelectorProducer.select(ManagedSelector.java:466)
+	at org.eclipse.jetty.io.ManagedSelector$SelectorProducer.produce(ManagedSelector.java:403)
+	...
+
+
+"RateLimitedClientNotifier" Id=120 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@2c1442ad
+	at sun.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@2c1442ad
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:442)
+	at org.voltdb.RateLimitedClientNotifier.runSubmissions(RateLimitedClientNotifier.java:180)
+	at org.voltdb.RateLimitedClientNotifier.run(RateLimitedClientNotifier.java:136)
+	at org.voltdb.RateLimitedClientNotifier.access$000(RateLimitedClientNotifier.java:54)
+	at org.voltdb.RateLimitedClientNotifier$1.run(RateLimitedClientNotifier.java:122)
+	...
+
+	Number of locked synchronizers = 1
+	- java.util.concurrent.ThreadPoolExecutor$Worker@63c0edda
+
+
+"DestroyJavaVM" Id=116 RUNNABLE
+
+
+"SnapshotDaemon" Id=113 TIMED_WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@5533d112
+	at sun.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@5533d112
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1093)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	...
+
+
+"SystemCatalogAgent" Id=112 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@5b3ce033
+	at sun.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@5b3ce033
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1081)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	...
+
+
+"StatsAgent" Id=111 TIMED_WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@193bedb9
+	at sun.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@193bedb9
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1093)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	...
+
+
+"Periodic Work" Id=109 TIMED_WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@70e8abdf
+	at sun.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@70e8abdf
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1093)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	...
+
+
+"SnapshotCompletionMonitor" Id=108 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@3b185f91
+	at sun.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@3b185f91
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:442)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.voltcore.utils.CoreUtils$7$1.run(CoreUtils.java:806)
+	...
+
+
+"RO MP Site - 0:8 - 0" Id=102 WAITING on java.util.concurrent.LinkedTransferQueue@7191db9
+	at sun.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.LinkedTransferQueue@7191db9
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.LinkedTransferQueue.awaitMatch(LinkedTransferQueue.java:737)
+	at java.util.concurrent.LinkedTransferQueue.xfer(LinkedTransferQueue.java:647)
+	at java.util.concurrent.LinkedTransferQueue.take(LinkedTransferQueue.java:1269)
+	at org.voltcore.utils.CoreUtils.queueSpinTake(CoreUtils.java:1218)
+	at org.voltdb.iv2.SiteTaskerQueue.take(SiteTaskerQueue.java:65)
+	at org.voltdb.iv2.MpRoSite.run(MpRoSite.java:422)
+	...
+
+
+"MP Site - 0:8" Id=101 WAITING on java.util.concurrent.LinkedTransferQueue@41096ec6
+	at sun.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.LinkedTransferQueue@41096ec6
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.LinkedTransferQueue.awaitMatch(LinkedTransferQueue.java:737)
+	at java.util.concurrent.LinkedTransferQueue.xfer(LinkedTransferQueue.java:647)
+	at java.util.concurrent.LinkedTransferQueue.take(LinkedTransferQueue.java:1269)
+	at org.voltcore.utils.CoreUtils.queueSpinTake(CoreUtils.java:1218)
+	at org.voltdb.iv2.SiteTaskerQueue.take(SiteTaskerQueue.java:65)
+	at org.voltdb.iv2.Site.run(Site.java:904)
+	...
+
+
+"SP 7 Site - 0:7" Id=100 WAITING on java.util.concurrent.LinkedTransferQueue@748a836b
+	at sun.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.LinkedTransferQueue@748a836b
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.LinkedTransferQueue.awaitMatch(LinkedTransferQueue.java:737)
+	at java.util.concurrent.LinkedTransferQueue.xfer(LinkedTransferQueue.java:647)
+	at java.util.concurrent.LinkedTransferQueue.take(LinkedTransferQueue.java:1269)
+	at org.voltcore.utils.CoreUtils.queueSpinTake(CoreUtils.java:1218)
+	at org.voltdb.iv2.SiteTaskerQueue.take(SiteTaskerQueue.java:65)
+	at org.voltdb.iv2.Site.run(Site.java:904)
+	...
+
+
+"SP 6 Site - 0:6" Id=98 WAITING on java.util.concurrent.LinkedTransferQueue@d97bebc
+	at sun.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.LinkedTransferQueue@d97bebc
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.LinkedTransferQueue.awaitMatch(LinkedTransferQueue.java:737)
+	at java.util.concurrent.LinkedTransferQueue.xfer(LinkedTransferQueue.java:647)
+	at java.util.concurrent.LinkedTransferQueue.take(LinkedTransferQueue.java:1269)
+	at org.voltcore.utils.CoreUtils.queueSpinTake(CoreUtils.java:1218)
+	at org.voltdb.iv2.SiteTaskerQueue.take(SiteTaskerQueue.java:65)
+	at org.voltdb.iv2.Site.run(Site.java:904)
+	...
+
+
+"SP 5 Site - 0:5" Id=96 WAITING on java.util.concurrent.LinkedTransferQueue@42ac8e62
+	at sun.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.LinkedTransferQueue@42ac8e62
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.LinkedTransferQueue.awaitMatch(LinkedTransferQueue.java:737)
+	at java.util.concurrent.LinkedTransferQueue.xfer(LinkedTransferQueue.java:647)
+	at java.util.concurrent.LinkedTransferQueue.take(LinkedTransferQueue.java:1269)
+	at org.voltcore.utils.CoreUtils.queueSpinTake(CoreUtils.java:1218)
+	at org.voltdb.iv2.SiteTaskerQueue.take(SiteTaskerQueue.java:65)
+	at org.voltdb.iv2.Site.run(Site.java:904)
+	...
+
+
+"SP 4 Site - 0:4" Id=94 WAITING on java.util.concurrent.LinkedTransferQueue@48d9a7af
+	at sun.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.LinkedTransferQueue@48d9a7af
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.LinkedTransferQueue.awaitMatch(LinkedTransferQueue.java:737)
+	at java.util.concurrent.LinkedTransferQueue.xfer(LinkedTransferQueue.java:647)
+	at java.util.concurrent.LinkedTransferQueue.take(LinkedTransferQueue.java:1269)
+	at org.voltcore.utils.CoreUtils.queueSpinTake(CoreUtils.java:1218)
+	at org.voltdb.iv2.SiteTaskerQueue.take(SiteTaskerQueue.java:65)
+	at org.voltdb.iv2.Site.run(Site.java:904)
+	...
+
+
+"SP 3 Site - 0:3" Id=92 WAITING on java.util.concurrent.LinkedTransferQueue@6868e404
+	at sun.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.LinkedTransferQueue@6868e404
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.LinkedTransferQueue.awaitMatch(LinkedTransferQueue.java:737)
+	at java.util.concurrent.LinkedTransferQueue.xfer(LinkedTransferQueue.java:647)
+	at java.util.concurrent.LinkedTransferQueue.take(LinkedTransferQueue.java:1269)
+	at org.voltcore.utils.CoreUtils.queueSpinTake(CoreUtils.java:1218)
+	at org.voltdb.iv2.SiteTaskerQueue.take(SiteTaskerQueue.java:65)
+	at org.voltdb.iv2.Site.run(Site.java:904)
+	...
+
+
+"SP 2 Site - 0:2" Id=90 WAITING on java.util.concurrent.LinkedTransferQueue@583ad5eb
+	at sun.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.LinkedTransferQueue@583ad5eb
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.LinkedTransferQueue.awaitMatch(LinkedTransferQueue.java:737)
+	at java.util.concurrent.LinkedTransferQueue.xfer(LinkedTransferQueue.java:647)
+	at java.util.concurrent.LinkedTransferQueue.take(LinkedTransferQueue.java:1269)
+	at org.voltcore.utils.CoreUtils.queueSpinTake(CoreUtils.java:1218)
+	at org.voltdb.iv2.SiteTaskerQueue.take(SiteTaskerQueue.java:65)
+	at org.voltdb.iv2.Site.run(Site.java:904)
+	...
+
+
+"SP 1 Site - 0:1" Id=88 WAITING on java.util.concurrent.LinkedTransferQueue@7ec39f10
+	at sun.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.LinkedTransferQueue@7ec39f10
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.LinkedTransferQueue.awaitMatch(LinkedTransferQueue.java:737)
+	at java.util.concurrent.LinkedTransferQueue.xfer(LinkedTransferQueue.java:647)
+	at java.util.concurrent.LinkedTransferQueue.take(LinkedTransferQueue.java:1269)
+	at org.voltcore.utils.CoreUtils.queueSpinTake(CoreUtils.java:1218)
+	at org.voltdb.iv2.SiteTaskerQueue.take(SiteTaskerQueue.java:65)
+	at org.voltdb.iv2.Site.run(Site.java:904)
+	...
+
+
+"SP 0 Site - 0:0" Id=86 WAITING on java.util.concurrent.LinkedTransferQueue@7ba2abb8
+	at sun.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.LinkedTransferQueue@7ba2abb8
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.LinkedTransferQueue.awaitMatch(LinkedTransferQueue.java:737)
+	at java.util.concurrent.LinkedTransferQueue.xfer(LinkedTransferQueue.java:647)
+	at java.util.concurrent.LinkedTransferQueue.take(LinkedTransferQueue.java:1269)
+	at org.voltcore.utils.CoreUtils.queueSpinTake(CoreUtils.java:1218)
+	at org.voltdb.iv2.SiteTaskerQueue.take(SiteTaskerQueue.java:65)
+	at org.voltdb.iv2.Site.run(Site.java:904)
+	...
+
+
+"Periodic Priority Work" Id=84 TIMED_WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@54c5380c
+	at sun.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@54c5380c
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1093)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	...
+
+
+"TaskManager" Id=82 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@5ade3af2
+	at sun.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@5ade3af2
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:442)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.voltcore.utils.CoreUtils$7$1.run(CoreUtils.java:806)
+	...
+
+
+"pool-1-thread-1" Id=81 TIMED_WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@388715a6
+	at sun.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@388715a6
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1093)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	...
+
+
+"FelixStartLevel" Id=80 WAITING on java.util.ArrayList@56968665
+	at java.lang.Object.wait(Native Method)
+	-  waiting on java.util.ArrayList@56968665
+	at java.lang.Object.wait(Object.java:502)
+	at org.apache.felix.framework.FrameworkStartLevelImpl.run(FrameworkStartLevelImpl.java:283)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"FelixFrameworkWiring" Id=79 WAITING on java.util.ArrayList@2b6ec1e3
+	at java.lang.Object.wait(Native Method)
+	-  waiting on java.util.ArrayList@2b6ec1e3
+	at java.lang.Object.wait(Object.java:502)
+	at org.apache.felix.framework.FrameworkWiringImpl.run(FrameworkWiringImpl.java:172)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"FelixDispatchQueue" Id=73 WAITING on java.util.ArrayList@cc67d6
+	at java.lang.Object.wait(Native Method)
+	-  waiting on java.util.ArrayList@cc67d6
+	at java.lang.Object.wait(Object.java:502)
+	at org.apache.felix.framework.EventDispatcher.run(EventDispatcher.java:1122)
+	at org.apache.felix.framework.EventDispatcher.access$000(EventDispatcher.java:54)
+	at org.apache.felix.framework.EventDispatcher$1.run(EventDispatcher.java:102)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"MpInitiator send" Id=71 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@e6784c
+	at sun.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@e6784c
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:442)
+	at org.voltdb.iv2.MpInitiatorMailbox$2.run(MpInitiatorMailbox.java:73)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"MpInitiator deliver" Id=70 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@6221639b
+	at sun.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@6221639b
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:442)
+	at org.voltdb.iv2.MpInitiatorMailbox$1.run(MpInitiatorMailbox.java:55)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"main-EventThread" Id=55 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@3f1dc7e5
+	at sun.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@3f1dc7e5
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:442)
+	at org.apache.zookeeper_voltpatches.ClientCnxn$EventThread.run(ClientCnxn.java:514)
+
+
+"main-SendThread(localhost.localdomain:7181)" Id=54 RUNNABLE
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked sun.nio.ch.Util$3@5c0cf507
+	-  locked java.util.Collections$UnmodifiableSet@6f9bc2d2
+	-  locked sun.nio.ch.EPollSelectorImpl@64f5901
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.apache.zookeeper_voltpatches.ClientCnxn$SendThread.run(ClientCnxn.java:1130)
+
+
+"ZooKeeperServer" Id=53 TIMED_WAITING on org.voltcore.messaging.SiteMailbox@573c94c2
+	at java.lang.Object.wait(Native Method)
+	-  waiting on org.voltcore.messaging.SiteMailbox@573c94c2
+	at org.voltcore.messaging.SiteMailbox.recvBlocking(SiteMailbox.java:138)
+	at org.voltcore.messaging.SiteMailbox.recvBlocking(SiteMailbox.java:74)
+	at org.voltcore.agreement.AgreementSite.run(AgreementSite.java:277)
+	at org.apache.zookeeper_voltpatches.server.ZooKeeperServer.run(ZooKeeperServer.java:1199)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"NIOServerCxn.Factory:/127.0.0.1:7181" Id=52 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked sun.nio.ch.Util$3@6ca3f7ef
+	-  locked java.util.Collections$UnmodifiableSet@5d1f25fb
+	-  locked sun.nio.ch.EPollSelectorImpl@21e4f808
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.apache.zookeeper_voltpatches.server.NIOServerCnxn$Factory.run(NIOServerCnxn.java:244)
+
+
+"Volt Server Network - 19" Id=50 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked io.netty_voltpatches.NinjaKeySet@12cde272
+	-  locked java.util.Collections$UnmodifiableSet@61a2634b
+	-  locked sun.nio.ch.EPollSelectorImpl@4536b279
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:316)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Volt Server Network - 18" Id=49 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked io.netty_voltpatches.NinjaKeySet@4314266f
+	-  locked java.util.Collections$UnmodifiableSet@3e37820d
+	-  locked sun.nio.ch.EPollSelectorImpl@4c7d16bb
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:316)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Volt Server Network - 17" Id=48 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked io.netty_voltpatches.NinjaKeySet@3c28c037
+	-  locked java.util.Collections$UnmodifiableSet@5eedae83
+	-  locked sun.nio.ch.EPollSelectorImpl@5cc868b9
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:316)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Volt Server Network - 16" Id=47 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked io.netty_voltpatches.NinjaKeySet@78a46555
+	-  locked java.util.Collections$UnmodifiableSet@2772b0e
+	-  locked sun.nio.ch.EPollSelectorImpl@31dd0475
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:316)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Volt Server Network - 15" Id=46 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked io.netty_voltpatches.NinjaKeySet@2e4f2f57
+	-  locked java.util.Collections$UnmodifiableSet@751a6906
+	-  locked sun.nio.ch.EPollSelectorImpl@4e8e03f0
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:316)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Volt Server Network - 14" Id=45 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked io.netty_voltpatches.NinjaKeySet@17a958f8
+	-  locked java.util.Collections$UnmodifiableSet@40cbe8cd
+	-  locked sun.nio.ch.EPollSelectorImpl@66bffb8b
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:316)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Volt Server Network - 13" Id=44 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked io.netty_voltpatches.NinjaKeySet@5810f52f
+	-  locked java.util.Collections$UnmodifiableSet@5a3184d
+	-  locked sun.nio.ch.EPollSelectorImpl@1ab115b4
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:316)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Volt Server Network - 12" Id=43 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked io.netty_voltpatches.NinjaKeySet@3cbc6ca
+	-  locked java.util.Collections$UnmodifiableSet@5c2de211
+	-  locked sun.nio.ch.EPollSelectorImpl@4151e8a9
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:316)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Volt Server Network - 11" Id=42 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked io.netty_voltpatches.NinjaKeySet@535f5982
+	-  locked java.util.Collections$UnmodifiableSet@e7f28b5
+	-  locked sun.nio.ch.EPollSelectorImpl@3df17e01
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:316)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Volt Server Network - 10" Id=41 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked io.netty_voltpatches.NinjaKeySet@73abddb6
+	-  locked java.util.Collections$UnmodifiableSet@5a111908
+	-  locked sun.nio.ch.EPollSelectorImpl@2ddcb87f
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:316)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Volt Server Network - 9" Id=40 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked io.netty_voltpatches.NinjaKeySet@1bebcab3
+	-  locked java.util.Collections$UnmodifiableSet@3600e215
+	-  locked sun.nio.ch.EPollSelectorImpl@648b7484
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:316)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Volt Server Network - 8" Id=39 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked io.netty_voltpatches.NinjaKeySet@2c5c372a
+	-  locked java.util.Collections$UnmodifiableSet@69a7de40
+	-  locked sun.nio.ch.EPollSelectorImpl@5806892b
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:316)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Volt Server Network - 7" Id=38 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked io.netty_voltpatches.NinjaKeySet@6796e9fb
+	-  locked java.util.Collections$UnmodifiableSet@2abe6744
+	-  locked sun.nio.ch.EPollSelectorImpl@7dbcf98d
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:316)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Volt Server Network - 6" Id=37 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked io.netty_voltpatches.NinjaKeySet@111f78c0
+	-  locked java.util.Collections$UnmodifiableSet@41169229
+	-  locked sun.nio.ch.EPollSelectorImpl@18cb4908
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:316)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Volt Server Network - 5" Id=36 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked io.netty_voltpatches.NinjaKeySet@2a1bb0d
+	-  locked java.util.Collections$UnmodifiableSet@68920ae1
+	-  locked sun.nio.ch.EPollSelectorImpl@1d605a00
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:316)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Volt Server Network - 4" Id=35 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked io.netty_voltpatches.NinjaKeySet@5f21d3ad
+	-  locked java.util.Collections$UnmodifiableSet@50d76297
+	-  locked sun.nio.ch.EPollSelectorImpl@28eaaf6e
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:316)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Volt Server Network - 3" Id=34 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked io.netty_voltpatches.NinjaKeySet@37455029
+	-  locked java.util.Collections$UnmodifiableSet@662841d7
+	-  locked sun.nio.ch.EPollSelectorImpl@d00545f
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:316)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Volt Server Network - 2" Id=33 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked io.netty_voltpatches.NinjaKeySet@706c0b4e
+	-  locked java.util.Collections$UnmodifiableSet@6d35d972
+	-  locked sun.nio.ch.EPollSelectorImpl@49371bfa
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:316)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Volt Server Network - 1" Id=32 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked io.netty_voltpatches.NinjaKeySet@461a0c2f
+	-  locked java.util.Collections$UnmodifiableSet@563c49d9
+	-  locked sun.nio.ch.EPollSelectorImpl@1581f425
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:316)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Volt Server Network - 0" Id=31 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked io.netty_voltpatches.NinjaKeySet@6418d5a4
+	-  locked java.util.Collections$UnmodifiableSet@72f5d67c
+	-  locked sun.nio.ch.EPollSelectorImpl@46333b7a
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:316)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Socket Joiner" Id=51 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked sun.nio.ch.Util$3@5c09cf45
+	-  locked java.util.Collections$UnmodifiableSet@7e1e8495
+	-  locked sun.nio.ch.EPollSelectorImpl@2204eb1c
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.messaging.SocketJoiner.runPrimary(SocketJoiner.java:708)
+	at org.voltcore.messaging.SocketJoiner.access$000(SocketJoiner.java:81)
+	...
+
+	Number of locked synchronizers = 1
+	- java.util.concurrent.ThreadPoolExecutor$Worker@2034b64c
+
+
+"Async Logger" Id=29 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@7d33fccd
+	at sun.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@7d33fccd
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:442)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Estimated Time Updater" Id=25 TIMED_WAITING
+	at java.lang.Thread.sleep(Native Method)
+	at org.voltcore.utils.EstTimeUpdater$1.run(EstTimeUpdater.java:44)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Signal Dispatcher" Id=5 RUNNABLE
+
+
+"Finalizer" Id=3 WAITING on java.lang.ref.ReferenceQueue$Lock@6f5267c9
+	at java.lang.Object.wait(Native Method)
+	-  waiting on java.lang.ref.ReferenceQueue$Lock@6f5267c9
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:144)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:165)
+	at java.lang.ref.Finalizer$FinalizerThread.run(Finalizer.java:216)
+
+
+"Reference Handler" Id=2 WAITING on java.lang.ref.Reference$Lock@65627c9a
+	at java.lang.Object.wait(Native Method)
+	-  waiting on java.lang.ref.Reference$Lock@65627c9a
+	at java.lang.Object.wait(Object.java:502)
+	at java.lang.ref.Reference.tryHandlePending(Reference.java:191)
+	at java.lang.ref.Reference$ReferenceHandler.run(Reference.java:153)
+
+
