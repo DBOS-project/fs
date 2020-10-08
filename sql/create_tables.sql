@@ -25,9 +25,3 @@ PARTITION TABLE File ON COLUMN user_name;
 PARTITION TABLE Directory ON COLUMN user_name;
 PARTITION TABLE Permission ON COLUMN user_name;
 
-load classes stored_procedures/createfile/CreateFile.jar;
-load classes stored_procedures/readfile/ReadFile.jar;
-load classes stored_procedures/writefile/WriteFile.jar;
-CREATE PROCEDURE FROM CLASS CreateFile;
-CREATE PROCEDURE FROM CLASS ReadFile;
-CREATE PROCEDURE FROM CLASS WriteFile;

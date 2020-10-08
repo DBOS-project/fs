@@ -1,15 +1,20 @@
-DROP PROCEDURE CreateFile IF EXISTS;
-load classes stored_procedures/CreateFile/CreateFile.jar;
-CREATE PROCEDURE FROM CLASS CreateFile;
+DROP PROCEDURE Create IF EXISTS;
+load classes stored_procedures/Create/Create.jar;
+CREATE PROCEDURE FROM CLASS Create;
 
-DROP PROCEDURE ReadFile IF EXISTS;
-load classes stored_procedures/ReadFile/ReadFile.jar;
-CREATE PROCEDURE FROM CLASS ReadFile;
+DROP PROCEDURE Read IF EXISTS;
+load classes stored_procedures/Read/Read.jar;
+CREATE PROCEDURE FROM CLASS Read;
 
-DROP PROCEDURE WriteFile IF EXISTS;
-load classes stored_procedures/WriteFile/WriteFile.jar;
-CREATE PROCEDURE FROM CLASS WriteFile;
+DROP PROCEDURE Write IF EXISTS;
+load classes stored_procedures/Write/Write.jar;
+CREATE PROCEDURE FROM CLASS Write;
 
-DROP PROCEDURE OverwriteFile IF EXISTS;
-load classes stored_procedures/OverwriteFile/OverwriteFile.jar;
-CREATE PROCEDURE FROM CLASS OverwriteFile;
+DROP PROCEDURE Overwrite IF EXISTS;
+load classes stored_procedures/Overwrite/Overwrite.jar;
+CREATE PROCEDURE FROM CLASS Overwrite;
+
+DROP PROCEDURE Populate IF EXISTS;
+load classes stored_procedures/Populate/Populate.jar;
+CREATE PROCEDURE FROM CLASS Populate;
+
