@@ -1,8 +1,8 @@
+Oct 08, 2020 11:43:38 AM org.voltcore.logging.VoltUtilLoggingLogger log
+WARNING: Strict java memory checking is enabled, don't do release builds or performance runs with this enabled. Invoke "ant clean" and "ant -Djmemcheck=NO_MEMCHECK" to disable.
 --------------------------------------------------------------------------------
  Running Performance Benchmark for 1000 Transactions
 --------------------------------------------------------------------------------
-Oct 08, 2020 10:57:44 AM org.voltcore.logging.VoltUtilLoggingLogger log
-WARNING: Strict java memory checking is enabled, don't do release builds or performance runs with this enabled. Invoke "ant clean" and "ant -Djmemcheck=NO_MEMCHECK" to disable.
 
 Time     Txn/sec Aborts Failures
 -------- ------- ------ --------
@@ -11,23 +11,23 @@ Time     Txn/sec Aborts Failures
  Benchmark Statistics
 --------------------------------------------------------------------------------
 
-Average throughput:                  211 txns/sec
-Average latency:                2,509.84 ms
-10th percentile latency:          737.28 ms
-25th percentile latency:        1,409.02 ms
-50th percentile latency:        2,523.14 ms
-75th percentile latency:        3,637.25 ms
-90th percentile latency:        4,292.61 ms
-95th percentile latency:        4,521.98 ms
-99th percentile latency:        4,685.82 ms
-99.5th percentile latency:      4,718.59 ms
-99.9th percentile latency:      4,718.59 ms
+Average throughput:                   82 txns/sec
+Average latency:                6,364.10 ms
+10th percentile latency:          790.53 ms
+25th percentile latency:        1,851.39 ms
+50th percentile latency:        5,373.95 ms
+75th percentile latency:        8,847.36 ms
+90th percentile latency:       10,027.01 ms
+95th percentile latency:       10,027.01 ms
+99th percentile latency:       10,027.01 ms
+99.5th percentile latency:     10,027.01 ms
+99.9th percentile latency:     10,027.01 ms
 
 --------------------------------------------------------------------------------
  System Server Statistics
 --------------------------------------------------------------------------------
 
-Reported Internal Avg Latency:  2,509.09 ms
+Reported Internal Avg Latency:  6,363.19 ms
 
 --------------------------------------------------------------------------------
  Latency Histogram
@@ -35,20 +35,13 @@ Reported Internal Avg Latency:  2,509.09 ms
 
        Value     Percentile TotalCount
 
-        2.30 0.000000000000          1
-     2523.14 0.500000000000        501
-     3637.25 0.750000000000        251
-     4177.92 0.875000000000        126
-     4456.45 0.937500000000         61
-     4587.52 0.968750000000         32
-     4653.06 0.984375000000         17
-     4685.82 0.992187500000          6
-     4718.59 0.996093750000          6
-     4718.59 0.998046875000          0
-     4751.36 0.999023437500          1
-     4751.36 1.000000000000
-#[Mean    =      2509.86, StdDeviation   =      1294.00]
-#[Max     =      4751.36, Total count    =         1002]
+        3.36 0.000000000000          1
+     5373.95 0.500000000000        595
+     8912.90 0.750000000000        305
+    10027.01 0.875000000000        290
+    10027.01 1.000000000000
+#[Mean    =      5342.43, StdDeviation   =      3468.87]
+#[Max     =     10027.01, Total count    =         1191]
 #[Buckets =           12, SubBuckets     =          256]
 
 
