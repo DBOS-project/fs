@@ -42,11 +42,11 @@ public class WriteBench {
     private Client client;
     private BenchmarkStats stats;
     private int benchmarkSize;
-	private int kiloBytes;
+	private int fileBytes;
     
-    public WriteBench (String servers, int size, int kb) throws Exception {
+    public WriteBench (String servers, int size, int bytes) throws Exception {
 	this.benchmarkSize = size;
-	this.kiloBytes = kb;
+	this.fileBytes = bytes;
 	
 	// create client
 	client = ClientFactory.createClient();
@@ -74,9 +74,9 @@ public class WriteBench {
 	// followed by the input parameters
 	client.callProcedure(callback,
 			     "Populate",
+				 "user" + String.valueOf(file_num % 24),
 			     "file" + String.valueOf(file_num % 24),
-				 kiloBytes,
-			     "user" + String.valueOf(file_num % 24)
+				 fileBytes
 			     );
     }
 
@@ -125,12 +125,12 @@ public class WriteBench {
 	}
 
 	// the fourth parameter can be the number of kilobytes we write
-	int kb = 1024;
+	int bytes = 1024*1024;
 	if (args.length > 2) {
-	    kb = Integer.parseInt(args[2]);
+	    bytes = Integer.parseInt(args[2]);
 	}
 
-	WriteBench benchmark = new WriteBench(serverlist, transactions, kb);
+	WriteBench benchmark = new WriteBench(serverlist, transactions, bytes);
 	benchmark.runBenchmark();
 
     }

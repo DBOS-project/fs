@@ -9,9 +9,9 @@ import java.io.RandomAccessFile;;
 
 public class Write extends VoltProcedure {
     public final SQLStmt write =
-		new SQLStmt("UPDATE file SET bytes = bytes || ? WHERE file_name = ?;");
+		new SQLStmt("UPDATE file SET bytes = bytes || ? WHERE user_name = ? AND file_name = ?;");
 
-    public VoltTable[] run (String file_name, String data, String user_name)
+    public VoltTable[] run (String user_name, String file_name, String data)
 		throws VoltAbortException {
 	    
 	    if (!file_name.startsWith("/")) {
@@ -25,6 +25,7 @@ public class Write extends VoltProcedure {
 		// run query
 		voltQueueSQL(write,
 					 bytes,
+					 user_name,
 					 file_name);
 		
 		return voltExecuteSQL();

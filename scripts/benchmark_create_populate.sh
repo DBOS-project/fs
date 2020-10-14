@@ -3,7 +3,7 @@ set -ex
 
 #
 # usage:
-# ./create_and_populate_files.sh <num_files> <user_name> <output suffix>
+# ./benchmark_create_populate.sh <num_files> <user_name> <output suffix>
 #
 
 SCRIPT_DIR=$(dirname $(readlink -f $0))

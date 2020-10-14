@@ -9,9 +9,9 @@ import java.io.RandomAccessFile;;
 
 public class Read extends VoltProcedure {
     public final SQLStmt read =
-	new SQLStmt("SELECT bytes FROM file WHERE file_name = ?;");
+	new SQLStmt("SELECT bytes FROM file WHERE user_name = ? AND file_name = ?;");
 
-    public VoltTable[] run (String file_name, String user_name)
+    public VoltTable[] run (String user_name, String file_name)
 		throws VoltAbortException {
 	    
 	    if (!file_name.startsWith("/")) {
@@ -22,6 +22,7 @@ public class Read extends VoltProcedure {
 		
 		// run query
 		voltQueueSQL(read,
+					 user_name,
 					 file_name);
 
 		return voltExecuteSQL();

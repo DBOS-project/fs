@@ -3,7 +3,7 @@ set -ex
 
 #
 # usage:
-# ./write_files.sh <num_transactions> <user_name> <kilobytes> <output suffix>
+# ./benchmark_write.sh <num_transactions> <user_name> <bytes> <output suffix>
 #
 
 SCRIPT_DIR=$(dirname $(readlink -f $0))

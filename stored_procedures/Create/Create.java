@@ -11,7 +11,7 @@ public class Create extends VoltProcedure {
     public final SQLStmt createFile =
 	new SQLStmt("INSERT INTO file VALUES (?, ?, 1, ?);");
 
-    public VoltTable[] run (String file_name, String user_name)
+    public VoltTable[] run (String user_name, String file_name)
 		throws VoltAbortException {
 
 	    if (!file_name.startsWith("/")) {

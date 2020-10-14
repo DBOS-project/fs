@@ -43,12 +43,12 @@ public class PopulateBench {
     private BenchmarkStats stats;
     private int benchmarkSize;
 	private String userName;
-	private int kiloBytes;
+	private int fileBytes;
     
-    public PopulateBench (String servers, int size, String username, int kb) throws Exception {
+    public PopulateBench (String servers, int size, String username, int bytes) throws Exception {
 	this.benchmarkSize = size;
 	this.userName = username;
-	this.kiloBytes = kb;
+	this.fileBytes = bytes;
 	
 	// create client
 	client = ClientFactory.createClient();
@@ -76,9 +76,9 @@ public class PopulateBench {
 	// followed by the input parameters
 	client.callProcedure(callback,
 			     "Populate",
+				 userName,
 			     "file" + String.valueOf(file_num),
-				 kiloBytes,
-			     userName
+				 fileBytes
 			     );
     }
 
@@ -133,13 +133,12 @@ public class PopulateBench {
 	}
 
 	// the fourth parameter can be the number of kilobytes we write
-	int kb = 1024;
+	int bytes = 1024*1024;
 	if (args.length > 3) {
 	    transactions = Integer.parseInt(args[3]);
 	}
 
-	PopulateBench benchmark = new PopulateBench(serverlist, transactions, username, kb);
+	PopulateBench benchmark = new PopulateBench(serverlist, transactions, username, bytes);
 	benchmark.runBenchmark();
-
     }
 }

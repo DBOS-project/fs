@@ -74,8 +74,8 @@ public class ReadBench {
 	// followed by the input parameters
 	client.callProcedure(callback,
 			     "Read",
-			     "file" + String.valueOf(file_num % 32),
-			     userName
+				 userName,
+			     "file" + String.valueOf(file_num % 32)
 			     );
     }
 

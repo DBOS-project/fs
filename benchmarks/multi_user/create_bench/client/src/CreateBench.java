@@ -74,8 +74,8 @@ public class CreateBench {
 	// followed by the input parameters
 	client.callProcedure(callback,
 			     "Create",
-			     "file" + String.valueOf(file_num),
-			     userName
+				 userName,
+			     "file" + String.valueOf(file_num)
 			     );
 
     }

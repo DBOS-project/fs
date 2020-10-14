@@ -3,7 +3,7 @@ set -ex
 
 #
 # usage:
-# ./read_files.sh <num_transactions> <user_name> <output suffix>
+# ./benchmark_read.sh <num_transactions> <user_name> <output suffix>
 #
 
 SCRIPT_DIR=$(dirname $(readlink -f $0))

@@ -3,14 +3,14 @@ set -ex
 
 #
 # usage:
-# ./multi_benchmark_write.sh <num_transactions> <kilobytes> <output suffix>
+# ./multi_benchmark_write.sh <num_transactions> <bytes> <output suffix>
 #
 
 SCRIPT_DIR=$(dirname $(readlink -f $0))
 # Enter the root dir of the repo.
 cd ${SCRIPT_DIR}/..
 
-cd benchmarks/multi_user
+cd benchmarks/multi_multi_user
 benchmarks="write_bench"
 
 # write files cyclically
