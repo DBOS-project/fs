@@ -1,0 +1,53 @@
+Oct 15, 2020 8:28:29 AM org.voltcore.logging.VoltUtilLoggingLogger log
+WARNING: Strict java memory checking is enabled, don't do release builds or performance runs with this enabled. Invoke "ant clean" and "ant -Djmemcheck=NO_MEMCHECK" to disable.
+--------------------------------------------------------------------------------
+ Running Performance Benchmark for 1 Transactions
+--------------------------------------------------------------------------------
+
+Time     Txn/sec Aborts Failures
+-------- ------- ------ --------
+
+--------------------------------------------------------------------------------
+ Benchmark Statistics
+--------------------------------------------------------------------------------
+
+Average throughput:                  111 txns/sec
+Average latency:                    6.00 ms
+10th percentile latency:            6.02 ms
+25th percentile latency:            6.02 ms
+50th percentile latency:            6.02 ms
+75th percentile latency:            6.02 ms
+90th percentile latency:            6.02 ms
+95th percentile latency:            6.02 ms
+99th percentile latency:            6.02 ms
+99.5th percentile latency:          6.02 ms
+99.9th percentile latency:          6.02 ms
+
+--------------------------------------------------------------------------------
+ System Server Statistics
+--------------------------------------------------------------------------------
+
+Reported Internal Avg Latency:      2.00 ms
+
+--------------------------------------------------------------------------------
+ Latency Histogram
+--------------------------------------------------------------------------------
+
+       Value     Percentile TotalCount
+
+        6.02 0.000000000000          1
+        6.02 1.000000000000
+#[Mean    =         6.00, StdDeviation   =         0.00]
+#[Max     =         6.02, Total count    =            1]
+#[Buckets =           12, SubBuckets     =          256]
+
+
+--------------------------------------------------------------------------------
+ Transaction Results
+--------------------------------------------------------------------------------
+
+  Read
+        calls: 2
+      commits: 2
+    rollbacks: 2
+
