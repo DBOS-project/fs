@@ -1,0 +1,67 @@
+Oct 15, 2020 2:07:54 PM org.voltcore.logging.VoltUtilLoggingLogger log
+WARNING: Strict java memory checking is enabled, don't do release builds or performance runs with this enabled. Invoke "ant clean" and "ant -Djmemcheck=NO_MEMCHECK" to disable.
+--------------------------------------------------------------------------------
+ Running Performance Benchmark for 10000 Transactions
+--------------------------------------------------------------------------------
+
+Time     Txn/sec Aborts Failures
+-------- ------- ------ --------
+
+--------------------------------------------------------------------------------
+ Benchmark Statistics
+--------------------------------------------------------------------------------
+
+Average throughput:              125,000 txns/sec
+Average latency:                    0.71 ms
+10th percentile latency:            0.13 ms
+25th percentile latency:            0.26 ms
+50th percentile latency:            0.54 ms
+75th percentile latency:            0.96 ms
+90th percentile latency:            1.60 ms
+95th percentile latency:            2.14 ms
+99th percentile latency:            2.85 ms
+99.5th percentile latency:          3.04 ms
+99.9th percentile latency:          3.23 ms
+
+--------------------------------------------------------------------------------
+ System Server Statistics
+--------------------------------------------------------------------------------
+
+Reported Internal Avg Latency:      0.20 ms
+
+--------------------------------------------------------------------------------
+ Latency Histogram
+--------------------------------------------------------------------------------
+
+       Value     Percentile TotalCount
+
+        0.10 0.000000000000        279
+        0.54 0.500000000000       4897
+        0.96 0.750000000000       2420
+        1.41 0.875000000000       1156
+        1.98 0.937500000000        629
+        2.43 0.968750000000        321
+        2.69 0.984375000000        150
+        2.91 0.992187500000         77
+        3.07 0.996093750000         32
+        3.17 0.998046875000         24
+        3.23 0.999023437500          7
+        3.30 0.999511718750          5
+        3.33 0.999755859375          1
+        3.36 0.999877929688          1
+        3.42 0.999938964844          1
+        3.42 1.000000000000
+#[Mean    =         0.71, StdDeviation   =         0.62]
+#[Max     =         3.42, Total count    =        10000]
+#[Buckets =           12, SubBuckets     =          256]
+
+
+--------------------------------------------------------------------------------
+ Transaction Results
+--------------------------------------------------------------------------------
+
+  Write
+        calls: 20000
+      commits: 20000
+    rollbacks: 20000
+
