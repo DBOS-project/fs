@@ -6,7 +6,7 @@ cd ${SCRIPT_DIR}/..
 
 # recompile procedures
 cd stored_procedures
-all_procs="Create Populate Read Write Overwrite"
+all_procs="Create Populate Read Write Overwrite Empty"
 
 if [[ $@ == *'all'* ]]
 then

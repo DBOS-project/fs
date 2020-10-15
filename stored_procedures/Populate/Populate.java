@@ -11,7 +11,7 @@ public class Populate extends VoltProcedure {
     public final SQLStmt write =
 		new SQLStmt("UPDATE file SET bytes = ? WHERE user_name = ? AND file_name = ?;");
 
-    public VoltTable[] run (String user_name, String file_name, int bytes)
+    public long run (String user_name, String file_name, int bytes)
 		throws VoltAbortException {
 	    
 	    if (!file_name.startsWith("/")) {
@@ -27,8 +27,9 @@ public class Populate extends VoltProcedure {
 					 data,
 					 user_name,
 					 file_name);
+		voltExecuteSQL();
 		
-		return voltExecuteSQL();
+		return 0;
     }
 }
 		     

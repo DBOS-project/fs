@@ -18,3 +18,7 @@ DROP PROCEDURE Populate IF EXISTS;
 load classes stored_procedures/Populate/Populate.jar;
 CREATE PROCEDURE PARTITION ON TABLE File COLUMN user_name FROM CLASS Populate;
 
+DROP PROCEDURE Empty IF EXISTS;
+load classes stored_procedures/Empty/Empty.jar;
+CREATE PROCEDURE FROM CLASS Empty;
+
