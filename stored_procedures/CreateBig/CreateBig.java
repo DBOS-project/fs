@@ -12,24 +12,26 @@ public class Create extends VoltProcedure {
 	new SQLStmt("INSERT INTO file VALUES (?, ?, 1, ?);");
 
     public long run (String user_name, String file_name)
-		throws VoltAbortException {
+		throws Exception {
 
-	    if (!file_name.startsWith("/")) {
-			// since files are only in the DB, this is totally arbitrary
-			// file_name = "/home/gridsan/groups/DBOS/fs_testfiles/" + file_name;
-			file_name = "/" + user_name + "/" + file_name;
-	    }
+		// create file on linux
+		if (!file_name.startsWith("/")) {
+			file_name = "/home/gridsan/askiad/DBOS_shared/fs/testing/tmpfiles/" + file_name;
+		}
+		File new_file = new File(file_name);
+		new_file.createNewFile();
 
-		// new rule: all new files contain number 42
-		byte[] bytes_array = new byte[1];
-		bytes_array[0] = 42;
-	    
-		// populate DB
-		voltQueueSQL(createFile,
-					 user_name,
-					 file_name,
-					 bytes_array);
-		voltExecuteSQL();
+		// set file size
+		RandomAccessFile raf = new RandomAccessFile(new_file, "rw");
+		raf.setLength(Mbytes * 1024 * 1024);
+		raf.close();
+	
+		// // populate DB
+		// voltQueueSQL(createFile,
+		// 			 user_name,
+		// 			 file_name,
+		// 			 bytes_array);
+		// voltExecuteSQL();
 
 		return 0;
     }

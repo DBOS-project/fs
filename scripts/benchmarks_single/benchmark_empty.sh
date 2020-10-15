@@ -3,8 +3,8 @@ set -ex
 
 #
 # usage:
-# ./benchmark_read.sh <output suffix> [flags]
-# flags: -h hostname, -t transactions -f filecnt, -u username
+# ./benchmark_empty.sh <output suffix> [flags]
+# flags: -h hostname, -t transactions
 #
 
 SCRIPT_DIR=$(dirname $(readlink -f $0))
