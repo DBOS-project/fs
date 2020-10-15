@@ -77,9 +77,9 @@ public class ReadBench {
 		// call the procedure asynchronously, passing in the callback and the procedure name,
 		// followed by the input parameters
 		_client.callProcedure(callback,
-							 "Read",
-							 "file" + String.valueOf(filenum % _filecnt),
-							 _username
+							  "Read",
+							  _username,
+							  "file" + String.valueOf(filenum % _filecnt)
 							 );
 
     }

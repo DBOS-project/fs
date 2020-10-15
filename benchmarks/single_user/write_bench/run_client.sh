@@ -17,5 +17,5 @@ if [ ! -z "$SRC" ]; then
     jar cf client/client.jar -C client/obj .
     rm -rf client/obj
 
-    java -cp "$CP:client/client.jar*" org.voltdb.write.WriteBench $*
+    java -cp "$CP:client/client.jar" org.voltdb.write.WriteBench $*
 fi

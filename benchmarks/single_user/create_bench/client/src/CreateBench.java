@@ -77,10 +77,10 @@ public class CreateBench {
 		// call the procedure asynchronously, passing in the callback and the procedure name,
 		// followed by the input parameters
 		_client.callProcedure(callback,
-							 "Create",
-							 "file" + String.valueOf(filenum),
-							 _username
-							 );
+							  "Create",
+							  _username,
+							  "file" + String.valueOf(filenum)
+							  );
 
     }
 
