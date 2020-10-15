@@ -42,11 +42,9 @@ public class ReadBench {
     private Client client;
     private BenchmarkStats stats;
     private int benchmarkSize;
-	private String userName;
     
-    public ReadBench (String servers, int size, String username) throws Exception {
+    public ReadBench (String servers, int size) throws Exception {
 	this.benchmarkSize = size;
-	this.userName = username;
 	
 	// create client
 	client = ClientFactory.createClient();
@@ -74,8 +72,8 @@ public class ReadBench {
 	// followed by the input parameters
 	client.callProcedure(callback,
 			     "Read",
-				 userName,
-			     "file" + String.valueOf(file_num % 32)
+			     "file" + String.valueOf(file_num % 24),
+			     "user" + String.valueOf(file_num % 24)
 			     );
     }
 
@@ -123,13 +121,7 @@ public class ReadBench {
 	    transactions = Integer.parseInt(args[1]);
 	}
 
-	// the third parameter can be the user name for the files read
-	String username = "user1";
-	if (args.length > 2) {
-	    username = args[2];
-	}
-
-	ReadBench benchmark = new ReadBench(serverlist, transactions, username);
+	ReadBench benchmark = new ReadBench(serverlist, transactions);
 	benchmark.runBenchmark();
 
     }

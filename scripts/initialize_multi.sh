@@ -9,9 +9,6 @@ SCRIPT_DIR=$(dirname $(readlink -f $0))
 # Enter the root dir of the repo.
 cd ${SCRIPT_DIR}/../
 
-export PATH=$PATH:/home/gridsan/dhong98/DBOS_shared/daniel/VoltDB/bin
-export PATH=$PATH:/home/gridsan/askiad/DBOS_shared/askiad/VoltDB/bin
-
 while getopts ":c:" opt; do
 	case $opt in
 		c)
@@ -22,6 +19,10 @@ while getopts ":c:" opt; do
 			if [ $OPTARG = "2" ]; then
 				echo "Initializing VoltDB for 2 nodes..." >&2
 				voltdb init -f --dir=testing --config=testing/deployment_2node.xml
+			fi
+			if [ $OPTARG = "2f" ]; then
+				echo "Initializing VoltDB for 2 nodes..." >&2
+				voltdb init -f --dir=testing --config=testing/deployment_2node_full.xml
 			fi
 			exit 1
 			;;
@@ -40,5 +41,5 @@ done
 
 # default option
 echo "Initializing VoltDB for 2 nodes..." >&2
-voltdb init -f --dir=testing --config=testing/deployment_2node.xml
+voltdb init -f --dir=testing --config=testing/deployment_2node_full.xml
 

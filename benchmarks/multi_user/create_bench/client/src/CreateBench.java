@@ -42,11 +42,9 @@ public class CreateBench {
     private Client client;
     private BenchmarkStats stats;
     private int benchmarkSize;
-	private String userName;
     
-    public CreateBench (String servers, int size, String username) throws Exception {
+    public CreateBench (String servers, int size) throws Exception {
 	this.benchmarkSize = size;
-	this.userName = username;
 	
 	// create client
 	client = ClientFactory.createClient();
@@ -74,8 +72,8 @@ public class CreateBench {
 	// followed by the input parameters
 	client.callProcedure(callback,
 			     "Create",
-				 userName,
-			     "file" + String.valueOf(file_num)
+			     "file" + String.valueOf(file_num),
+			     "user" + String.valueOf(file_num % 24)
 			     );
 
     }
@@ -124,13 +122,7 @@ public class CreateBench {
 	    transactions = Integer.parseInt(args[1]);
 	}
 
-	// the third parameter can be the user name for the files created
-	String username = "user1";
-	if (args.length > 2) {
-	    username = args[2];
-	}
-
-	CreateBench benchmark = new CreateBench(serverlist, transactions, username);
+	CreateBench benchmark = new CreateBench(serverlist, transactions);
 	benchmark.runBenchmark();
 
     }

@@ -17,9 +17,10 @@ CREATE TABLE Permission (
        access SMALLINT,
 );
        
-CREATE UNIQUE INDEX file_idx ON File (user_name, file_name, block_number);
-CREATE UNIQUE INDEX directory_idx ON Directory (user_name, directory_name);
-CREATE UNIQUE INDEX permission_idx ON Permission (user_name, file_name);
+CREATE UNIQUE INDEX file_unq_idx ON File (user_name, file_name, block_number);
+-- CREATE INDEX file_idx ON File (user_name, file_name);
+CREATE UNIQUE INDEX directory_unq_idx ON Directory (user_name, directory_name);
+CREATE UNIQUE INDEX permission_unq_idx ON Permission (user_name, file_name);
 
 PARTITION TABLE File ON COLUMN user_name;
 PARTITION TABLE Directory ON COLUMN user_name;

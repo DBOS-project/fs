@@ -43,12 +43,10 @@ public class ReadBench {
     private BenchmarkStats stats;
     private int benchmarkSize;
 	private String userName;
-	private int kiloBytes;
     
     public ReadBench (String servers, int size, String username) throws Exception {
 	this.benchmarkSize = size;
 	this.userName = username;
-	this.kiloBytes = kb;
 	
 	// create client
 	client = ClientFactory.createClient();
@@ -77,7 +75,6 @@ public class ReadBench {
 	client.callProcedure(callback,
 			     "Read",
 			     "file" + String.valueOf(file_num % 32),
-				 kiloBytes,
 			     userName
 			     );
     }

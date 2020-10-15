@@ -59,7 +59,7 @@ public class CreateBench {
 	// }
 	client.createConnection("localhost");
 
-	stats = new BenchmarkStats(client, false);
+	stats = new BenchmarkStats(client, true);
     }
 
 
