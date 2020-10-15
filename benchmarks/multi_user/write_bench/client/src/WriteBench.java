@@ -29,6 +29,7 @@
 package org.voltdb.write;
 
 import java.util.Random;
+import org.apache.commons.cli.*;
 import org.voltdb.*;
 import org.voltdb.client.Client;
 import org.voltdb.client.ClientFactory;
@@ -39,99 +40,105 @@ import org.voltdb.util.BenchmarkStats;
 
 public class WriteBench {
 
-    private Client client;
-    private BenchmarkStats stats;
-    private int benchmarkSize;
-	private int kiloBytes;
+    private Client _client;
+    private BenchmarkStats _stats;
+    private int _transactions;
+    private int _filecnt;
+    private int _filesize;
     
-    public WriteBench (String servers, int size, int kb) throws Exception {
-	this.benchmarkSize = size;
-	this.kiloBytes = kb;
+    public WriteBench (String hostlist, int transactions, int filecnt, int filesize)
+		throws Exception {
+
+		this._transactions = transactions;
+		this._filecnt = filecnt;
+		this._filesize = filesize;
 	
-	// create client
-	client = ClientFactory.createClient();
+		// create client
+		_client = ClientFactory.createClient();
 
-	// connect to each server listed (separated by commas) in the first argument
-	// String[] serverArray = servers.split(",");
-	// for (String server : serverArray) {
-	//     // client.createConnection(server);
-	//     client.createConnection("172.31.130.209");
-	// }
-	client.createConnection("localhost");
+		// connect to each server listed (separated by commas) in the first argument
+		String[] serverArray = hostlist.split(",");
+		for (String server : serverArray) {
+		    _client.createConnection(server);
+		}
 
-	stats = new BenchmarkStats(client, true);
+		_stats = new BenchmarkStats(_client, true);
     }
 
+    public void benchmarkItem(int filenum) throws Exception {
 
-    public void benchmarkItem(int file_num) throws Exception {
-
-	// To make an asynchronous procedure call, you need a callback object
-	// BenchmarkCallback is a generic callback that keeps track of the transaction results
-	// for any given procedure name, which should match the procedure called below.
-	ProcedureCallback callback = new BenchmarkCallback("Write");
+		// To make an asynchronous procedure call, you need a callback object
+		// BenchmarkCallback is a generic callback that keeps track of the transaction results
+		// for any given procedure name, which should match the procedure called below.
+		ProcedureCallback callback = new BenchmarkCallback("Write");
 	
-	// call the procedure asynchronously, passing in the callback and the procedure name,
-	// followed by the input parameters
-	client.callProcedure(callback,
-			     "Populate",
-			     "file" + String.valueOf(file_num % 24),
-				 kiloBytes,
-			     "user" + String.valueOf(file_num % 24)
-			     );
+		// call the procedure asynchronously, passing in the callback and the procedure name,
+		// followed by the input parameters
+		_client.callProcedure(callback,
+							  "Populate",
+							  "user" + String.valueOf(filenum % _filecnt),
+							  "file" + String.valueOf(filenum % _filecnt),
+							  _filesize
+							  );
+
     }
 
     public void runBenchmark() throws Exception {
 
-	// print a heading
-	String dashes = new String(new char[80]).replace("\0", "-");
-	System.out.println(dashes);
-	System.out.println(" Running Performance Benchmark for " + benchmarkSize + " Transactions");
-	System.out.println(dashes);
+		// print a heading
+		String dashes = new String(new char[80]).replace("\0", "-");
+		System.out.println(dashes);
+		System.out.println(" Running Performance Benchmark for " + _transactions + " Transactions");
+		System.out.println(dashes);
 
-	// start recording statistics for the benchmark, outputting every 5 seconds
-	stats.startBenchmark();
+		// start recording statistics for the benchmark, outputting every 5 seconds
+		_stats.startBenchmark();
 
-	// main loop for the benchmark
-	for (int i=0; i<benchmarkSize; i++) {
+		// main loop for the benchmark
+		for (int i=0; i<_transactions; i++) {
+			benchmarkItem(i);
+		}
 
-	    benchmarkItem(i);
+		// stop recording, print stats
+		_stats.endBenchmark();
 
-	}
+		// wait for any outstanding responses to return before closing the client
+		_client.drain();
+		_client.close();
 
-	// stop recording, print stats
-	stats.endBenchmark();
-
-	// wait for any outstanding responses to return before closing the client
-	client.drain();
-	client.close();
-
-	// print the transaction results tracked by BenchmarkCallback
-	BenchmarkCallback.printAllResults();
+		// print the transaction results tracked by BenchmarkCallback
+		BenchmarkCallback.printAllResults();
     }
 
 
     public static void main(String[] args) throws Exception {
 
-	// the first parameter can be a comma-separated list of hostnames or IPs
-	String serverlist = "localhost";
-	if (args.length > 0) {
-	    serverlist = args[0];
-	}
+		// parse args flags
+		CommandLineParser parser = new DefaultParser();
+		Options options = new Options();
+		options.addOption("h", "hostlist", true, "host servers list, e.g. localhost");
+		options.addOption("t", "transactions", true, "number of benchmark executions");
+		options.addOption("f", "filecnt", true, "number of files");
+		options.addOption("s", "filesize", true, "file size in bytes");
+		CommandLine cmd = parser.parse(options, args);
 
-	// the second parameter can be the number of transactions to execute
-	int transactions = 5;
-	if (args.length > 1) {
-	    transactions = Integer.parseInt(args[1]);
-	}
+		String hostlist = "localhost";
+		if (cmd.hasOption("hostlist"))
+			hostlist = cmd.getOptionValue("hostlist");
 
-	// the fourth parameter can be the number of kilobytes we write
-	int kb = 1024;
-	if (args.length > 2) {
-	    kb = Integer.parseInt(args[2]);
-	}
+		int transactions = 1;
+		if (cmd.hasOption("transactions"))
+			transactions = Integer.parseInt(cmd.getOptionValue("transactions"));
+		
+		int filecnt = 1;
+		if (cmd.hasOption("filecnt"))
+			filecnt = Integer.parseInt(cmd.getOptionValue("filecnt"));
 
-	WriteBench benchmark = new WriteBench(serverlist, transactions, kb);
-	benchmark.runBenchmark();
-
+		int filesize = 1024*1024;
+		if (cmd.hasOption("filesize"))
+			filesize = Integer.parseInt(cmd.getOptionValue("filesize"));
+		
+		WriteBench benchmark = new WriteBench(hostlist, transactions, filecnt, filesize);
+		benchmark.runBenchmark();
     }
 }

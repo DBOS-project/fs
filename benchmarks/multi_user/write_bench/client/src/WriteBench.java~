@@ -135,7 +135,7 @@ public class WriteBench {
 	// the fourth parameter can be the number of kilobytes we write
 	int kb = 1024;
 	if (args.length > 3) {
-	    kb = Integer.parseInt(args[3]);
+	    transactions = Integer.parseInt(args[3]);
 	}
 
 	WriteBench benchmark = new WriteBench(serverlist, transactions, username, kb);

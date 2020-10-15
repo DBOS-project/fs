@@ -1,22 +1,21 @@
 #!/usr/bin/env bash
 
 CP="$CLASSPATH:/home/gridsan/askiad/DBOS_shared/askiad/VoltDB/voltdb/*"
+CP="$CP:/home/gridsan/askiad/homebin/commons-cli-1.4/*"
 
 SCRIPT_DIR=$(dirname $(readlink -f $0))
-# Enter the root dir of the repo.
 cd ${SCRIPT_DIR}
 
 SRC=`find client/src -name "*.java"`
 
 if [ ! -z "$SRC" ]; then
     mkdir -p client/obj
-    javac -cp "$CLASSPATH:/home/gridsan/askiad/DBOS_shared/askiad/VoltDB/voltdb/*" -d client/obj $SRC
+    javac -cp $CP -d client/obj $SRC
     # stop if compilation fails
     if [ $? != 0 ]; then exit; fi
 
     jar cf client/client.jar -C client/obj .
     rm -rf client/obj
 
-    java -classpath "client/client.jar:$CLASSPATH:/home/gridsan/askiad/DBOS_shared/askiad/VoltDB/voltdb/*" org.voltdb.populate.PopulateBench $*
-
+    java -cp "$CP:client/client.jar" org.voltdb.populate.PopulateBench $*
 fi
