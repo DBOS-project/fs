@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 
-CP="$CLASSPATH:/home/gridsan/askiad/DBOS_shared/askiad/VoltDB/voltdb/*"
-CP="$CP:/home/gridsan/askiad/homebin/commons-cli-1.4/*"
-
 SCRIPT_DIR=$(dirname $(readlink -f $0))
 cd ${SCRIPT_DIR}
+
+CP="$CLASSPATH:$SCRIPT_DIR/../../../../VoltDB/voltdb/*"
+CP="$CP:$SCRIPT_DIR/../../../dependencies/commons-cli-1.4/*"
+echo $CP
 
 SRC=`find client/src -name "*.java"`
 
