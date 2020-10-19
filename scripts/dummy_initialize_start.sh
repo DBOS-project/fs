@@ -8,7 +8,7 @@ cd ${SCRIPT_DIR}/../
 export PATH=$PATH:/home/gridsan/dhong98/DBOS_shared/daniel/VoltDB/bin
 export PATH=$PATH:/home/gridsan/askiad/DBOS_shared/askiad/VoltDB/bin
 
-voltdb init -f --dir=testing
+voltdb init -f --dir=testing --config=testing/deployment_p1.xml
 voltdb start -B --dir=testing
 sleep 5
 sqlcmd < sql/create_tables.sql

@@ -1,8 +1,8 @@
 {
     "log4jDst": [{
         "format": "'.'yyyy-MM-dd",
-        "path": "/home/gridsan/groups/DBOS/askiad/fs/testing/voltdbroot/log/volt.log"
+        "path": "/home/gridsan/groups/DBOS/daniel/fs/testing/voltdbroot/log/volt.log"
     }],
-    "pid": 19839,
-    "workingDir": "/home/gridsan/groups/DBOS/askiad/fs"
+    "pid": 16926,
+    "workingDir": "/home/gridsan/groups/DBOS/daniel/fs"
 }
