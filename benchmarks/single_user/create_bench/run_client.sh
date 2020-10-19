@@ -5,7 +5,6 @@ cd ${SCRIPT_DIR}
 
 CP="$CLASSPATH:$SCRIPT_DIR/../../../../VoltDB/voltdb/*"
 CP="$CP:$SCRIPT_DIR/../../../dependencies/commons-cli-1.4/*"
-echo $CP
 
 SRC=`find client/src -name "*.java"`
 
