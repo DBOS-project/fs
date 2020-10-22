@@ -9,23 +9,23 @@ Time     Txn/sec Aborts Failures
  Benchmark Statistics
 --------------------------------------------------------------------------------
 
-Average throughput:                2,550 txns/sec
-Average latency:                    0.37 ms
-10th percentile latency:            0.10 ms
-25th percentile latency:            0.10 ms
-50th percentile latency:            0.13 ms
-75th percentile latency:            0.16 ms
+Average throughput:                2,163 txns/sec
+Average latency:                    0.46 ms
+10th percentile latency:            0.13 ms
+25th percentile latency:            0.13 ms
+50th percentile latency:            0.16 ms
+75th percentile latency:            0.19 ms
 90th percentile latency:            0.22 ms
 95th percentile latency:            0.26 ms
 99th percentile latency:            0.54 ms
-99.5th percentile latency:          1.50 ms
-99.9th percentile latency:          6.43 ms
+99.5th percentile latency:          0.70 ms
+99.9th percentile latency:         13.76 ms
 
 --------------------------------------------------------------------------------
  System Server Statistics
 --------------------------------------------------------------------------------
 
-Reported Internal Avg Latency:      0.10 ms
+Reported Internal Avg Latency:      0.09 ms
 
 --------------------------------------------------------------------------------
  Latency Histogram
@@ -33,24 +33,24 @@ Reported Internal Avg Latency:      0.10 ms
 
        Value     Percentile TotalCount
 
-        0.06 0.000000000000         77
-        0.13 0.500000000000       5985
-        0.16 0.750000000000       1901
-        0.19 0.875000000000       1010
-        0.22 0.937500000000        415
-        0.32 0.968750000000        365
-        0.42 0.984375000000         99
-        0.67 0.992187500000         73
-        2.05 0.996093750000         36
-        4.16 0.998046875000         20
-       11.90 0.999023437500         10
-      409.60 0.999511718750          5
-      444.42 0.999755859375          2
-      460.80 0.999877929688          1
-      483.33 0.999938964844          1
-      483.33 1.000000000000
-#[Mean    =         0.37, StdDeviation   =        10.01]
-#[Max     =       483.33, Total count    =        10000]
+        0.10 0.000000000000        931
+        0.16 0.500000000000       5648
+        0.19 0.750000000000       1818
+        0.22 0.875000000000        779
+        0.26 0.937500000000        347
+        0.32 0.968750000000        255
+        0.38 0.984375000000         78
+        0.58 0.992187500000         73
+        0.90 0.996093750000         36
+        2.78 0.998046875000         20
+       14.59 0.999023437500         10
+      440.32 0.999511718750          5
+      464.90 0.999755859375          2
+      475.14 0.999877929688          1
+      487.42 0.999938964844          1
+      487.42 1.000000000000
+#[Mean    =         0.46, StdDeviation   =        11.35]
+#[Max     =       487.42, Total count    =        10004]
 #[Buckets =           12, SubBuckets     =          256]
 
 

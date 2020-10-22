@@ -1,37 +1,39 @@
 --------------------------------------------------------------------------------
- Running Performance Benchmark for 5000 Transactions
+ Running Performance Benchmark for 8000 Transactions
 --------------------------------------------------------------------------------
 
 Time     Txn/sec Aborts Failures
 -------- ------- ------ --------
-00:00:05      77      0        0, Avg/95% Latency 13.58/24.06ms
-00:00:10      78      0        0, Avg/95% Latency 12.71/24.45ms
-00:00:15      85      0        0, Avg/95% Latency 11.65/21.76ms
-00:00:20     157      0        0, Avg/95% Latency 6.27/13.38ms
-00:00:25     215      0        0, Avg/95% Latency 4.57/5.41ms
-00:00:30     252      0        0, Avg/95% Latency 3.87/4.19ms
+00:00:05     174      0        0, Avg/95% Latency 6.10/11.52ms
+00:00:10     189      0        0, Avg/95% Latency 5.21/11.46ms
+00:00:15     135      0        0, Avg/95% Latency 7.34/17.92ms
+00:00:20      84      0        0, Avg/95% Latency 11.72/22.53ms
+00:00:25     132      0        0, Avg/95% Latency 7.49/13.95ms
+00:00:30     196      0        0, Avg/95% Latency 4.98/10.43ms
+00:00:35     237      0        0, Avg/95% Latency 4.13/4.58ms
+00:00:40     234      0        0, Avg/95% Latency 4.21/4.80ms
 
 --------------------------------------------------------------------------------
  Benchmark Statistics
 --------------------------------------------------------------------------------
 
-Average throughput:                  153 txns/sec
-Average latency:                    6.48 ms
-10th percentile latency:            3.55 ms
-25th percentile latency:            3.78 ms
-50th percentile latency:            4.29 ms
-75th percentile latency:            7.10 ms
-90th percentile latency:           12.74 ms
-95th percentile latency:           16.38 ms
-99th percentile latency:           24.96 ms
-99.5th percentile latency:         30.59 ms
-99.9th percentile latency:         44.54 ms
+Average throughput:                  178 txns/sec
+Average latency:                    5.58 ms
+10th percentile latency:            3.68 ms
+25th percentile latency:            3.94 ms
+50th percentile latency:            4.35 ms
+75th percentile latency:            4.90 ms
+90th percentile latency:           10.30 ms
+95th percentile latency:           12.42 ms
+99th percentile latency:           19.20 ms
+99.5th percentile latency:         22.53 ms
+99.9th percentile latency:         33.79 ms
 
 --------------------------------------------------------------------------------
  System Server Statistics
 --------------------------------------------------------------------------------
 
-Reported Internal Avg Latency:      5.62 ms
+Reported Internal Avg Latency:      4.73 ms
 
 --------------------------------------------------------------------------------
  Latency Histogram
@@ -39,23 +41,23 @@ Reported Internal Avg Latency:      5.62 ms
 
        Value     Percentile TotalCount
 
-        1.98 0.000000000000          3
-        4.29 0.500000000000       2511
-        7.10 0.750000000000       1238
-       11.20 0.875000000000        628
-       15.23 0.937500000000        311
-       19.07 0.968750000000        158
-       22.27 0.984375000000         75
-       27.52 0.992187500000         39
-       32.51 0.996093750000         20
-       37.38 0.998046875000         11
-       45.82 0.999023437500          4
-       70.66 0.999511718750          2
-      195.58 0.999755859375          1
-      305.15 0.999877929688          1
-      305.15 1.000000000000
-#[Mean    =         6.48, StdDeviation   =         6.98]
-#[Max     =       305.15, Total count    =         5002]
+        0.96 0.000000000000          3
+        4.35 0.500000000000       4058
+        4.90 0.750000000000       1948
+        8.45 0.875000000000        997
+       11.78 0.937500000000        511
+       14.34 0.968750000000        236
+       17.54 0.984375000000        124
+       20.22 0.992187500000         63
+       23.68 0.996093750000         31
+       30.59 0.998046875000         16
+       35.07 0.999023437500          8
+       37.38 0.999511718750          4
+      290.82 0.999755859375          2
+      444.42 0.999877929688          1
+      444.42 1.000000000000
+#[Mean    =         5.58, StdDeviation   =         6.73]
+#[Max     =       444.42, Total count    =         8002]
 #[Buckets =           12, SubBuckets     =          256]
 
 

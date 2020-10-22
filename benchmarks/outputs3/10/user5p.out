@@ -4,31 +4,31 @@
 
 Time     Txn/sec Aborts Failures
 -------- ------- ------ --------
-00:00:05     597      0        0, Avg/95% Latency 1.61/1.82ms
-00:00:10     639      0        0, Avg/95% Latency 1.50/1.86ms
-00:00:15     648      0        0, Avg/95% Latency 1.50/2.05ms
+00:00:05     586      0        0, Avg/95% Latency 1.66/1.95ms
+00:00:10     673      0        0, Avg/95% Latency 1.45/1.79ms
+00:00:15     673      0        0, Avg/95% Latency 1.43/1.79ms
 
 --------------------------------------------------------------------------------
  Benchmark Statistics
 --------------------------------------------------------------------------------
 
-Average throughput:                  630 txns/sec
-Average latency:                    1.53 ms
+Average throughput:                  647 txns/sec
+Average latency:                    1.50 ms
 10th percentile latency:            1.15 ms
-25th percentile latency:            1.25 ms
+25th percentile latency:            1.22 ms
 50th percentile latency:            1.31 ms
-75th percentile latency:            1.47 ms
-90th percentile latency:            1.66 ms
-95th percentile latency:            1.92 ms
-99th percentile latency:            8.13 ms
-99.5th percentile latency:         10.69 ms
-99.9th percentile latency:         15.30 ms
+75th percentile latency:            1.44 ms
+90th percentile latency:            1.63 ms
+95th percentile latency:            1.86 ms
+99th percentile latency:            7.81 ms
+99.5th percentile latency:          9.34 ms
+99.9th percentile latency:         15.36 ms
 
 --------------------------------------------------------------------------------
  System Server Statistics
 --------------------------------------------------------------------------------
 
-Reported Internal Avg Latency:      1.13 ms
+Reported Internal Avg Latency:      1.08 ms
 
 --------------------------------------------------------------------------------
  Latency Histogram
@@ -36,24 +36,24 @@ Reported Internal Avg Latency:      1.13 ms
 
        Value     Percentile TotalCount
 
-        0.67 0.000000000000          2
-        1.31 0.500000000000       5085
-        1.47 0.750000000000       2753
-        1.60 0.875000000000        971
-        1.82 0.937500000000        572
-        2.14 0.968750000000        318
-        7.42 0.984375000000        145
-        8.51 0.992187500000         77
-       12.29 0.996093750000         39
+        0.58 0.000000000000          1
+        1.31 0.500000000000       5300
+        1.44 0.750000000000       2353
+        1.57 0.875000000000       1113
+        1.76 0.937500000000        614
+        2.02 0.968750000000        308
+        7.17 0.984375000000        156
+        8.19 0.992187500000         77
+       10.88 0.996093750000         39
        14.78 0.998046875000         20
        15.49 0.999023437500         10
        16.77 0.999511718750          5
-       20.35 0.999755859375          2
-       26.37 0.999877929688          1
-      301.06 0.999938964844          1
-      301.06 1.000000000000
-#[Mean    =         1.53, StdDeviation   =         3.23]
-#[Max     =       301.06, Total count    =        10001]
+       22.53 0.999755859375          2
+       24.58 0.999877929688          1
+      311.30 0.999938964844          1
+      311.30 1.000000000000
+#[Mean    =         1.50, StdDeviation   =         3.30]
+#[Max     =       311.30, Total count    =        10000]
 #[Buckets =           12, SubBuckets     =          256]
 
 

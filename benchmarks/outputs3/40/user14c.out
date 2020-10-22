@@ -1,31 +1,33 @@
 --------------------------------------------------------------------------------
- Running Performance Benchmark for 5000 Transactions
+ Running Performance Benchmark for 8000 Transactions
 --------------------------------------------------------------------------------
 
 Time     Txn/sec Aborts Failures
 -------- ------- ------ --------
+00:00:05       0      0        0, Avg/95% Latency 0.00/0.00ms
+00:00:10     997      0        0, Avg/95% Latency 1.99/0.22ms
 
 --------------------------------------------------------------------------------
  Benchmark Statistics
 --------------------------------------------------------------------------------
 
-Average throughput:                1,572 txns/sec
-Average latency:                    0.61 ms
-10th percentile latency:            0.16 ms
-25th percentile latency:            0.16 ms
-50th percentile latency:            0.19 ms
-75th percentile latency:            0.26 ms
-90th percentile latency:            0.32 ms
-95th percentile latency:            0.38 ms
-99th percentile latency:            1.28 ms
-99.5th percentile latency:          2.66 ms
-99.9th percentile latency:         18.05 ms
+Average throughput:                  737 txns/sec
+Average latency:                    1.34 ms
+10th percentile latency:            0.10 ms
+25th percentile latency:            0.10 ms
+50th percentile latency:            0.10 ms
+75th percentile latency:            0.13 ms
+90th percentile latency:            0.16 ms
+95th percentile latency:            0.19 ms
+99th percentile latency:            0.35 ms
+99.5th percentile latency:          0.58 ms
+99.9th percentile latency:          2.02 ms
 
 --------------------------------------------------------------------------------
  System Server Statistics
 --------------------------------------------------------------------------------
 
-Reported Internal Avg Latency:      0.27 ms
+Reported Internal Avg Latency:      1.18 ms
 
 --------------------------------------------------------------------------------
  Latency Histogram
@@ -33,23 +35,23 @@ Reported Internal Avg Latency:      0.27 ms
 
        Value     Percentile TotalCount
 
-        0.10 0.000000000000          9
-        0.19 0.500000000000       2568
-        0.26 0.750000000000       1512
-        0.29 0.875000000000        306
-        0.35 0.937500000000        295
-        0.51 0.968750000000        160
-        0.80 0.984375000000         76
-        1.95 0.992187500000         39
-        3.71 0.996093750000         18
-        7.81 0.998046875000         10
-       49.15 0.999023437500          5
-      464.90 0.999511718750          2
-      468.99 0.999755859375          1
-      471.04 0.999877929688          1
-      471.04 1.000000000000
-#[Mean    =         0.61, StdDeviation   =        12.56]
-#[Max     =       471.04, Total count    =         5002]
+        0.06 0.000000000000        118
+        0.10 0.500000000000       4504
+        0.13 0.750000000000       2084
+        0.16 0.875000000000        662
+        0.19 0.937500000000        321
+        0.22 0.968750000000        140
+        0.26 0.984375000000         58
+        0.48 0.992187500000         53
+        0.70 0.996093750000         29
+        1.70 0.998046875000         17
+        2.18 0.999023437500          7
+       50.43 0.999511718750          4
+      471.04 0.999755859375          2
+     8978.43 0.999877929688          1
+     8978.43 1.000000000000
+#[Mean    =         1.35, StdDeviation   =       100.27]
+#[Max     =      8978.43, Total count    =         8000]
 #[Buckets =           12, SubBuckets     =          256]
 
 
