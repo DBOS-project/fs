@@ -1,0 +1,26 @@
+client/src/CreateBench.java:67: error: cannot find symbol
+			callback(_client.callProcedure("Create",
+			^
+  symbol:   method callback(ClientResponse)
+  location: class UserClient
+client/src/CreateBench.java:98: error: cannot find symbol
+		_stats = new BenchmarkStats(_client, true);
+		                            ^
+  symbol:   variable _client
+  location: class CreateBench
+client/src/CreateBench.java:109: error: cannot find symbol
+		ArrayList<UserCient> ths = new ArrayList<UserCient>();
+		          ^
+  symbol:   class UserCient
+  location: class CreateBench
+client/src/CreateBench.java:109: error: cannot find symbol
+		ArrayList<UserCient> ths = new ArrayList<UserCient>();
+		                                         ^
+  symbol:   class UserCient
+  location: class CreateBench
+client/src/CreateBench.java:111: error: cannot find symbol
+			ths.add(UserClient(_hostlist, i, _transactions));
+			        ^
+  symbol:   method UserClient(String,int,int)
+  location: class CreateBench
+5 errors
