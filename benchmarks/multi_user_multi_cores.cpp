@@ -1,3 +1,5 @@
+// compile with g++ -o <output_file_name> -std=c++11 -pthread multi_user_multi_cores.cpp
+
 #include <stdlib.h>
 #include <iostream> 
 #include <thread> 
