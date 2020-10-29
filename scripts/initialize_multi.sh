@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # usage: ./initialize_multi.sh [-c node_cnt]
-# -c 1 for 1 node, 24 partitions
-# -c 2 for 2 nodes, 24 partitions each
+# -c 1 for 1 node, 20 partitions
+# -c 2 for 1 node, 40 partitions each
 # to support other options, create a new testing/deployment_.xml
 
 SCRIPT_DIR=$(dirname $(readlink -f $0))
@@ -14,11 +14,11 @@ while getopts ":c:" opt; do
 		c)
 			if [ $OPTARG = "1" ]; then
 				echo "Initializing VoltDB for 1 node..." >&2
-				voltdb init -f --dir=testing --config=testing/deployment_p1.xml
+				voltdb init -f --dir=testing --config=testing/deployment_p20.xml
 			fi
 			if [ $OPTARG = "2" ]; then
-				echo "Initializing VoltDB for 2 nodes..." >&2
-				voltdb init -f --dir=testing --config=testing/deployment_p24.xml
+				echo "Initializing VoltDB for 1 node..." >&2
+				voltdb init -f --dir=testing --config=testing/deployment_p40.xml
 			fi
 			if [ $OPTARG = "3" ]; then
 				echo "Initializing VoltDB for 2 nodes..." >&2
@@ -40,6 +40,6 @@ while getopts ":c:" opt; do
 done
 
 # default option
-echo "Initializing VoltDB for 2 nodes..." >&2
+echo "Initializing VoltDB for 1 node..." >&2
 voltdb init -f --dir=testing --config=testing/deployment_config.xml
 
