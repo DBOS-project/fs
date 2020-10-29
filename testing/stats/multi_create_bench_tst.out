@@ -1,0 +1,7 @@
+--------------------------------------------------------------------------------
+ Running Performance Benchmark for 120 Transactions
+--------------------------------------------------------------------------------
+
+Time     Txn/sec Aborts Failures
+-------- ------- ------ --------
+exceeded 5 maximum database errors - exiting client
