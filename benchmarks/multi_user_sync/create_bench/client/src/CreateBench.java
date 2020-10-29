@@ -39,46 +39,6 @@ import org.voltdb.client.ProcedureCallback;
 import org.voltdb.util.BenchmarkCallback;
 import org.voltdb.util.BenchmarkStats;
 
-class UserClient extends Thread {
-
-	private Client _client;
-	private int _userNum;
-    private int _transactions;
-
-	UserClient(String hostlist, int userNum, int transactions) throws Exception {
-
-		this._userNum = userNum;
-		this._transactions = transactions;
-	
-		// create client
-		_client = ClientFactory.createClient();
-
-		// connect to each server listed (separated by commas) in the first argument
-		String[] serverArray = hostlist.split(",");
-		for (String server : serverArray) {
-		    _client.createConnection(server);
-		}
-    }
-
-  public void run() {  
-    for (int i=0; i<_transactions; i++) {
-			ProcedureCallback callback = new BenchmarkCallback("Create");
-
-			callback(_client.callProcedure("Create",
-								  "user" + String.valueOf(_userNum),
-								  "file" + String.valueOf(i)
-								  ));
-	}
-  }
-
-  public void endClient() {
-  	// wait for any outstanding responses to return before closing the client
-	_client.drain();
-	_client.close();
-  }
-
-}
-
 public class CreateBench {
 
     private String _hostlist;

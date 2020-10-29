@@ -43,15 +43,15 @@ public class ReadBench {
     private Client _client;
     private BenchmarkStats _stats;
     private int _transactions;
-    private int _filecnt;
+    private String _filename;
     // private int _filesize;
 	private String _username;
     
-    public ReadBench (String hostlist, int transactions, int filecnt, String username)
+    public ReadBench (String hostlist, int transactions, String filename, String username)
 		throws Exception {
 
 		this._transactions = transactions;
-		this._filecnt = filecnt;
+		this._filename = filename;
 		// this._filesize = filesize;
 		this._username = username;
 	
@@ -67,10 +67,10 @@ public class ReadBench {
 		_stats = new BenchmarkStats(_client, true);
     }
 
-    public void benchmarkItem(int filenum) throws Exception {
+    public void benchmarkItem() throws Exception {
 		_client.callProcedure("Read",
 							  _username,
-							  "file" + String.valueOf(filenum % _filecnt)
+							  _filename
 							 );
 
     }
@@ -88,7 +88,7 @@ public class ReadBench {
 
 		// main loop for the benchmark
 		for (int i=0; i<_transactions; i++) {
-			benchmarkItem(i);
+			benchmarkItem();
 		}
 
 		// stop recording, print stats
@@ -110,7 +110,7 @@ public class ReadBench {
 		Options options = new Options();
 		options.addOption("h", "hostlist", true, "host servers list, e.g. localhost");
 		options.addOption("t", "transactions", true, "number of benchmark executions");
-		options.addOption("f", "filecnt", true, "number of files");
+		options.addOption("f", "filename", true, "number of files");
 		// options.addOption("s", "filesize", true, "file size in bytes");
 		options.addOption("u", "username", true, "file owner");
 		CommandLine cmd = parser.parse(options, args);
@@ -123,19 +123,19 @@ public class ReadBench {
 		if (cmd.hasOption("transactions"))
 			transactions = Integer.parseInt(cmd.getOptionValue("transactions"));
 		
-		int filecnt = 1;
-		if (cmd.hasOption("filecnt"))
-			filecnt = Integer.parseInt(cmd.getOptionValue("filecnt"));
-
 		// int filesize = 1024*1024;
 		// if (cmd.hasOption("filesize"))
 		// 	filesize = Integer.parseInt(cmd.getOptionValue("filesize"));
 		
+		String filename = "file1";
+		if (cmd.hasOption("filename"))
+			filename = cmd.getOptionValue("filename");
+
 		String username = "user1";
 		if (cmd.hasOption("username"))
 			username = cmd.getOptionValue("username");
 
-		ReadBench benchmark = new ReadBench(hostlist, transactions, filecnt, username);
+		ReadBench benchmark = new ReadBench(hostlist, transactions, filename, username);
 		benchmark.runBenchmark();
     }
 }

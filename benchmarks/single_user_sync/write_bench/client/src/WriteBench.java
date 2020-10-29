@@ -43,15 +43,15 @@ public class WriteBench {
     private Client _client;
     private BenchmarkStats _stats;
     private int _transactions;
-    private int _filecnt;
+    private String _filename;
     private int _filesize;
 	private String _username;
     
-    public WriteBench (String hostlist, int transactions, int filecnt, int filesize, String username)
+    public WriteBench (String hostlist, int transactions, String filename, int filesize, String username)
 		throws Exception {
 
 		this._transactions = transactions;
-		this._filecnt = filecnt;
+		this._filename = filename;
 		this._filesize = filesize;
 		this._username = username;
 	
@@ -67,10 +67,10 @@ public class WriteBench {
 		_stats = new BenchmarkStats(_client, true);
     }
 
-    public void benchmarkItem(int filenum) throws Exception {
+    public void benchmarkItem() throws Exception {
 		_client.callProcedure("Populate",
 							  _username,
-							  "file" + String.valueOf(filenum % _filecnt),
+							  _filename,
 							  _filesize
 							  );
 
@@ -89,7 +89,7 @@ public class WriteBench {
 
 		// main loop for the benchmark
 		for (int i=0; i<_transactions; i++) {
-			benchmarkItem(i);
+			benchmarkItem();
 		}
 
 		// stop recording, print stats
@@ -111,7 +111,7 @@ public class WriteBench {
 		Options options = new Options();
 		options.addOption("h", "hostlist", true, "host servers list, e.g. localhost");
 		options.addOption("t", "transactions", true, "number of benchmark executions");
-		options.addOption("f", "filecnt", true, "number of files");
+		options.addOption("f", "filename", true, "name of files");
 		options.addOption("s", "filesize", true, "file size in bytes");
 		options.addOption("u", "username", true, "file owner");
 		CommandLine cmd = parser.parse(options, args);
@@ -124,10 +124,6 @@ public class WriteBench {
 		if (cmd.hasOption("transactions"))
 			transactions = Integer.parseInt(cmd.getOptionValue("transactions"));
 		
-		int filecnt = 1;
-		if (cmd.hasOption("filecnt"))
-			filecnt = Integer.parseInt(cmd.getOptionValue("filecnt"));
-
 		int filesize = 1024*1024;
 		if (cmd.hasOption("filesize"))
 			filesize = Integer.parseInt(cmd.getOptionValue("filesize"));
@@ -136,7 +132,11 @@ public class WriteBench {
 		if (cmd.hasOption("username"))
 			username = cmd.getOptionValue("username");
 
-		WriteBench benchmark = new WriteBench(hostlist, transactions, filecnt, filesize, username);
+		String filename = "file1";
+		if (cmd.hasOption("username"))
+			username = cmd.getOptionValue("username");
+
+		WriteBench benchmark = new WriteBench(hostlist, transactions, filename, filesize, username);
 		benchmark.runBenchmark();
     }
 }

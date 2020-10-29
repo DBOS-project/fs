@@ -66,16 +66,7 @@ public class WriteBench {
     }
 
     public void benchmarkItem(int filenum) throws Exception {
-
-		// To make an asynchronous procedure call, you need a callback object
-		// BenchmarkCallback is a generic callback that keeps track of the transaction results
-		// for any given procedure name, which should match the procedure called below.
-		ProcedureCallback callback = new BenchmarkCallback("Write");
-	
-		// call the procedure asynchronously, passing in the callback and the procedure name,
-		// followed by the input parameters
-		_client.callProcedure(callback,
-							  "Populate",
+		_client.callProcedure("Populate",
 							  "user" + String.valueOf(filenum % _filecnt),
 							  "file" + String.valueOf(filenum % _filecnt),
 							  _filesize
