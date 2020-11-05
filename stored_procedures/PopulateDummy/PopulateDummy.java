@@ -4,13 +4,12 @@ import java.util.Arrays;
 
 /* 
  * usage:
- * exec Populate file_name, bytes_number, user_name;
+ * exec PopulateDummy file_name, bytes_number, user_name;
  */
 
-public class Populate extends VoltProcedure {
+public class PopulateDummy extends VoltProcedure {
     public final SQLStmt write =
-		new SQLStmt("UPDATE file SET bytes = ?, file_size = ?" +
-					"WHERE user_name = ? AND file_name = ?;");
+		new SQLStmt("UPDATE file SET bytes = ? WHERE user_name = ? AND file_name = ?;");
 
     public long run (String user_name, String file_name, int bytes)
 		throws VoltAbortException {
@@ -26,16 +25,10 @@ public class Populate extends VoltProcedure {
 	
 		voltQueueSQL(write,
 					 data,
-					 bytes,
 					 user_name,
 					 file_name);
 		voltExecuteSQL();
-
-		// VoltTable[] results = voltExecuteSQL();
-		// VoltTable r = results[0];
-		// if (r.getRowCount() < 1)
-		// 	return -1;
-
+		
 		return 0;
     }
 }

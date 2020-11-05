@@ -2,6 +2,7 @@ CREATE TABLE File (
        user_name VARCHAR(16) NOT NULL,
        file_name VARCHAR(1024) NOT NULL,
        block_number INTEGER,
+	   file_size INTEGER,
        bytes VARBINARY(1048576),
 );
        

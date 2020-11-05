@@ -4,12 +4,12 @@ import java.io.RandomAccessFile;;
 
 /* 
  * usage:
- * exec Create file_name, user_name;
+ * exec CreateDummy file_name, user_name;
  */
 
-public class Create extends VoltProcedure {
+public class CreateDummy extends VoltProcedure {
     public final SQLStmt createFile =
-		new SQLStmt("INSERT INTO file VALUES (?, ?, 1, 1, ?);");
+	new SQLStmt("INSERT INTO file VALUES (?, ?, 1, 1, ?);");
 
     public long run (String user_name, String file_name)
 		throws VoltAbortException {
