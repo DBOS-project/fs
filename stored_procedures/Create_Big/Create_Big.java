@@ -4,21 +4,19 @@ import java.io.RandomAccessFile;;
 
 /* 
  * usage:
- * exec Create file_name, user_name;
+ * exec Create_Big file_name, user_name;
  */
 
-public class Create extends VoltProcedure {
+public class Create_Big extends VoltProcedure {
     public final SQLStmt createFile =
-	new SQLStmt("INSERT INTO file VALUES (?, ?, 1, ?);");
+	new SQLStmt("INSERT INTO big_file VALUES (?, ?, ?);");
 
     public long run (String user_name, String file_name)
 		throws Exception {
 
 		// create file on linux
-		if (!file_name.startsWith("/")) {
-			file_name = "/home/gridsan/askiad/DBOS_shared/fs/testing/tmpfiles/" + file_name;
-		}
-		File new_file = new File(file_name);
+		file_ptr = "/home/gridsan/daniel/DBOS_shared/fs/testing/tmpfiles/" + file_name;
+		File new_file = new File(file_ptr);
 		new_file.createNewFile();
 
 		// set file size
@@ -26,12 +24,12 @@ public class Create extends VoltProcedure {
 		raf.setLength(Mbytes * 1024 * 1024);
 		raf.close();
 	
-		// // populate DB
-		// voltQueueSQL(createFile,
-		// 			 user_name,
-		// 			 file_name,
-		// 			 bytes_array);
-		// voltExecuteSQL();
+		// populate DB
+		voltQueueSQL(createFile,
+					 user_name,
+					 file_name,
+					 file_ptr);
+		voltExecuteSQL();
 
 		return 0;
     }
