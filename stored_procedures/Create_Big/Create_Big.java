@@ -14,16 +14,10 @@ public class Create_Big extends VoltProcedure {
     public long run (String user_name, String file_name)
 		throws Exception {
 
-		// create file on linux
-		file_ptr = "/home/gridsan/daniel/DBOS_shared/fs/testing/tmpfiles/" + file_name;
+		String file_ptr = "/home/gridsan/dhong98/DBOS_shared/daniel/fs/tmpfiles/" + user_name + "_" + file_name;
 		File new_file = new File(file_ptr);
 		new_file.createNewFile();
 
-		// set file size
-		RandomAccessFile raf = new RandomAccessFile(new_file, "rw");
-		raf.setLength(Mbytes * 1024 * 1024);
-		raf.close();
-	
 		// populate DB
 		voltQueueSQL(createFile,
 					 user_name,

@@ -14,12 +14,6 @@ public class Read_Big extends VoltProcedure {
     public long run (String user_name, String file_name)
 		throws VoltAbortException {
 	    
-	    if (!file_name.startsWith("/")) {
-			// since files are only in the DB, this is totally arbitrary
-			// file_name = "/home/gridsan/groups/DBOS/fs_testfiles/" + file_name;
-			file_name = "/" + user_name + "/" + file_name;
-	    }
-		
 		// run query
 		voltQueueSQL(read,
 					 user_name,
