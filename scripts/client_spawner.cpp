@@ -3,8 +3,6 @@
 #include <string>
 #include <thread>
 
-#include <iostream>
-
 using namespace std; 
   
 // compile with g++ -o <output> -std=c++11 -pthread client_spawner.cpp
@@ -30,14 +28,12 @@ int main(int argc, char** argv) {
 		args += " ";
 	}
 
-    vector<thread> ths;
-    for (int i = 0; i < user_cnt; i++) {
-        ths.push_back(thread(start_client, bench, suffix, args, i));
-    }
+    vector<thread> clients;
+    for (int i = 0; i < user_cnt; i++)
+        clients.push_back(thread(start_client, bench, suffix, args, i));
 
-    for (thread & th : ths) {
-		th.join();
-    }
+    for (thread & client : clients)
+		client.join();
   
     return 0; 
 } 
