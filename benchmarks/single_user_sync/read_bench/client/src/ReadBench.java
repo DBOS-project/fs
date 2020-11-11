@@ -110,7 +110,7 @@ public class ReadBench {
 		Options options = new Options();
 		options.addOption("h", "hostlist", true, "host servers list, e.g. localhost");
 		options.addOption("t", "transactions", true, "number of benchmark executions");
-		options.addOption("f", "filename", true, "number of files");
+		options.addOption("f", "filename", true, "name of file");
 		// options.addOption("s", "filesize", true, "file size in bytes");
 		options.addOption("u", "username", true, "file owner");
 		CommandLine cmd = parser.parse(options, args);

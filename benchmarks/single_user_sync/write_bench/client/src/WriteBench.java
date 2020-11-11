@@ -111,7 +111,7 @@ public class WriteBench {
 		Options options = new Options();
 		options.addOption("h", "hostlist", true, "host servers list, e.g. localhost");
 		options.addOption("t", "transactions", true, "number of benchmark executions");
-		options.addOption("f", "filename", true, "name of files");
+		options.addOption("f", "filename", true, "name of file");
 		options.addOption("s", "filesize", true, "file size in bytes");
 		options.addOption("u", "username", true, "file owner");
 		CommandLine cmd = parser.parse(options, args);
@@ -128,11 +128,11 @@ public class WriteBench {
 		if (cmd.hasOption("filesize"))
 			filesize = Integer.parseInt(cmd.getOptionValue("filesize"));
 		
-		String username = "user1";
-		if (cmd.hasOption("username"))
-			username = cmd.getOptionValue("username");
-
 		String filename = "file1";
+		if (cmd.hasOption("filename"))
+			filename = cmd.getOptionValue("filename");
+
+		String username = "user1";
 		if (cmd.hasOption("username"))
 			username = cmd.getOptionValue("username");
 

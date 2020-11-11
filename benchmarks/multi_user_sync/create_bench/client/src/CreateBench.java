@@ -28,7 +28,6 @@
 
 package org.voltdb.create;
 
-import java.util.ArrayList;
 import java.util.Random;
 import org.apache.commons.cli.*;
 import org.voltdb.*;
@@ -41,21 +40,37 @@ import org.voltdb.util.BenchmarkStats;
 
 public class CreateBench {
 
-    private String _hostlist;
+    private Client _client;
     private BenchmarkStats _stats;
-    private int _users;
     private int _transactions;
     // private int _filecnt;
     // private int _filesize;
     
-    public CreateBench (String hostlist, int users, int transactions)
+    public CreateBench (String hostlist, int transactions)
 		throws Exception {
 
 		this._transactions = transactions;
-		this._users = users;
-		this._hostlist = hostlist;
+		// this._filecnt = filecnt;
+		// this._filesize = filesize;
+
+		// create client
+		_client = ClientFactory.createClient();
+
+		// connect to each server listed (separated by commas) in the first argument
+		String[] serverArray = hostlist.split(",");
+		for (String server : serverArray) {
+		    _client.createConnection(server);
+		}
 
 		_stats = new BenchmarkStats(_client, true);
+    }
+
+    public void benchmarkItem(int filenum) throws Exception {
+		_client.callProcedure("Create",
+							  "user" + String.valueOf(filenum),
+							  "file" + String.valueOf(filenum)
+							  );
+
     }
 
     public void runBenchmark() throws Exception {
@@ -66,29 +81,20 @@ public class CreateBench {
 		System.out.println(" Running Performance Benchmark for " + _transactions + " Transactions");
 		System.out.println(dashes);
 
-		ArrayList<UserCient> ths = new ArrayList<UserCient>();
-		for (int i = 0; i < _users; i++) {
-			ths.add(UserClient(_hostlist, i, _transactions));
-		}
-
 		// start recording statistics for the benchmark, outputting every 5 seconds
 		_stats.startBenchmark();
 
 		// main loop for the benchmark
-		for (int i = 0; i < _users; i++) {
-			ths.get(i).start();
-		}
-
-		for (int i = 0; i < _users; i++) {
-			ths.get(i).join();
+		for (int i=0; i<_transactions; i++) {
+			benchmarkItem(i);
 		}
 
 		// stop recording, print stats
 		_stats.endBenchmark();
 
-		for (int i = 0; i < _users; i++) {
-			ths.get(i).endClient();
-		}
+		// wait for any outstanding responses to return before closing the client
+		_client.drain();
+		_client.close();
 
 		// print the transaction results tracked by BenchmarkCallback
 		BenchmarkCallback.printAllResults();
@@ -104,7 +110,6 @@ public class CreateBench {
 		options.addOption("t", "transactions", true, "number of benchmark executions");
 		// options.addOption("f", "filecnt", true, "number of files");
 		// options.addOption("s", "filesize", true, "file size in bytes");
-		options.addOption("u", "users", true, "number of users");
 		CommandLine cmd = parser.parse(options, args);
 
 		String hostlist = "localhost";
@@ -115,10 +120,6 @@ public class CreateBench {
 		if (cmd.hasOption("transactions"))
 			transactions = Integer.parseInt(cmd.getOptionValue("transactions"));
 
-		int users = 1;
-		if (cmd.hasOption("users"))
-			users = Integer.parseInt(cmd.getOptionValue("users"));
-		
 		// int filecnt = 1;
 		// if (cmd.hasOption("filecnt"))
 		// 	filecnt = Integer.parseInt(cmd.getOptionValue("filecnt"));
@@ -127,7 +128,7 @@ public class CreateBench {
 		// if (cmd.hasOption("filesize"))
 		// 	filesize = Integer.parseInt(cmd.getOptionValue("filesize"));
 		
-		CreateBench benchmark = new CreateBench(hostlist, users, transactions);
+		CreateBench benchmark = new CreateBench(hostlist, transactions);
 		benchmark.runBenchmark();
     }
 }
