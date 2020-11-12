@@ -17,7 +17,7 @@ benchmarks="write_bench"
 for bench in $benchmarks;
 do
 	cd $bench
-	./run_client.sh localhost ${*:2} &> ../../../testing/stats/single_$bench$1.out
+	./run_client.sh ${*:2} &> ../../../testing/stats/single_$bench$1.out
 	cd ..
 done
 

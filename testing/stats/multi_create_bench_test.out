@@ -10,5 +10,5 @@ Exception in thread "main" java.net.ConnectException: Connection refused
 	at org.voltdb.client.Distributer.createConnectionWithHashedCredentials(Distributer.java:1007)
 	at org.voltdb.client.ClientImpl.createConnectionWithHashedCredentials(ClientImpl.java:240)
 	at org.voltdb.client.ClientImpl.createConnection(ClientImpl.java:923)
-	at org.voltdb.write.WriteBench.<init>(WriteBench.java:62)
-	at org.voltdb.write.WriteBench.main(WriteBench.java:141)
+	at org.voltdb.create.CreateBench.<init>(CreateBench.java:62)
+	at org.voltdb.create.CreateBench.main(CreateBench.java:140)
