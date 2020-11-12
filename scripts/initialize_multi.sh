@@ -14,11 +14,15 @@ while getopts ":c:" opt; do
 		c)
 			if [ $OPTARG = "1" ]; then
 				echo "Initializing VoltDB for 1 node..." >&2
-				voltdb init -f --dir=testing --config=testing/deployment_p20.xml
+				voltdb init -f --dir=testing --config=testing/deployment_p40.xml
 			fi
 			if [ $OPTARG = "2" ]; then
-				echo "Initializing VoltDB for 1 node..." >&2
-				voltdb init -f --dir=testing --config=testing/deployment_p40.xml
+				echo "Initializing VoltDB for 2 nodes..." >&2
+				voltdb init -f --dir=testing --config=testing/deployment_n2.xml
+			fi
+			if [ $OPTARG = "3" ]; then
+				echo "Initializing VoltDB for 3 nodes..." >&2
+				voltdb init -f --dir=testing --config=testing/deployment_n3.xml
 			fi
 			exit 1
 			;;

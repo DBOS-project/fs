@@ -1,31 +1,37 @@
 --------------------------------------------------------------------------------
- Running Performance Benchmark for 10000 Transactions
+ Running Performance Benchmark for 200000 Transactions
 --------------------------------------------------------------------------------
 
 Time     Txn/sec Aborts Failures
 -------- ------- ------ --------
+00:00:05    4431      0        0, Avg/95% Latency 0.21/0.35ms
+00:00:10    6935      0        0, Avg/95% Latency 0.13/0.19ms
+00:00:15    6594      0        0, Avg/95% Latency 0.14/0.22ms
+00:00:20    6695      0        0, Avg/95% Latency 0.14/0.22ms
+00:00:25    6657      0        0, Avg/95% Latency 0.14/0.22ms
+00:00:30    6969      0        0, Avg/95% Latency 0.13/0.19ms
 
 --------------------------------------------------------------------------------
  Benchmark Statistics
 --------------------------------------------------------------------------------
 
-Average throughput:                3,471 txns/sec
-Average latency:                    0.28 ms
-10th percentile latency:            0.16 ms
-25th percentile latency:            0.19 ms
-50th percentile latency:            0.22 ms
-75th percentile latency:            0.29 ms
-90th percentile latency:            0.35 ms
-95th percentile latency:            0.42 ms
-99th percentile latency:            0.96 ms
-99.5th percentile latency:          1.98 ms
-99.9th percentile latency:          9.54 ms
+Average throughput:                6,466 txns/sec
+Average latency:                    0.14 ms
+10th percentile latency:            0.13 ms
+25th percentile latency:            0.13 ms
+50th percentile latency:            0.16 ms
+75th percentile latency:            0.16 ms
+90th percentile latency:            0.19 ms
+95th percentile latency:            0.22 ms
+99th percentile latency:            0.32 ms
+99.5th percentile latency:          0.38 ms
+99.9th percentile latency:          0.86 ms
 
 --------------------------------------------------------------------------------
  System Server Statistics
 --------------------------------------------------------------------------------
 
-Reported Internal Avg Latency:      0.01 ms
+Reported Internal Avg Latency:      0.00 ms
 
 --------------------------------------------------------------------------------
  Latency Histogram
@@ -33,24 +39,28 @@ Reported Internal Avg Latency:      0.01 ms
 
        Value     Percentile TotalCount
 
-        0.10 0.000000000000         33
-        0.22 0.500000000000       5708
-        0.29 0.750000000000       2405
-        0.32 0.875000000000        613
-        0.42 0.937500000000        746
-        0.51 0.968750000000        224
-        0.70 0.984375000000        128
-        1.12 0.992187500000         69
-        2.46 0.996093750000         39
-        4.61 0.998046875000         20
-       10.88 0.999023437500         10
-       19.07 0.999511718750          5
-       33.54 0.999755859375          2
-       38.91 0.999877929688          1
-      155.65 0.999938964844          1
-      155.65 1.000000000000
-#[Mean    =         0.28, StdDeviation   =         1.71]
-#[Max     =       155.65, Total count    =        10004]
+        0.06 0.000000000000          2
+        0.16 0.500000000000     152944
+        0.16 0.750000000000          0
+        0.19 0.875000000000      30846
+        0.22 0.937500000000       8550
+        0.26 0.968750000000       3352
+        0.29 0.984375000000       1657
+        0.35 0.992187500000       1369
+        0.42 0.996093750000        509
+        0.58 0.998046875000        389
+        0.90 0.999023437500        193
+        2.53 0.999511718750         98
+        3.17 0.999755859375         47
+        4.70 0.999877929688         22
+        9.79 0.999938964844         12
+       16.38 0.999969482422          6
+       21.38 0.999984741211          3
+       24.96 0.999992370605          2
+      141.31 0.999996185303          1
+      141.31 1.000000000000
+#[Mean    =         0.14, StdDeviation   =         0.35]
+#[Max     =       141.31, Total count    =       200002]
 #[Buckets =           12, SubBuckets     =          256]
 
 

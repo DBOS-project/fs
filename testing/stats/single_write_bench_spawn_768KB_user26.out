@@ -4,35 +4,35 @@
 
 Time     Txn/sec Aborts Failures
 -------- ------- ------ --------
-00:00:05     160      0        0, Avg/95% Latency 6.24/9.41ms
-00:00:10     159      0        0, Avg/95% Latency 6.20/9.54ms
-00:00:15     174      0        0, Avg/95% Latency 5.66/8.64ms
-00:00:20     168      0        0, Avg/95% Latency 5.86/8.64ms
-00:00:25     313      0        0, Avg/95% Latency 3.14/6.30ms
-00:00:30     385      0        0, Avg/95% Latency 2.55/3.46ms
-00:00:35     394      0        0, Avg/95% Latency 2.49/3.14ms
+00:00:05     210      0        0, Avg/95% Latency 4.76/7.52ms
+00:00:10     182      0        0, Avg/95% Latency 5.41/8.38ms
+00:00:15     157      0        0, Avg/95% Latency 6.28/9.34ms
+00:00:20     210      0        0, Avg/95% Latency 4.68/7.62ms
+00:00:25     375      0        0, Avg/95% Latency 2.61/3.14ms
+00:00:30     398      0        0, Avg/95% Latency 2.45/2.88ms
+00:00:35     407      0        0, Avg/95% Latency 2.41/2.82ms
 
 --------------------------------------------------------------------------------
  Benchmark Statistics
 --------------------------------------------------------------------------------
 
-Average throughput:                  263 txns/sec
-Average latency:                    3.75 ms
+Average throughput:                  282 txns/sec
+Average latency:                    3.49 ms
 10th percentile latency:            2.18 ms
-25th percentile latency:            2.30 ms
+25th percentile latency:            2.34 ms
 50th percentile latency:            2.56 ms
-75th percentile latency:            5.22 ms
-90th percentile latency:            5.98 ms
-95th percentile latency:            7.90 ms
-99th percentile latency:            9.92 ms
-99.5th percentile latency:         11.26 ms
-99.9th percentile latency:         14.91 ms
+75th percentile latency:            4.51 ms
+90th percentile latency:            5.63 ms
+95th percentile latency:            7.33 ms
+99th percentile latency:            9.09 ms
+99.5th percentile latency:          9.98 ms
+99.9th percentile latency:         12.16 ms
 
 --------------------------------------------------------------------------------
  System Server Statistics
 --------------------------------------------------------------------------------
 
-Reported Internal Avg Latency:      3.18 ms
+Reported Internal Avg Latency:      2.92 ms
 
 --------------------------------------------------------------------------------
  Latency Histogram
@@ -40,24 +40,24 @@ Reported Internal Avg Latency:      3.18 ms
 
        Value     Percentile TotalCount
 
-        1.76 0.000000000000          2
-        2.56 0.500000000000       5002
-        5.22 0.750000000000       2567
-        5.79 0.875000000000       1202
-        7.17 0.937500000000        605
-        8.64 0.968750000000        320
-        9.41 0.984375000000        153
-       10.24 0.992187500000         75
-       11.78 0.996093750000         37
-       13.18 0.998046875000         20
-       15.17 0.999023437500         10
-       20.48 0.999511718750          5
-       25.60 0.999755859375          2
-       27.26 0.999877929688          1
-      121.86 0.999938964844          1
-      121.86 1.000000000000
-#[Mean    =         3.75, StdDeviation   =         2.33]
-#[Max     =       121.86, Total count    =        10002]
+        1.15 0.000000000000          1
+        2.56 0.500000000000       5014
+        4.51 0.750000000000       2554
+        5.25 0.875000000000       1205
+        7.01 0.937500000000        611
+        7.94 0.968750000000        309
+        8.64 0.984375000000        157
+        9.41 0.992187500000         77
+       10.37 0.996093750000         36
+       11.26 0.998046875000         20
+       12.16 0.999023437500          9
+       14.02 0.999511718750          5
+       15.68 0.999755859375          2
+       20.22 0.999877929688          1
+      106.50 0.999938964844          1
+      106.50 1.000000000000
+#[Mean    =         3.49, StdDeviation   =         2.02]
+#[Max     =       106.50, Total count    =        10002]
 #[Buckets =           12, SubBuckets     =          256]
 
 

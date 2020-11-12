@@ -1,31 +1,37 @@
 --------------------------------------------------------------------------------
- Running Performance Benchmark for 10000 Transactions
+ Running Performance Benchmark for 200000 Transactions
 --------------------------------------------------------------------------------
 
 Time     Txn/sec Aborts Failures
 -------- ------- ------ --------
+00:00:05    5303      0        0, Avg/95% Latency 0.17/0.32ms
+00:00:10    6603      0        0, Avg/95% Latency 0.14/0.22ms
+00:00:15    7083      0        0, Avg/95% Latency 0.13/0.19ms
+00:00:20    7132      0        0, Avg/95% Latency 0.13/0.19ms
+00:00:25    6943      0        0, Avg/95% Latency 0.14/0.19ms
+00:00:30    6816      0        0, Avg/95% Latency 0.14/0.22ms
 
 --------------------------------------------------------------------------------
  Benchmark Statistics
 --------------------------------------------------------------------------------
 
-Average throughput:                3,341 txns/sec
-Average latency:                    0.28 ms
+Average throughput:                6,649 txns/sec
+Average latency:                    0.14 ms
 10th percentile latency:            0.13 ms
-25th percentile latency:            0.16 ms
-50th percentile latency:            0.22 ms
-75th percentile latency:            0.32 ms
-90th percentile latency:            0.45 ms
-95th percentile latency:            0.51 ms
-99th percentile latency:            0.96 ms
-99.5th percentile latency:          1.57 ms
-99.9th percentile latency:          7.10 ms
+25th percentile latency:            0.13 ms
+50th percentile latency:            0.16 ms
+75th percentile latency:            0.16 ms
+90th percentile latency:            0.19 ms
+95th percentile latency:            0.22 ms
+99th percentile latency:            0.32 ms
+99.5th percentile latency:          0.38 ms
+99.9th percentile latency:          1.02 ms
 
 --------------------------------------------------------------------------------
  System Server Statistics
 --------------------------------------------------------------------------------
 
-Reported Internal Avg Latency:      0.01 ms
+Reported Internal Avg Latency:      0.00 ms
 
 --------------------------------------------------------------------------------
  Latency Histogram
@@ -33,24 +39,28 @@ Reported Internal Avg Latency:      0.01 ms
 
        Value     Percentile TotalCount
 
-        0.10 0.000000000000        409
-        0.22 0.500000000000       5359
-        0.32 0.750000000000       2178
-        0.42 0.875000000000       1051
-        0.48 0.937500000000        387
-        0.61 0.968750000000        311
-        0.77 0.984375000000        152
-        1.12 0.992187500000         82
-        1.95 0.996093750000         34
-        4.54 0.998046875000         20
-        7.30 0.999023437500         10
-       17.41 0.999511718750          5
-       20.35 0.999755859375          2
-       22.27 0.999877929688          1
-      102.40 0.999938964844          1
-      102.40 1.000000000000
-#[Mean    =         0.28, StdDeviation   =         1.14]
-#[Max     =       102.40, Total count    =        10002]
+        0.10 0.000000000000      17244
+        0.16 0.500000000000     143562
+        0.16 0.750000000000          0
+        0.19 0.875000000000      26332
+        0.22 0.937500000000       6709
+        0.22 0.968750000000          0
+        0.29 0.984375000000       4032
+        0.32 0.992187500000        707
+        0.42 0.996093750000        720
+        0.58 0.998046875000        316
+        1.09 0.999023437500        185
+        2.56 0.999511718750         98
+        3.20 0.999755859375         49
+        5.25 0.999877929688         24
+        7.94 0.999938964844         12
+       11.07 0.999969482422          6
+       19.97 0.999984741211          3
+       35.58 0.999992370605          2
+       54.53 0.999996185303          1
+       54.53 1.000000000000
+#[Mean    =         0.14, StdDeviation   =         0.20]
+#[Max     =        54.53, Total count    =       200002]
 #[Buckets =           12, SubBuckets     =          256]
 
 

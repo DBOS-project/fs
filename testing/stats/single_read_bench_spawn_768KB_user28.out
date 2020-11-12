@@ -1,36 +1,48 @@
 --------------------------------------------------------------------------------
- Running Performance Benchmark for 100000 Transactions
+ Running Performance Benchmark for 400000 Transactions
 --------------------------------------------------------------------------------
 
 Time     Txn/sec Aborts Failures
 -------- ------- ------ --------
-00:00:05    1957      0        0, Avg/95% Latency 0.47/1.18ms
-00:00:10    4761      0        0, Avg/95% Latency 0.20/0.32ms
-00:00:15    4062      0        0, Avg/95% Latency 0.23/0.48ms
-00:00:20    4004      0        0, Avg/95% Latency 0.24/0.48ms
-00:00:25    4350      0        0, Avg/95% Latency 0.22/0.48ms
+00:00:05    2900      0        0, Avg/95% Latency 0.33/0.86ms
+00:00:10    6726      0        0, Avg/95% Latency 0.14/0.26ms
+00:00:15    4887      0        0, Avg/95% Latency 0.20/0.58ms
+00:00:20    7062      0        0, Avg/95% Latency 0.13/0.22ms
+00:00:25    4902      0        0, Avg/95% Latency 0.20/0.61ms
+00:00:30    4314      0        0, Avg/95% Latency 0.22/0.74ms
+00:00:35    3796      0        0, Avg/95% Latency 0.25/0.80ms
+00:00:40    7016      0        0, Avg/95% Latency 0.14/0.19ms
+00:00:45    5128      0        0, Avg/95% Latency 0.19/0.61ms
+00:00:50    3385      0        0, Avg/95% Latency 0.28/0.80ms
+00:00:55    5758      0        0, Avg/95% Latency 0.17/0.54ms
+00:01:00    3612      0        0, Avg/95% Latency 0.27/0.86ms
+00:01:05    2903      0        0, Avg/95% Latency 0.34/0.99ms
+00:01:10    2882      0        0, Avg/95% Latency 0.34/0.80ms
+00:01:15    2451      0        0, Avg/95% Latency 0.40/0.83ms
+00:01:20    2865      0        0, Avg/95% Latency 0.34/0.77ms
+00:01:25    4157      0        0, Avg/95% Latency 0.23/0.51ms
 
 --------------------------------------------------------------------------------
  Benchmark Statistics
 --------------------------------------------------------------------------------
 
-Average throughput:                3,917 txns/sec
-Average latency:                    0.24 ms
+Average throughput:                4,449 txns/sec
+Average latency:                    0.22 ms
 10th percentile latency:            0.13 ms
-25th percentile latency:            0.16 ms
-50th percentile latency:            0.22 ms
-75th percentile latency:            0.29 ms
-90th percentile latency:            0.45 ms
-95th percentile latency:            0.51 ms
-99th percentile latency:            0.96 ms
-99.5th percentile latency:          1.18 ms
-99.9th percentile latency:          1.63 ms
+25th percentile latency:            0.13 ms
+50th percentile latency:            0.16 ms
+75th percentile latency:            0.22 ms
+90th percentile latency:            0.48 ms
+95th percentile latency:            0.70 ms
+99th percentile latency:            0.90 ms
+99.5th percentile latency:          0.96 ms
+99.9th percentile latency:          1.12 ms
 
 --------------------------------------------------------------------------------
  System Server Statistics
 --------------------------------------------------------------------------------
 
-Reported Internal Avg Latency:      0.01 ms
+Reported Internal Avg Latency:      0.00 ms
 
 --------------------------------------------------------------------------------
  Latency Histogram
@@ -38,27 +50,29 @@ Reported Internal Avg Latency:      0.01 ms
 
        Value     Percentile TotalCount
 
-        0.10 0.000000000000        154
-        0.22 0.500000000000      59643
-        0.29 0.750000000000      16708
-        0.42 0.875000000000      13358
-        0.48 0.937500000000       4285
-        0.58 0.968750000000       3162
-        0.74 0.984375000000       1135
-        1.06 0.992187500000        794
-        1.25 0.996093750000        381
-        1.38 0.998046875000        199
-        1.66 0.999023437500         86
-        3.07 0.999511718750         49
-        3.52 0.999755859375         23
-        4.99 0.999877929688         12
-        6.37 0.999938964844          6
-       11.84 0.999969482422          3
-       15.42 0.999984741211          2
-       16.00 0.999992370605          1
-       16.00 1.000000000000
-#[Mean    =         0.24, StdDeviation   =         0.20]
-#[Max     =        16.00, Total count    =       100001]
+        0.10 0.000000000000        987
+        0.16 0.500000000000     224180
+        0.22 0.750000000000      93959
+        0.35 0.875000000000      31454
+        0.67 0.937500000000      26592
+        0.77 0.968750000000      10996
+        0.86 0.984375000000       6949
+        0.93 0.992187500000       2142
+        0.99 0.996093750000       1282
+        1.06 0.998046875000        717
+        1.15 0.999023437500        410
+        1.47 0.999511718750        141
+        3.26 0.999755859375        103
+        3.58 0.999877929688         44
+        4.26 0.999938964844         22
+        5.86 0.999969482422         12
+        7.71 0.999984741211          6
+       13.12 0.999992370605          3
+       16.51 0.999996185303          2
+      199.68 0.999998092651          1
+      199.68 1.000000000000
+#[Mean    =         0.22, StdDeviation   =         0.37]
+#[Max     =       199.68, Total count    =       400002]
 #[Buckets =           12, SubBuckets     =          256]
 
 

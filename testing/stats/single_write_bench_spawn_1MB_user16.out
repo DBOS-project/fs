@@ -4,35 +4,33 @@
 
 Time     Txn/sec Aborts Failures
 -------- ------- ------ --------
-00:00:05     258      0        0, Avg/95% Latency 3.80/6.02ms
-00:00:10     257      0        0, Avg/95% Latency 3.78/6.24ms
-00:00:15     282      0        0, Avg/95% Latency 3.44/5.89ms
-00:00:20     254      0        0, Avg/95% Latency 3.82/6.05ms
-00:00:25     270      0        0, Avg/95% Latency 3.64/6.08ms
-00:00:30     283      0        0, Avg/95% Latency 3.49/5.82ms
-00:00:35     262      0        0, Avg/95% Latency 3.77/6.27ms
+00:00:05     340      0        0, Avg/95% Latency 2.94/5.28ms
+00:00:10     364      0        0, Avg/95% Latency 2.67/4.96ms
+00:00:15     371      0        0, Avg/95% Latency 2.63/4.83ms
+00:00:20     355      0        0, Avg/95% Latency 2.78/5.12ms
+00:00:25     406      0        0, Avg/95% Latency 2.43/4.35ms
 
 --------------------------------------------------------------------------------
  Benchmark Statistics
 --------------------------------------------------------------------------------
 
-Average throughput:                  270 txns/sec
-Average latency:                    3.63 ms
-10th percentile latency:            2.82 ms
-25th percentile latency:            3.07 ms
-50th percentile latency:            3.36 ms
-75th percentile latency:            3.65 ms
-90th percentile latency:            5.18 ms
-95th percentile latency:            6.05 ms
-99th percentile latency:            7.52 ms
-99.5th percentile latency:          8.26 ms
-99.9th percentile latency:         10.88 ms
+Average throughput:                  378 txns/sec
+Average latency:                    2.60 ms
+10th percentile latency:            1.73 ms
+25th percentile latency:            2.02 ms
+50th percentile latency:            2.30 ms
+75th percentile latency:            2.75 ms
+90th percentile latency:            3.78 ms
+95th percentile latency:            4.86 ms
+99th percentile latency:            6.62 ms
+99.5th percentile latency:          7.30 ms
+99.9th percentile latency:         12.93 ms
 
 --------------------------------------------------------------------------------
  System Server Statistics
 --------------------------------------------------------------------------------
 
-Reported Internal Avg Latency:      2.89 ms
+Reported Internal Avg Latency:      1.96 ms
 
 --------------------------------------------------------------------------------
  Latency Histogram
@@ -40,24 +38,24 @@ Reported Internal Avg Latency:      2.89 ms
 
        Value     Percentile TotalCount
 
-        1.34 0.000000000000          2
-        3.36 0.500000000000       5215
-        3.65 0.750000000000       2320
-        4.83 0.875000000000       1235
-        5.79 0.937500000000        609
-        6.59 0.968750000000        319
-        7.23 0.984375000000        158
-        7.74 0.992187500000         66
-        8.51 0.996093750000         40
-        9.34 0.998046875000         19
-       10.94 0.999023437500         10
-       13.18 0.999511718750          5
-       16.26 0.999755859375          2
-       17.54 0.999877929688          1
-      125.95 0.999938964844          1
-      125.95 1.000000000000
-#[Mean    =         3.63, StdDeviation   =         1.64]
-#[Max     =       125.95, Total count    =        10002]
+        0.67 0.000000000000          1
+        2.30 0.500000000000       5032
+        2.75 0.750000000000       2483
+        3.58 0.875000000000       1246
+        4.22 0.937500000000        626
+        5.57 0.968750000000        311
+        6.18 0.984375000000        154
+        6.91 0.992187500000         74
+        7.87 0.996093750000         38
+       10.88 0.998046875000         19
+       13.50 0.999023437500         10
+       21.76 0.999511718750          5
+       35.84 0.999755859375          2
+       37.12 0.999877929688          1
+      139.26 0.999938964844          1
+      139.26 1.000000000000
+#[Mean    =         2.60, StdDeviation   =         1.83]
+#[Max     =       139.26, Total count    =        10003]
 #[Buckets =           12, SubBuckets     =          256]
 
 

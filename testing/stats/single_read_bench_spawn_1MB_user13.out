@@ -1,32 +1,36 @@
 --------------------------------------------------------------------------------
- Running Performance Benchmark for 10000 Transactions
+ Running Performance Benchmark for 100000 Transactions
 --------------------------------------------------------------------------------
 
 Time     Txn/sec Aborts Failures
 -------- ------- ------ --------
-00:00:05    1679      0        0, Avg/95% Latency 0.56/1.09ms
+00:00:05    3418      0        0, Avg/95% Latency 0.28/0.58ms
+00:00:10    4491      0        0, Avg/95% Latency 0.21/0.38ms
+00:00:15    3741      0        0, Avg/95% Latency 0.26/0.54ms
+00:00:20    2226      0        0, Avg/95% Latency 0.44/0.80ms
+00:00:25    2909      0        0, Avg/95% Latency 0.33/0.58ms
 
 --------------------------------------------------------------------------------
  Benchmark Statistics
 --------------------------------------------------------------------------------
 
-Average throughput:                1,825 txns/sec
-Average latency:                    0.52 ms
-10th percentile latency:            0.22 ms
-25th percentile latency:            0.29 ms
-50th percentile latency:            0.45 ms
-75th percentile latency:            0.64 ms
-90th percentile latency:            0.86 ms
-95th percentile latency:            1.06 ms
-99th percentile latency:            1.41 ms
-99.5th percentile latency:          1.60 ms
-99.9th percentile latency:          4.74 ms
+Average throughput:                3,549 txns/sec
+Average latency:                    0.27 ms
+10th percentile latency:            0.16 ms
+25th percentile latency:            0.19 ms
+50th percentile latency:            0.22 ms
+75th percentile latency:            0.35 ms
+90th percentile latency:            0.48 ms
+95th percentile latency:            0.58 ms
+99th percentile latency:            0.83 ms
+99.5th percentile latency:          0.96 ms
+99.9th percentile latency:          1.28 ms
 
 --------------------------------------------------------------------------------
  System Server Statistics
 --------------------------------------------------------------------------------
 
-Reported Internal Avg Latency:      0.02 ms
+Reported Internal Avg Latency:      0.00 ms
 
 --------------------------------------------------------------------------------
  Latency Histogram
@@ -34,24 +38,27 @@ Reported Internal Avg Latency:      0.02 ms
 
        Value     Percentile TotalCount
 
-        0.16 0.000000000000         76
-        0.45 0.500000000000       5235
-        0.64 0.750000000000       2206
-        0.83 0.875000000000       1363
-        0.99 0.937500000000        540
-        1.18 0.968750000000        312
-        1.31 0.984375000000        130
-        1.44 0.992187500000         66
-        1.73 0.996093750000         37
-        2.50 0.998046875000         18
-        5.54 0.999023437500         10
-       12.61 0.999511718750          5
-       16.13 0.999755859375          2
-       17.02 0.999877929688          1
-      158.72 0.999938964844          1
-      158.72 1.000000000000
-#[Mean    =         0.52, StdDeviation   =         1.64]
-#[Max     =       158.72, Total count    =        10002]
+        0.13 0.000000000000       2680
+        0.22 0.500000000000      50019
+        0.35 0.750000000000      26260
+        0.45 0.875000000000      10044
+        0.54 0.937500000000       5981
+        0.67 0.968750000000       2159
+        0.77 0.984375000000       1583
+        0.86 0.992187500000        585
+        0.96 0.996093750000        336
+        1.06 0.998046875000        164
+        1.28 0.999023437500         95
+        2.08 0.999511718750         48
+        3.26 0.999755859375         25
+        5.02 0.999877929688         11
+        8.00 0.999938964844          6
+       11.14 0.999969482422          3
+       13.31 0.999984741211          2
+      164.86 0.999992370605          1
+      164.86 1.000000000000
+#[Mean    =         0.27, StdDeviation   =         0.55]
+#[Max     =       164.86, Total count    =       100002]
 #[Buckets =           12, SubBuckets     =          256]
 
 

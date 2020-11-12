@@ -4,35 +4,34 @@
 
 Time     Txn/sec Aborts Failures
 -------- ------- ------ --------
-00:00:05     157      0        0, Avg/95% Latency 6.31/9.28ms
-00:00:10     158      0        0, Avg/95% Latency 6.24/9.28ms
-00:00:15     163      0        0, Avg/95% Latency 6.06/9.60ms
-00:00:20     164      0        0, Avg/95% Latency 6.01/9.66ms
-00:00:25     308      0        0, Avg/95% Latency 3.19/6.02ms
-00:00:30     380      0        0, Avg/95% Latency 2.58/3.26ms
-00:00:35     402      0        0, Avg/95% Latency 2.44/3.01ms
+00:00:05     201      0        0, Avg/95% Latency 4.79/7.42ms
+00:00:10     175      0        0, Avg/95% Latency 5.59/8.32ms
+00:00:15     180      0        0, Avg/95% Latency 5.45/8.19ms
+00:00:20     214      0        0, Avg/95% Latency 4.59/7.52ms
+00:00:25     393      0        0, Avg/95% Latency 2.50/3.04ms
+00:00:30     418      0        0, Avg/95% Latency 2.36/2.91ms
 
 --------------------------------------------------------------------------------
  Benchmark Statistics
 --------------------------------------------------------------------------------
 
-Average throughput:                  262 txns/sec
-Average latency:                    3.76 ms
+Average throughput:                  286 txns/sec
+Average latency:                    3.42 ms
 10th percentile latency:            2.14 ms
-25th percentile latency:            2.27 ms
-50th percentile latency:            2.59 ms
-75th percentile latency:            5.31 ms
-90th percentile latency:            6.18 ms
-95th percentile latency:            8.06 ms
-99th percentile latency:           10.30 ms
-99.5th percentile latency:         11.33 ms
-99.9th percentile latency:         14.72 ms
+25th percentile latency:            2.24 ms
+50th percentile latency:            2.46 ms
+75th percentile latency:            4.45 ms
+90th percentile latency:            5.54 ms
+95th percentile latency:            7.23 ms
+99th percentile latency:            8.64 ms
+99.5th percentile latency:          9.54 ms
+99.9th percentile latency:         11.52 ms
 
 --------------------------------------------------------------------------------
  System Server Statistics
 --------------------------------------------------------------------------------
 
-Reported Internal Avg Latency:      3.19 ms
+Reported Internal Avg Latency:      2.84 ms
 
 --------------------------------------------------------------------------------
  Latency Histogram
@@ -40,24 +39,24 @@ Reported Internal Avg Latency:      3.19 ms
 
        Value     Percentile TotalCount
 
-        1.31 0.000000000000          1
-        2.59 0.500000000000       5050
-        5.31 0.750000000000       2466
-        5.92 0.875000000000       1248
-        7.33 0.937500000000        617
-        8.83 0.968750000000        308
-        9.79 0.984375000000        159
-       10.62 0.992187500000         79
-       11.97 0.996093750000         35
-       13.70 0.998046875000         20
-       14.78 0.999023437500         10
-       19.97 0.999511718750          5
-       21.89 0.999755859375          2
-       25.22 0.999877929688          1
-       51.97 0.999938964844          1
-       51.97 1.000000000000
-#[Mean    =         3.76, StdDeviation   =         2.14]
-#[Max     =        51.97, Total count    =        10002]
+        1.63 0.000000000000          1
+        2.46 0.500000000000       5071
+        4.45 0.750000000000       2489
+        5.12 0.875000000000       1206
+        6.94 0.937500000000        617
+        7.62 0.968750000000        314
+        8.19 0.984375000000        147
+        8.96 0.992187500000         78
+        9.92 0.996093750000         40
+       10.82 0.998046875000         19
+       11.90 0.999023437500         10
+       13.25 0.999511718750          5
+       13.63 0.999755859375          2
+       15.81 0.999877929688          1
+       16.64 0.999938964844          1
+       16.64 1.000000000000
+#[Mean    =         3.42, StdDeviation   =         1.68]
+#[Max     =        16.64, Total count    =        10001]
 #[Buckets =           12, SubBuckets     =          256]
 
 
