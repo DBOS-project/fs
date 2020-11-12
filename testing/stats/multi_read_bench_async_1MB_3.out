@@ -1,32 +1,32 @@
 --------------------------------------------------------------------------------
- Running Performance Benchmark for 500000 Transactions
+ Running Performance Benchmark for 1000000 Transactions
 --------------------------------------------------------------------------------
 
 Time     Txn/sec Aborts Failures
 -------- ------- ------ --------
-00:00:05   78040      0        0, Avg/95% Latency 37.49/97.28ms
+00:00:05  115588      0        0, Avg/95% Latency 25.32/105.47ms
 
 --------------------------------------------------------------------------------
  Benchmark Statistics
 --------------------------------------------------------------------------------
 
-Average throughput:               82,169 txns/sec
-Average latency:                   35.78 ms
-10th percentile latency:           21.38 ms
-25th percentile latency:           23.68 ms
-50th percentile latency:           28.16 ms
-75th percentile latency:           36.10 ms
-90th percentile latency:           56.06 ms
-95th percentile latency:           87.04 ms
-99th percentile latency:          159.74 ms
-99.5th percentile latency:        173.06 ms
-99.9th percentile latency:        207.87 ms
+Average throughput:              132,380 txns/sec
+Average latency:                   21.09 ms
+10th percentile latency:            0.45 ms
+25th percentile latency:            0.99 ms
+50th percentile latency:           12.03 ms
+75th percentile latency:           27.52 ms
+90th percentile latency:           42.24 ms
+95th percentile latency:           93.70 ms
+99th percentile latency:          167.94 ms
+99.5th percentile latency:        174.08 ms
+99.9th percentile latency:        186.37 ms
 
 --------------------------------------------------------------------------------
  System Server Statistics
 --------------------------------------------------------------------------------
 
-Reported Internal Avg Latency:     12.76 ms
+Reported Internal Avg Latency:     10.97 ms
 
 --------------------------------------------------------------------------------
  Latency Histogram
@@ -34,26 +34,28 @@ Reported Internal Avg Latency:     12.76 ms
 
        Value     Percentile TotalCount
 
-        0.29 0.000000000000          1
-       28.16 0.500000000000     252399
-       36.10 0.750000000000     124720
-       49.15 0.875000000000      60666
-       74.75 0.937500000000      31146
-      113.15 0.968750000000      15573
-      145.41 0.984375000000       7765
-      165.89 0.992187500000       3956
-      179.20 0.996093750000       1863
-      195.58 0.998046875000        940
-      207.87 0.999023437500        489
-      215.04 0.999511718750        243
-      222.21 0.999755859375        127
-      228.35 0.999877929688         54
-      234.50 0.999938964844         32
-      236.54 0.999969482422         18
-      237.57 0.999984741211          8
-      237.57 1.000000000000
-#[Mean    =        35.78, StdDeviation   =        25.53]
-#[Max     =       237.57, Total count    =       500000]
+        0.13 0.000000000000         88
+       12.03 0.500000000000     500389
+       27.52 0.750000000000     249773
+       37.38 0.875000000000     126321
+       73.73 0.937500000000      61256
+      122.88 0.968750000000      31207
+      160.77 0.984375000000      15933
+      169.98 0.992187500000       7648
+      176.13 0.996093750000       3676
+      181.25 0.998046875000       1866
+      186.37 0.999023437500        994
+      190.46 0.999511718750        435
+      193.54 0.999755859375        200
+      196.61 0.999877929688        120
+      197.63 0.999938964844         35
+      200.70 0.999969482422         37
+      202.75 0.999984741211         10
+      204.80 0.999992370605          7
+      205.82 0.999996185303          5
+      205.82 1.000000000000
+#[Mean    =        21.09, StdDeviation   =        31.93]
+#[Max     =       205.82, Total count    =      1000000]
 #[Buckets =           12, SubBuckets     =          256]
 
 
@@ -62,7 +64,7 @@ Reported Internal Avg Latency:     12.76 ms
 --------------------------------------------------------------------------------
 
   Read
-        calls: 1000000
-      commits: 1000000
-    rollbacks: 1000000
+        calls: 2000000
+      commits: 2000000
+    rollbacks: 2000000
 

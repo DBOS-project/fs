@@ -1,33 +1,39 @@
 --------------------------------------------------------------------------------
- Running Performance Benchmark for 70000 Transactions
+ Running Performance Benchmark for 500000 Transactions
 --------------------------------------------------------------------------------
 
 Time     Txn/sec Aborts Failures
 -------- ------- ------ --------
-00:00:05    6239      0        0, Avg/95% Latency 439.49/1310.72ms
-00:00:10    5696      0        0, Avg/95% Latency 530.17/1548.29ms
+00:00:05   12851      0        0, Avg/95% Latency 219.03/811.01ms
+00:00:10   12042      0        0, Avg/95% Latency 246.95/901.12ms
+00:00:15   11849      0        0, Avg/95% Latency 242.63/741.38ms
+00:00:20   11750      0        0, Avg/95% Latency 259.56/1155.07ms
+00:00:25   12281      0        0, Avg/95% Latency 249.19/1081.34ms
+00:00:30   11990      0        0, Avg/95% Latency 253.46/1081.34ms
+00:00:35   10866      0        0, Avg/95% Latency 260.32/794.62ms
+00:00:40   10554      0        0, Avg/95% Latency 292.60/1048.58ms
 
 --------------------------------------------------------------------------------
  Benchmark Statistics
 --------------------------------------------------------------------------------
 
-Average throughput:                5,807 txns/sec
-Average latency:                  493.02 ms
-10th percentile latency:          286.72 ms
-25th percentile latency:          323.58 ms
-50th percentile latency:          374.78 ms
-75th percentile latency:          499.71 ms
-90th percentile latency:          729.09 ms
-95th percentile latency:        1,441.79 ms
-99th percentile latency:        1,835.01 ms
-99.5th percentile latency:      1,908.74 ms
-99.9th percentile latency:      1,982.46 ms
+Average throughput:               11,614 txns/sec
+Average latency:                  255.38 ms
+10th percentile latency:            1.82 ms
+25th percentile latency:            5.41 ms
+50th percentile latency:          229.38 ms
+75th percentile latency:          366.59 ms
+90th percentile latency:          544.77 ms
+95th percentile latency:          909.31 ms
+99th percentile latency:        1,548.29 ms
+99.5th percentile latency:      1,671.17 ms
+99.9th percentile latency:      1,843.20 ms
 
 --------------------------------------------------------------------------------
  System Server Statistics
 --------------------------------------------------------------------------------
 
-Reported Internal Avg Latency:    178.79 ms
+Reported Internal Avg Latency:    112.30 ms
 
 --------------------------------------------------------------------------------
  Latency Histogram
@@ -35,22 +41,26 @@ Reported Internal Avg Latency:    178.79 ms
 
        Value     Percentile TotalCount
 
-        1.50 0.000000000000          1
-      374.78 0.500000000000      35424
-      499.71 0.750000000000      17206
-      622.59 0.875000000000       8862
-     1368.06 0.937500000000       4158
-     1646.59 0.968750000000       2231
-     1785.86 0.984375000000       1090
-     1859.58 0.992187500000        503
-     1925.12 0.996093750000        281
-     1957.89 0.998046875000        113
-     1982.46 0.999023437500         65
-     2007.04 0.999511718750         40
-     2023.42 0.999755859375         26
-     2023.42 1.000000000000
-#[Mean    =       493.02, StdDeviation   =       350.73]
-#[Max     =      2023.42, Total count    =        70000]
+        0.70 0.000000000000          1
+      229.38 0.500000000000     250157
+      366.59 0.750000000000     125011
+      483.33 0.875000000000      62458
+      782.34 0.937500000000      31177
+     1187.84 0.968750000000      15736
+     1433.60 0.984375000000       7830
+     1605.63 0.992187500000       3822
+     1695.74 0.996093750000       1918
+     1785.86 0.998046875000        972
+     1843.20 0.999023437500        451
+     1900.54 0.999511718750        232
+     1998.85 0.999755859375        120
+     2039.81 0.999877929688         57
+     2072.58 0.999938964844         32
+     2088.96 0.999969482422         15
+     2113.54 0.999984741211         12
+     2113.54 1.000000000000
+#[Mean    =       255.38, StdDeviation   =       317.14]
+#[Max     =      2113.54, Total count    =       500001]
 #[Buckets =           12, SubBuckets     =          256]
 
 
@@ -59,7 +69,7 @@ Reported Internal Avg Latency:    178.79 ms
 --------------------------------------------------------------------------------
 
   Write
-        calls: 140000
-      commits: 140000
-    rollbacks: 140000
+        calls: 1000000
+      commits: 1000000
+    rollbacks: 1000000
 
