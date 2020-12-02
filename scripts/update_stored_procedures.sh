@@ -9,7 +9,7 @@ cd stored_procedures
 
 all_procs="Create CreateDummy Create_Big Read Read_Big Populate Populate_Big PopulateDummy Empty CountFiles CountBytes CountLargerThan CountLargestK"
 
-if [[ $@ == *'all'* ]]
+if [ -z $@ ]
 then
 	proc_list=${all_procs}
 else

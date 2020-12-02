@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # usage: ./initialize_multi.sh [-c node_cnt]
-# -c 1 for 1 node, 20 partitions
-# -c 2 for 1 node, 40 partitions each
-# to support other options, create a new testing/deployment_.xml
+# node_cnt can be 1, 2, 4, 8
+
+ulimit -n 32768
 
 SCRIPT_DIR=$(dirname $(readlink -f $0))
 # Enter the root dir of the repo.
@@ -23,6 +23,14 @@ while getopts ":c:" opt; do
 			if [ $OPTARG = "4" ]; then
 				echo "Initializing VoltDB for 4 nodes..." >&2
 				voltdb init -f --dir=testing --config=testing/deployment_n4.xml
+			fi
+			if [ $OPTARG = "6" ]; then
+				echo "Initializing VoltDB for 6 nodes..." >&2
+				voltdb init -f --dir=testing --config=testing/deployment_n6.xml
+			fi
+			if [ $OPTARG = "8" ]; then
+				echo "Initializing VoltDB for 8 nodes..." >&2
+				voltdb init -f --dir=testing --config=testing/deployment_n8.xml
 			fi
 			exit 1
 			;;

@@ -72,7 +72,6 @@ public class CreateBench {
 							  _username,
 							  "file" + String.valueOf(filenum)
 							  );
-
     }
 
     public void runBenchmark() throws Exception {

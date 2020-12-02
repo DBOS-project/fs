@@ -11,7 +11,7 @@ public class Read extends VoltProcedure {
     public final SQLStmt read =
 	new SQLStmt("SELECT bytes FROM file WHERE user_name = ? AND file_name = ?;");
 
-    public long run (String user_name, String file_name)
+    public VoltTable[] run (String user_name, String file_name)
 		throws VoltAbortException {
 	    
 	    if (!file_name.startsWith("/")) {
@@ -24,9 +24,9 @@ public class Read extends VoltProcedure {
 		voltQueueSQL(read,
 					 user_name,
 					 file_name);
-		voltExecuteSQL();
+		VoltTable[] results = voltExecuteSQL();
 
-		return 0;
+		return results;
     }
 }
 		     
