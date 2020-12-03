@@ -1,0 +1,12 @@
+H-Store Setup
+
+1) Download Ant 1.7 tar file from https://ant.apache.org/bindownload.cgi (apache-ant-1.7.1-bin.tar.gz).
+
+2) SSH tar file to holyoke. (rsync -re ssh /Users/jmcclellan/Downloads/apache-ant-1.10.9-bin.tar.gz jenmc@txe1-login.mit.edu:/home/gridsan/jenmc/DBOS_shared/jenna/apache-ant-1.10.9-bin.tar.gz)
+
+3) tar -zxvf name_of_tar_file
+
+4) chmod +x ~/path_to_tarfile/name_of_extracted_tarfile/bin.ant
+
+5) In the H-Store repo, run ~/path_to_tarfile/name_of_extracted_tarfile/bin.ant build (~/DBOS_shared/jenna/apache-ant-1.7.1/bin/ant build)
+
