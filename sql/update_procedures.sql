@@ -1,10 +1,14 @@
 DROP PROCEDURE Create IF EXISTS;
 load classes stored_procedures/Create/Create.jar;
-CREATE PROCEDURE PARTITION ON TABLE File COLUMN user_name FROM CLASS Create;
+CREATE PROCEDURE PARTITION ON TABLE File COLUMN p_key FROM CLASS Create;
+
+DROP PROCEDURE Declare IF EXISTS;
+load classes stored_procedures/Declare/Declare.jar;
+CREATE PROCEDURE FROM CLASS Declare;
 
 DROP PROCEDURE CreateDummy IF EXISTS;
 load classes stored_procedures/CreateDummy/CreateDummy.jar;
-CREATE PROCEDURE PARTITION ON TABLE File COLUMN user_name FROM CLASS CreateDummy;
+CREATE PROCEDURE PARTITION ON TABLE File COLUMN p_key FROM CLASS CreateDummy;
 
 DROP PROCEDURE Create_Big IF EXISTS;
 load classes stored_procedures/Create_Big/Create_Big.jar;
@@ -12,7 +16,7 @@ CREATE PROCEDURE PARTITION ON TABLE Big_File COLUMN user_name FROM CLASS Create_
 
 DROP PROCEDURE Read IF EXISTS;
 load classes stored_procedures/Read/Read.jar;
-CREATE PROCEDURE PARTITION ON TABLE File COLUMN user_name FROM CLASS Read;
+CREATE PROCEDURE PARTITION ON TABLE File COLUMN p_key FROM CLASS Read;
 
 DROP PROCEDURE Read_Big IF EXISTS;
 load classes stored_procedures/Read_Big/Read_Big.jar;
@@ -20,11 +24,7 @@ CREATE PROCEDURE PARTITION ON TABLE Big_File COLUMN user_name FROM CLASS Read_Bi
 
 DROP PROCEDURE Populate IF EXISTS;
 load classes stored_procedures/Populate/Populate.jar;
-CREATE PROCEDURE PARTITION ON TABLE File COLUMN user_name FROM CLASS Populate;
-
-DROP PROCEDURE PopulateDummy IF EXISTS;
-load classes stored_procedures/PopulateDummy/PopulateDummy.jar;
-CREATE PROCEDURE PARTITION ON TABLE File COLUMN user_name FROM CLASS PopulateDummy;
+CREATE PROCEDURE PARTITION ON TABLE File COLUMN p_key FROM CLASS Populate;
 
 DROP PROCEDURE Populate_Big IF EXISTS;
 load classes stored_procedures/Populate_Big/Populate_Big.jar;

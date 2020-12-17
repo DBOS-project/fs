@@ -7,7 +7,7 @@ import java.io.RandomAccessFile;;
  * exec Create file_name, user_name;
  */
 
-public class Create extends VoltProcedure {
+public class Declare extends VoltProcedure {
 	public final SQLStmt declareFile =
 		new SQLStmt("INSERT INTO distribution VALUES (?, ?, ?, 1);");
 
@@ -24,6 +24,10 @@ public class Create extends VoltProcedure {
 					 user_name,
 					 file_name,
 					 bytes_array);
+		voltQueueSQL(declareFile,
+					 p_key,
+					 user_name,
+					 file_name);
 		voltExecuteSQL();
 
 		return 0;

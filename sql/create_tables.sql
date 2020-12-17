@@ -1,8 +1,9 @@
 CREATE TABLE File (
+       p_key INTEGER NOT NULL,
        user_name VARCHAR(16) NOT NULL,
        file_name VARCHAR(1024) NOT NULL,
        block_number INTEGER,
-	   file_size INTEGER,
+       file_size INTEGER,
        bytes VARBINARY(1048576),
 );
        
@@ -23,15 +24,23 @@ CREATE TABLE Permission (
        file_name VARCHAR(1024) NOT NULL,
        access SMALLINT,
 );
+
+CREATE TABLE Distribution (
+       p_key INTEGER NOT NULL,
+       user_name VARCHAR(16) NOT NULL,
+       file_name VARCHAR(1024) NOT NULL,
+       block_number INTEGER,
+);
        
-PARTITION TABLE File ON COLUMN user_name;
+PARTITION TABLE File ON COLUMN p_key;
 PARTITION TABLE Big_File ON COLUMN user_name;
 PARTITION TABLE Directory ON COLUMN user_name;
 PARTITION TABLE Permission ON COLUMN user_name;
 
-CREATE UNIQUE INDEX file_unq_idx ON File (user_name, file_name, block_number);
+CREATE UNIQUE INDEX file_unq_idx ON File (p_key, user_name, file_name, block_number);
 CREATE INDEX file_idx ON File (user_name, file_name);
 CREATE UNIQUE INDEX big_file_idx ON Big_File (user_name, file_name);
 CREATE UNIQUE INDEX directory_unq_idx ON Directory (user_name, directory_name);
 CREATE UNIQUE INDEX permission_unq_idx ON Permission (user_name, file_name);
+CREATE INDEX distr_idx ON Distribution (user_name, file_name);
 

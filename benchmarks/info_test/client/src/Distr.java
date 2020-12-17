@@ -26,7 +26,7 @@
  *
  */
 
-package org.voltdb.read;
+package org.voltdb.info;
 
 import java.util.Random;
 import org.apache.commons.cli.*;
@@ -35,27 +35,15 @@ import org.voltdb.client.Client;
 import org.voltdb.client.ClientFactory;
 import org.voltdb.client.ClientResponse;
 import org.voltdb.client.ProcedureCallback;
-import org.voltdb.util.BenchmarkCallback;
-import org.voltdb.util.BenchmarkStats;
 
-public class ReadBench {
+public class Distr {
 
     private Client _client;
-    private BenchmarkStats _stats;
-    private int _transactions;
-    private String _filename;
-    // private int _filesize;
 	private String _username;
-	private int _pkey;
     
-    public ReadBench (String hostlist, int transactions,
-					  String filename, String username, int pkey)
+    public Distr (String hostlist, String username)
 		throws Exception {
 
-		this._pkey = pkey;
-		this._transactions = transactions;
-		this._filename = filename;
-		// this._filesize = filesize;
 		this._username = username;
 	
 		// create client
@@ -66,85 +54,59 @@ public class ReadBench {
 		for (String server : serverArray) {
 		    _client.createConnection(server);
 		}
-
-		_stats = new BenchmarkStats(_client, true);
     }
 
+	public void everywhere() throws Exception {
+		VoltTable[] results = _client.callProcedure("@GetPartitionKeys",
+													"INTEGER").getResults();
+		VoltTable keys = results[0];
+		for (int k=0; k<keys.getRowCount(); k++) {
+			long key = keys.fetchRow(k).getLong(1);
+
+			System.out.println(key);
+			VoltTable file_row = _client.callProcedure("ReadC", key)
+				.getResults()[0];
+			System.out.println(file_row.fetchRow(0).getLong(0));
+			System.out.println();
+			
+		}
+	}
+	
     public void benchmarkItem() throws Exception {
 		_client.callProcedure("Read",
-							  _pkey,
-							  _username,
-							  _filename
+							  _username
 							 );
 
     }
 
     public void runBenchmark() throws Exception {
-
-		// print a heading
-		String dashes = new String(new char[80]).replace("\0", "-");
-		System.out.println(dashes);
-		System.out.println(" Running Performance Benchmark for " + _transactions + " Transactions");
-		System.out.println(dashes);
-
-		// start recording statistics for the benchmark, outputting every 5 seconds
-		_stats.startBenchmark();
-
 		// main loop for the benchmark
-		for (int i=0; i<_transactions; i++) {
-			benchmarkItem();
-		}
-
-		// stop recording, print stats
-		_stats.endBenchmark();
+		everywhere();
 
 		// wait for any outstanding responses to return before closing the client
 		_client.drain();
 		_client.close();
-
-		// print the transaction results tracked by BenchmarkCallback
-		BenchmarkCallback.printAllResults();
     }
 
 
     public static void main(String[] args) throws Exception {
-
+		
 		// parse args flags
 		CommandLineParser parser = new DefaultParser();
 		Options options = new Options();
 		options.addOption("h", "hostlist", true, "host servers list, e.g. localhost");
-		options.addOption("t", "transactions", true, "number of benchmark executions");
-		options.addOption("f", "filename", true, "name of file");
-		// options.addOption("s", "filesize", true, "file size in bytes");
 		options.addOption("u", "username", true, "file owner");
-		options.addOption("p", "pkey", true, "partition key");
 		CommandLine cmd = parser.parse(options, args);
 
 		String hostlist = "localhost";
 		if (cmd.hasOption("hostlist"))
 			hostlist = cmd.getOptionValue("hostlist");
 
-		int transactions = 1;
-		if (cmd.hasOption("transactions"))
-			transactions = Integer.parseInt(cmd.getOptionValue("transactions"));
-		
-		// int filesize = 1024*1024;
-		// if (cmd.hasOption("filesize"))
-		// 	filesize = Integer.parseInt(cmd.getOptionValue("filesize"));
-		
-		String filename = "file1";
-		if (cmd.hasOption("filename"))
-			filename = cmd.getOptionValue("filename");
-
 		String username = "user1";
 		if (cmd.hasOption("username"))
 			username = cmd.getOptionValue("username");
 
-		int pkey = 1;
-		if (cmd.hasOption("pkey"))
-			pkey = Integer.parseInt(cmd.getOptionValue("pkey"));
-		
-		ReadBench benchmark = new ReadBench(hostlist, transactions, filename, username, pkey);
+		Distr benchmark = new Distr(hostlist, username);
 		benchmark.runBenchmark();
     }
 }

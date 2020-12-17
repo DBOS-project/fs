@@ -9,19 +9,17 @@ import java.io.RandomAccessFile;;
 
 public class Read extends VoltProcedure {
     public final SQLStmt read =
-	new SQLStmt("SELECT bytes FROM file WHERE user_name = ? AND file_name = ?;");
+		new SQLStmt("SELECT bytes FROM file WHERE p_key = ? AND user_name = ? AND file_name = ?;");
 
-    public VoltTable[] run (String user_name, String file_name)
+    public VoltTable[] run (int p_key, String user_name, String file_name)
 		throws VoltAbortException {
 	    
-	    if (!file_name.startsWith("/")) {
-			// since files are only in the DB, this is totally arbitrary
-			// file_name = "/home/gridsan/groups/DBOS/fs_testfiles/" + file_name;
+	    if (!file_name.startsWith("/"))
 			file_name = "/" + user_name + "/" + file_name;
-	    }
 		
 		// run query
 		voltQueueSQL(read,
+					 p_key,
 					 user_name,
 					 file_name);
 		VoltTable[] results = voltExecuteSQL();

@@ -10,9 +10,9 @@ import java.util.Arrays;
 public class Populate extends VoltProcedure {
     public final SQLStmt write =
 		new SQLStmt("UPDATE file SET bytes = ?, file_size = ?" +
-					"WHERE user_name = ? AND file_name = ?;");
+					"WHERE p_key = ? AND user_name = ? AND file_name = ?;");
 
-    public long run (String user_name, String file_name, int bytes)
+    public long run (int p_key, String user_name, String file_name, int size)
 		throws VoltAbortException {
 	    
 	    if (!file_name.startsWith("/")) {
@@ -21,20 +21,16 @@ public class Populate extends VoltProcedure {
 			file_name = "/" + user_name + "/" + file_name;
 	    }
 
-		byte[] data = new byte[bytes];
+		byte[] data = new byte[size];
 		Arrays.fill(data, (byte) 1);
 	
 		voltQueueSQL(write,
 					 data,
-					 bytes,
+					 size,
+					 p_key,
 					 user_name,
 					 file_name);
 		voltExecuteSQL();
-
-		// VoltTable[] results = voltExecuteSQL();
-		// VoltTable r = results[0];
-		// if (r.getRowCount() < 1)
-		// 	return -1;
 
 		return 0;
     }
