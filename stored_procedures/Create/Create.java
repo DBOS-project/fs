@@ -8,8 +8,8 @@ import java.io.RandomAccessFile;;
  */
 
 public class Create extends VoltProcedure {
-	public final SQLStmt declareFile =
-		new SQLStmt("INSERT INTO distribution VALUES (?, ?, ?, 1);");
+	public final SQLStmt createFile =
+		new SQLStmt("INSERT INTO file VALUES (?, ?, ?, 1, 0, ?);");
 
 	public long run (int p_key, String user_name, String file_name)
 		throws VoltAbortException {

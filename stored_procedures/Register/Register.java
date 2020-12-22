@@ -7,27 +7,21 @@ import java.io.RandomAccessFile;;
  * exec Create file_name, user_name;
  */
 
-public class Declare extends VoltProcedure {
+public class Register extends VoltProcedure {
 	public final SQLStmt declareFile =
-		new SQLStmt("INSERT INTO distribution VALUES (?, ?, ?, 1);");
+		new SQLStmt("INSERT INTO distribution VALUES (?, ?, ?, ?);");
 
-	public long run (int p_key, String user_name, String file_name)
+	public long run (int p_key, String user_name, String file_name, int block_number)
 		throws VoltAbortException {
 
 		if (!file_name.startsWith("/"))
 			file_name = "/" + user_name + "/" + file_name;
 
-		byte[] bytes_array = new byte[0];
-		
-		voltQueueSQL(createFile,
-					 p_key,
-					 user_name,
-					 file_name,
-					 bytes_array);
 		voltQueueSQL(declareFile,
 					 p_key,
 					 user_name,
-					 file_name);
+					 file_name,
+					 block_number);
 		voltExecuteSQL();
 
 		return 0;
