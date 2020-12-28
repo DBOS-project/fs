@@ -11,10 +11,9 @@ public class Create_Big extends VoltProcedure {
     public final SQLStmt createFile =
 	new SQLStmt("INSERT INTO big_file VALUES (?, ?, ?);");
 
-    public long run (String user_name, String file_name)
+    public long run (String user_name, String file_name, String disk_path)
 		throws Exception {
-
-		String file_ptr = "/home/gridsan/dhong98/DBOS_shared/daniel/fs/tmpfiles/" + user_name + "_" + file_name;
+		String file_ptr = disk_path + user_name + "_" + file_name;
 		File new_file = new File(file_ptr);
 		new_file.createNewFile();
 
