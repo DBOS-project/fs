@@ -1,11 +1,3 @@
-DROP PROCEDURE Create IF EXISTS;
-load classes stored_procedures/Create/Create.jar;
-CREATE PROCEDURE PARTITION ON TABLE File COLUMN p_key FROM CLASS Create;
-
-DROP PROCEDURE Register IF EXISTS;
-load classes stored_procedures/Register/Register.jar;
-CREATE PROCEDURE FROM CLASS Register;
-
 DROP PROCEDURE PartitionInfoInsert IF EXISTS;
 load classes stored_procedures/PartitionInfoInsert/PartitionInfoInsert.jar;
 CREATE PROCEDURE FROM CLASS PartitionInfoInsert;
@@ -13,6 +5,14 @@ CREATE PROCEDURE FROM CLASS PartitionInfoInsert;
 DROP PROCEDURE PartitionInfoUpdate IF EXISTS;
 load classes stored_procedures/PartitionInfoUpdate/PartitionInfoUpdate.jar;
 CREATE PROCEDURE FROM CLASS PartitionInfoUpdate;
+
+DROP PROCEDURE Create IF EXISTS;
+load classes stored_procedures/Create/Create.jar;
+CREATE PROCEDURE PARTITION ON TABLE File COLUMN p_key FROM CLASS Create;
+
+DROP PROCEDURE Register IF EXISTS;
+load classes stored_procedures/Register/Register.jar;
+CREATE PROCEDURE PARTITION ON TABLE File COLUMN p_key FROM CLASS Register;
 
 DROP PROCEDURE CreateDummy IF EXISTS;
 load classes stored_procedures/CreateDummy/CreateDummy.jar;
@@ -38,23 +38,19 @@ DROP PROCEDURE Populate_Big IF EXISTS;
 load classes stored_procedures/Populate_Big/Populate_Big.jar;
 CREATE PROCEDURE PARTITION ON TABLE Big_File COLUMN user_name FROM CLASS Populate_Big;
 
-DROP PROCEDURE Empty IF EXISTS;
-load classes stored_procedures/Empty/Empty.jar;
-CREATE PROCEDURE FROM CLASS Empty;
-
 DROP PROCEDURE CountFiles IF EXISTS;
 load classes stored_procedures/CountFiles/CountFiles.jar;
-CREATE PROCEDURE FROM CLASS CountFiles;
+CREATE PROCEDURE PARTITION ON TABLE File COLUMN p_key FROM CLASS CountFiles;
 
 DROP PROCEDURE CountBytes IF EXISTS;
 load classes stored_procedures/CountBytes/CountBytes.jar;
-CREATE PROCEDURE FROM CLASS CountBytes;
+CREATE PROCEDURE PARTITION ON TABLE File COLUMN p_key FROM CLASS CountBytes;
 
 DROP PROCEDURE CountLargerThan IF EXISTS;
 load classes stored_procedures/CountLargerThan/CountLargerThan.jar;
-CREATE PROCEDURE FROM CLASS CountLargerThan;
+CREATE PROCEDURE PARTITION ON TABLE File COLUMN p_key FROM CLASS CountLargerThan;
 
 DROP PROCEDURE CountLargestK IF EXISTS;
 load classes stored_procedures/CountLargestK/CountLargestK.jar;
-CREATE PROCEDURE FROM CLASS CountLargestK;
+CREATE PROCEDURE PARTITION ON TABLE File COLUMN p_key FROM CLASS CountLargestK;
 

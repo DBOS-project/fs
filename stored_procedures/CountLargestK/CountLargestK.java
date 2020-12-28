@@ -9,14 +9,14 @@ import java.io.RandomAccessFile;;
 
 public class CountLargestK extends VoltProcedure {
     public final SQLStmt countLargestK =
-		new SQLStmt("SELECT TOP ? file.file_name, file.file_size FROM file "+
-					"ORDER BY file.file_size DESC ;");
+        new SQLStmt("SELECT TOP ? file.file_name, file.file_size FROM file "+
+                    "ORDER BY file.file_size DESC ;");
     public VoltTable[] run (int file_cnt)
-		throws VoltAbortException {
-	    
-		voltQueueSQL(countLargestK,
-					 file_cnt);
-		return voltExecuteSQL();
+        throws VoltAbortException {
+        
+        voltQueueSQL(countLargestK,
+                     file_cnt);
+        return voltExecuteSQL();
     }
 }
-		     
+             

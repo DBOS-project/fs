@@ -8,20 +8,20 @@ import java.io.RandomAccessFile;;
  */
 
 public class PartitionInfoInsert extends VoltProcedure {
-	public final SQLStmt insertPartition =
-		new SQLStmt("INSERT INTO PartitionInfo VALUES (?, ?, ?, ?);");
+    public final SQLStmt insertPartition =
+        new SQLStmt("INSERT INTO PartitionInfo VALUES (?, ?, ?, ?);");
 
-	public long run (int p_key, int p_id, int host_id, String host_name)
-		throws VoltAbortException {
+    public long run (int p_key, int p_id, int host_id, String host_name)
+        throws VoltAbortException {
 
-		voltQueueSQL(insertPartition,
-					 p_key,
-					 p_id,
-					 host_id,
-					 host_name);
-		voltExecuteSQL();
+        voltQueueSQL(insertPartition,
+                     p_key,
+                     p_id,
+                     host_id,
+                     host_name);
+        voltExecuteSQL();
 
-		return 0;
-	}
+        return 0;
+    }
 }
-			 
+             

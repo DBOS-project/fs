@@ -9,13 +9,13 @@ import java.io.RandomAccessFile;;
 
 public class CountFiles extends VoltProcedure {
     public final SQLStmt countFiles =
-		new SQLStmt("SELECT COUNT(file_name) FROM file WHERE user_name = ? ;");
+        new SQLStmt("SELECT COUNT(file_name) FROM file WHERE user_name = ? ;");
     public VoltTable[] run (String user_name)
-		throws VoltAbortException {
-	    
-		voltQueueSQL(countFiles,
-					 user_name);
-		return voltExecuteSQL();
+        throws VoltAbortException {
+        
+        voltQueueSQL(countFiles,
+                     user_name);
+        return voltExecuteSQL();
     }
 }
-		     
+             

@@ -8,23 +8,23 @@ import java.io.RandomAccessFile;;
  */
 
 public class Register extends VoltProcedure {
-	public final SQLStmt declareFile =
-		new SQLStmt("INSERT INTO distribution VALUES (?, ?, ?, ?);");
+    public final SQLStmt declareFile =
+        new SQLStmt("INSERT INTO distribution VALUES (?, ?, ?, ?);");
 
-	public long run (int p_key, String user_name, String file_name, int block_number)
-		throws VoltAbortException {
+    public long run (int p_key, String user_name, String file_name, int block_number)
+        throws VoltAbortException {
 
-		if (!file_name.startsWith("/"))
-			file_name = "/" + user_name + "/" + file_name;
+        if (!file_name.startsWith("/"))
+            file_name = "/" + user_name + "/" + file_name;
 
-		voltQueueSQL(declareFile,
-					 p_key,
-					 user_name,
-					 file_name,
-					 block_number);
-		voltExecuteSQL();
+        voltQueueSQL(declareFile,
+                     p_key,
+                     user_name,
+                     file_name,
+                     block_number);
+        voltExecuteSQL();
 
-		return 0;
-	}
+        return 0;
+    }
 }
-			 
+             

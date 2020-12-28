@@ -16,8 +16,8 @@ benchmarks="create_bench"
 # create files and populate them with 1MB data
 for bench in $benchmarks;
 do
-	cd $bench
-	./run_client.sh ${*:2} &> ../../../testing/stats/single_$bench$1.out
-	cd ..
+    cd $bench
+    ./run_client.sh ${*:2} &> ../../../testing/stats/single_$bench$1.out
+    cd ..
 done
 

@@ -9,15 +9,15 @@ import java.io.RandomAccessFile;;
 
 public class CountLargerThan extends VoltProcedure {
     public final SQLStmt countLargerThan =
-		new SQLStmt("SELECT COUNT(file_name) FROM file " +
-					"WHERE user_name = ? AND file_size >= ? ;");
+        new SQLStmt("SELECT COUNT(file_name) FROM file " +
+                    "WHERE user_name = ? AND file_size >= ? ;");
     public VoltTable[] run (String user_name, int size)
-		throws VoltAbortException {
-	    
-		voltQueueSQL(countLargerThan,
-					 user_name,
-					 size);
-		return voltExecuteSQL();
+        throws VoltAbortException {
+        
+        voltQueueSQL(countLargerThan,
+                     user_name,
+                     size);
+        return voltExecuteSQL();
     }
 }
-		     
+             

@@ -9,9 +9,9 @@ import java.io.RandomAccessFile;;
 
 public class Empty extends VoltProcedure {
     public VoltTable[] run ()
-		throws VoltAbortException {
+        throws VoltAbortException {
 
-		return voltExecuteSQL();
+        return voltExecuteSQL();
     }
 }
-		     
+             
