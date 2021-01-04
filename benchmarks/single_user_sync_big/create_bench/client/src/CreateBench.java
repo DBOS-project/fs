@@ -43,19 +43,17 @@ public class CreateBench {
     private Client _client;
     private BenchmarkStats _stats;
     private int _transactions;
-    private String _disk_path;
     // private int _filecnt;
     // private int _filesize;
 	private String _username;
     
-    public CreateBench (String hostlist, int transactions, String username, String disk_path)
+    public CreateBench (String hostlist, int transactions, String username)
 		throws Exception {
 
 		this._transactions = transactions;
 		// this._filecnt = filecnt;
 		// this._filesize = filesize;
 		this._username = username;
-		this._disk_path = disk_path;
 	
 		// create client
 		_client = ClientFactory.createClient();
@@ -72,8 +70,7 @@ public class CreateBench {
     public void benchmarkItem(int filenum) throws Exception {
 		_client.callProcedure("Create_Big",
 							  _username,
-							  "file" + String.valueOf(filenum),
-							  _disk_path + "/"
+							  "file" + String.valueOf(filenum)
 							  );
 
     }
@@ -116,7 +113,6 @@ public class CreateBench {
 		options.addOption("f", "filecnt", true, "number of files");
 		// options.addOption("s", "filesize", true, "file size in bytes");
 		options.addOption("u", "username", true, "file owner");
-		options.addOption("d", "disk_path", true, "path to raw disk");
 		CommandLine cmd = parser.parse(options, args);
 
 		String hostlist = "localhost";
@@ -127,12 +123,6 @@ public class CreateBench {
 		if (cmd.hasOption("transactions"))
 			transactions = Integer.parseInt(cmd.getOptionValue("transactions"));
 
-		String disk_path = "";
-		if (cmd.hasOption("disk_path"))
-			disk_path = cmd.getOptionValue("disk_path");
-		else
-			throw new Exception("no path to raw disk given");
-		
 		// int filecnt = 1;
 		// if (cmd.hasOption("filecnt"))
 		// 	filecnt = Integer.parseInt(cmd.getOptionValue("filecnt"));
@@ -145,7 +135,7 @@ public class CreateBench {
 		if (cmd.hasOption("username"))
 			username = cmd.getOptionValue("username");
 
-		CreateBench benchmark = new CreateBench(hostlist, transactions, username, disk_path);
+		CreateBench benchmark = new CreateBench(hostlist, transactions, username);
 		benchmark.runBenchmark();
     }
 }
