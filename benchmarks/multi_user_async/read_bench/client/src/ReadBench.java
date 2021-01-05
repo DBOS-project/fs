@@ -44,36 +44,27 @@ public class ReadBench {
     private BenchmarkStats _stats;
     private int _transactions;
     private int _filecnt;
-    // private int _filesize;
     
     public ReadBench (String hostlist, int transactions, int filecnt)
 		throws Exception {
 
 		this._transactions = transactions;
 		this._filecnt = filecnt;
-		// this._filesize = filesize;
 	
 		// create client
 		_client = ClientFactory.createClient();
 
 		// connect to each server listed (separated by commas) in the first argument
 		String[] serverArray = hostlist.split(",");
-		for (String server : serverArray) {
+		for (String server : serverArray)
 		    _client.createConnection(server);
-		}
 
 		_stats = new BenchmarkStats(_client, true);
     }
 
     public void benchmarkItem(int filenum) throws Exception {
 
-		// To make an asynchronous procedure call, you need a callback object
-		// BenchmarkCallback is a generic callback that keeps track of the transaction results
-		// for any given procedure name, which should match the procedure called below.
 		ProcedureCallback callback = new BenchmarkCallback("Read");
-	
-		// call the procedure asynchronously, passing in the callback and the procedure name,
-		// followed by the input parameters
 		_client.callProcedure(callback,
 							  "Read",
 							  "user" + String.valueOf(filenum % _filecnt),
@@ -94,9 +85,8 @@ public class ReadBench {
 		_stats.startBenchmark();
 
 		// main loop for the benchmark
-		for (int i=0; i<_transactions; i++) {
+		for (int i=0; i<_transactions; i++)
 			benchmarkItem(i);
-		}
 
 		// stop recording, print stats
 		_stats.endBenchmark();
@@ -132,10 +122,6 @@ public class ReadBench {
 		int filecnt = 1;
 		if (cmd.hasOption("filecnt"))
 			filecnt = Integer.parseInt(cmd.getOptionValue("filecnt"));
-
-		// int filesize = 1024*1024;
-		// if (cmd.hasOption("filesize"))
-		// 	filesize = Integer.parseInt(cmd.getOptionValue("filesize"));
 		
 		ReadBench benchmark = new ReadBench(hostlist, transactions, filecnt);
 		benchmark.runBenchmark();

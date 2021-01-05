@@ -43,101 +43,77 @@ public class CreateBench {
     private Client _client;
     private BenchmarkStats _stats;
     private int _transactions;
-    // private int _filecnt;
-    // private int _filesize;
     
     public CreateBench (String hostlist, int transactions)
-		throws Exception {
+        throws Exception {
 
-		this._transactions = transactions;
-		// this._filecnt = filecnt;
-		// this._filesize = filesize;
-	
-		// create client
-		_client = ClientFactory.createClient();
+        this._transactions = transactions;
+    
+        // create client
+        _client = ClientFactory.createClient();
 
-		// connect to each server listed (separated by commas) in the first argument
-		String[] serverArray = hostlist.split(",");
-		for (String server : serverArray) {
-		    _client.createConnection(server);
-		}
+        // connect to each server listed (separated by commas) in the first argument
+        String[] serverArray = hostlist.split(",");
+        for (String server : serverArray)
+            _client.createConnection(server);
 
-		_stats = new BenchmarkStats(_client, true);
+        _stats = new BenchmarkStats(_client, true);
     }
 
     public void benchmarkItem(int filenum) throws Exception {
 
-		// To make an asynchronous procedure call, you need a callback object
-		// BenchmarkCallback is a generic callback that keeps track of the transaction results
-		// for any given procedure name, which should match the procedure called below.
-		ProcedureCallback callback = new BenchmarkCallback("Create");
-	
-		// call the procedure asynchronously, passing in the callback and the procedure name,
-		// followed by the input parameters
-		_client.callProcedure(callback,
-							  "Create",
-							  "user" + String.valueOf(filenum),
-							  "file" + String.valueOf(filenum)
-							  );
-
+        ProcedureCallback callback = new BenchmarkCallback("Create");
+        _client.callProcedure(callback,
+                              "Create",
+                              "user" + String.valueOf(filenum),
+                              "file" + String.valueOf(filenum)
+                              );
     }
 
     public void runBenchmark() throws Exception {
 
-		// print a heading
-		String dashes = new String(new char[80]).replace("\0", "-");
-		System.out.println(dashes);
-		System.out.println(" Running Performance Benchmark for " + _transactions + " Transactions");
-		System.out.println(dashes);
+        // print a heading
+        String dashes = new String(new char[80]).replace("\0", "-");
+        System.out.println(dashes);
+        System.out.println(" Running Performance Benchmark for " + _transactions + " Transactions");
+        System.out.println(dashes);
 
-		// start recording statistics for the benchmark, outputting every 5 seconds
-		_stats.startBenchmark();
+        // start recording statistics for the benchmark, outputting every 5 seconds
+        _stats.startBenchmark();
 
-		// main loop for the benchmark
-		for (int i=0; i<_transactions; i++) {
-			benchmarkItem(i);
-		}
+        // main loop for the benchmark
+        for (int i=0; i<_transactions; i++)
+            benchmarkItem(i);
 
-		// stop recording, print stats
-		_stats.endBenchmark();
+        // stop recording, print stats
+        _stats.endBenchmark();
 
-		// wait for any outstanding responses to return before closing the client
-		_client.drain();
-		_client.close();
+        // wait for any outstanding responses to return before closing the client
+        _client.drain();
+        _client.close();
 
-		// print the transaction results tracked by BenchmarkCallback
-		BenchmarkCallback.printAllResults();
+        // print the transaction results tracked by BenchmarkCallback
+        BenchmarkCallback.printAllResults();
     }
 
 
     public static void main(String[] args) throws Exception {
+        // parse args flags
+        CommandLineParser parser = new DefaultParser();
+        Options options = new Options();
+        options.addOption("h", "hostlist", true, "host servers list, e.g. localhost");
+        options.addOption("t", "transactions", true, "number of benchmark executions");
+        CommandLine cmd = parser.parse(options, args);
 
-		// parse args flags
-		CommandLineParser parser = new DefaultParser();
-		Options options = new Options();
-		options.addOption("h", "hostlist", true, "host servers list, e.g. localhost");
-		options.addOption("t", "transactions", true, "number of benchmark executions");
-		// options.addOption("f", "filecnt", true, "number of files");
-		// options.addOption("s", "filesize", true, "file size in bytes");
-		CommandLine cmd = parser.parse(options, args);
+        String hostlist = "localhost";
+        if (cmd.hasOption("hostlist"))
+            hostlist = cmd.getOptionValue("hostlist");
 
-		String hostlist = "localhost";
-		if (cmd.hasOption("hostlist"))
-			hostlist = cmd.getOptionValue("hostlist");
-
-		int transactions = 1;
-		if (cmd.hasOption("transactions"))
-			transactions = Integer.parseInt(cmd.getOptionValue("transactions"));
-		
-		// int filecnt = 1;
-		// if (cmd.hasOption("filecnt"))
-		// 	filecnt = Integer.parseInt(cmd.getOptionValue("filecnt"));
-
-		// int filesize = 1024*1024;
-		// if (cmd.hasOption("filesize"))
-		// 	filesize = Integer.parseInt(cmd.getOptionValue("filesize"));
-		
-		CreateBench benchmark = new CreateBench(hostlist, transactions);
-		benchmark.runBenchmark();
+        int transactions = 1;
+        if (cmd.hasOption("transactions"))
+            transactions = Integer.parseInt(cmd.getOptionValue("transactions"));
+        
+        CreateBench benchmark = new CreateBench(hostlist, transactions);
+        benchmark.runBenchmark();
     }
 }

@@ -12,7 +12,8 @@ CREATE PROCEDURE PARTITION ON TABLE File COLUMN p_key FROM CLASS Create;
 
 DROP PROCEDURE Register IF EXISTS;
 load classes stored_procedures/Register/Register.jar;
-CREATE PROCEDURE PARTITION ON TABLE File COLUMN p_key FROM CLASS Register;
+-- CREATE PROCEDURE PARTITION ON TABLE File COLUMN p_key FROM CLASS Register;
+CREATE PROCEDURE FROM CLASS Register;
 
 DROP PROCEDURE CreateDummy IF EXISTS;
 load classes stored_procedures/CreateDummy/CreateDummy.jar;
@@ -40,17 +41,17 @@ CREATE PROCEDURE PARTITION ON TABLE Big_File COLUMN user_name FROM CLASS Populat
 
 DROP PROCEDURE CountFiles IF EXISTS;
 load classes stored_procedures/CountFiles/CountFiles.jar;
-CREATE PROCEDURE PARTITION ON TABLE File COLUMN p_key FROM CLASS CountFiles;
+CREATE PROCEDURE FROM CLASS CountFiles;
 
 DROP PROCEDURE CountBytes IF EXISTS;
 load classes stored_procedures/CountBytes/CountBytes.jar;
-CREATE PROCEDURE PARTITION ON TABLE File COLUMN p_key FROM CLASS CountBytes;
+CREATE PROCEDURE FROM CLASS CountBytes;
 
 DROP PROCEDURE CountLargerThan IF EXISTS;
 load classes stored_procedures/CountLargerThan/CountLargerThan.jar;
-CREATE PROCEDURE PARTITION ON TABLE File COLUMN p_key FROM CLASS CountLargerThan;
+CREATE PROCEDURE FROM CLASS CountLargerThan;
 
 DROP PROCEDURE CountLargestK IF EXISTS;
 load classes stored_procedures/CountLargestK/CountLargestK.jar;
-CREATE PROCEDURE PARTITION ON TABLE File COLUMN p_key FROM CLASS CountLargestK;
+CREATE PROCEDURE FROM CLASS CountLargestK;
 
