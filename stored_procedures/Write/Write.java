@@ -12,7 +12,7 @@ public class Write extends VoltProcedure {
         new SQLStmt("UPDATE file SET bytes = ?, file_size = ?" +
                     "WHERE p_key = ? AND user_name = ? AND file_name = ?;");
 
-    public long run (String user_name, String file_name, String data)
+    public long run (int p_key, String user_name, String file_name, String data)
         throws VoltAbortException {
             
         byte[] bytes = data.getBytes();

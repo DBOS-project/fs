@@ -55,3 +55,18 @@ DROP PROCEDURE CountLargestK IF EXISTS;
 load classes stored_procedures/CountLargestK/CountLargestK.jar;
 CREATE PROCEDURE FROM CLASS CountLargestK;
 
+DROP PROCEDURE Write IF EXISTS;
+load classes stored_procedures/Write/Write.jar;
+CREATE PROCEDURE FROM CLASS Write;
+
+DROP PROCEDURE Write_Big IF EXISTS;
+load classes stored_procedures/Write_Big/Write_Big.jar;
+CREATE PROCEDURE FROM CLASS Write_Big;
+
+DROP PROCEDURE Check_Storage IF EXISTS;
+load classes stored_procedures/Check_Storage/Check_Storage.jar;
+CREATE PROCEDURE FROM CLASS Check_Storage;
+
+DROP PROCEDURE Delete IF EXISTS;
+load classes stored_procedures/Delete/Delete.jar;
+CREATE PROCEDURE FROM CLASS Delete;

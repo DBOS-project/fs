@@ -6,8 +6,9 @@ import org.voltdb.client.Client;
 import org.voltdb.client.ClientFactory;
 import org.voltdb.client.ClientResponse;
 import org.voltdb.client.ProcedureCallback;
-import org.voltdb.util.BenchmarkCallback;
-import org.voltdb.util.BenchmarkStats;
+import java.nio.charset.StandardCharsets;
+
+
 
 public class Daemon {
 
@@ -34,7 +35,7 @@ public class Daemon {
 			freq = Integer.parseInt(cmd.getOptionValue("frequency"));
 
 		// create client
-		client = ClientFactory.createClient();
+		Client client = ClientFactory.createClient();
 
 		String[] serverArray = hostlist.split(",");
 		for (String server : serverArray) {
@@ -42,9 +43,24 @@ public class Daemon {
 		}
 
 		while (true) {
-			client.callProcedure("Check_Storage", threshold);
+			VoltTable[] results = client.callProcedure("Check_Storage", threshold).getResults();
+			if (results.length > 0) {
+				VoltTableRow oldest = results[0].fetchRow(0);
+				byte[] bytes = oldest.getVarbinary("bytes");
+				String data = new String(bytes, StandardCharsets.UTF_8);
+				long p_key = oldest.getLong("p_key");
+				String user = oldest.getString("user_name");
+				String file_name = oldest.getString("file_name");
+				String file = file_name.substring(file_name.indexOf(user) + user.length() + 1);
+
+				client.callProcedure("Create_Big", user, file);
+				client.callProcedure("Write_Big", user, file, data);
+				client.callProcedure("Delete", p_key, user, file_name);
+			}
+			
 			Thread.sleep(freq * 1000);
 		}
     }
     
 }
+
