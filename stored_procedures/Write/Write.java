@@ -4,25 +4,24 @@ import java.io.RandomAccessFile;;
 
 /* 
  * usage:
- * exec Write user_name, file_name; ????????
+ * exec Write p_key, user_name, file_name, file_contents;
  */
 
 public class Write extends VoltProcedure {
-
     public final SQLStmt write =
-        new SQLStmt("UPDATE file SET bytes .WRITE(0x42, NULL, NULL) WHERE user_name = ? AND file_name = ?;");
-    //  new SQLStmt("UPDATE file SET bytes = bytes + data WHERE user_name = ? AND file_name = ?;");
+        new SQLStmt("UPDATE file SET bytes = ?, file_size = ?" +
+                    "WHERE p_key = ? AND user_name = ? AND file_name = ?;");
+
     public long run (String user_name, String file_name, String data)
         throws VoltAbortException {
-        
-        if (!file_name.startsWith("/"))
-            file_name = "/" + user_name + "/" + file_name;
-
+            
         byte[] bytes = data.getBytes();
-        
-        // run query
+        int size = bytes.length;
+    
         voltQueueSQL(write,
-                     //  data,
+                     data,
+                     size,
+                     p_key,
                      user_name,
                      file_name);
         voltExecuteSQL();

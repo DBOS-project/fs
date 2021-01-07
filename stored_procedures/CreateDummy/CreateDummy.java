@@ -9,7 +9,7 @@ import java.io.RandomAccessFile;;
 
 public class CreateDummy extends VoltProcedure {
     public final SQLStmt createFile =
-        new SQLStmt("INSERT INTO file VALUES (?, ?, ?, 1, 1, ?);");
+        new SQLStmt("INSERT INTO file VALUES (?, ?, ?, 1, 1, ?, CURRENT_TIMESTAMP);");
 
     public long run (int p_key, String user_name, String file_name)
         throws VoltAbortException {

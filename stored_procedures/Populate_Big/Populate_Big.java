@@ -14,11 +14,11 @@ public class Populate_Big extends VoltProcedure {
     public final SQLStmt get =
 		new SQLStmt("SELECT file_ptr FROM big_file WHERE user_name = ? AND file_name = ?;");
 
-    public long run (String user_name, String file_name, int bytes)
+    public long run (String user_name, String file_name, int size)
 		throws VoltAbortException {
 	    
-		byte[] data = new byte[bytes];
-		Arrays.fill(data, (byte) 1);
+		byte[] bytes = new byte[size];
+		Arrays.fill(bytes, (byte) 1);
 	
 		voltQueueSQL(get,
 					 user_name,

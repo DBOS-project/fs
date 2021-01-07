@@ -5,6 +5,7 @@ CREATE TABLE File (
        block_number INTEGER,
        file_size INTEGER,
        bytes VARBINARY(1048576),
+       last_access TIMESTAMP,
 );
        
 CREATE TABLE Big_File (
