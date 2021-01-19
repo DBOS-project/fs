@@ -4,22 +4,29 @@ import java.io.RandomAccessFile;;
 
 /* 
  * usage:
- * exec Create p_key, user_name, file_name;
+ * exec CreateAt site_id, user_name, file_name;
  */
 
-public class Create extends VoltProcedure {
+public class CreateAt extends VoltProcedure {
+    public final SQLStmt getPkey =
+        new SQLStmt("SELECT p_key FROM PartitionInfo WHERE partition_id = ?;");
     public final SQLStmt createFile =
         // p_key, user_name, file_name, block_number, file_size, bytes
-        new SQLStmt("INSERT INTO file VALUES (?, ?, ?, 1, 0, ?);");
+        new SQLStmt("INSERT INTO File VALUES (?, ?, ?, 1, 0, ?);");
 
-    public long run (int p_key, String user_name, String file_name)
+    public long run (int site_id, String user_name, String file_name)
         throws VoltAbortException {
 
         if (!file_name.startsWith("/"))
             file_name = "/" + user_name + "/" + file_name;
 
         byte[] bytes_array = new byte[0];
-        
+
+        voltQueueSQL(getPkey,
+                     site_id);                                                   
+        VoltTable partition_mapping = voltExecuteSQL()[0];
+        long p_key = partition_mapping.fetchRow(0).getLong(0);
+                     
         voltQueueSQL(createFile,
                      p_key,
                      user_name,

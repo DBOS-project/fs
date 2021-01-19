@@ -1,4 +1,3 @@
-import java.util.HashMap;
 import org.apache.commons.cli.*;
 
 import org.voltdb.VoltTable;
@@ -9,8 +8,6 @@ import org.voltdb.client.ProcCallException;
 public class PartitionInfoInit {
 
     private Client _client;
-
-    // static HashMap<Integer, Integer> m1 = new HashMap<>();
 
     public PartitionInfoInit (String hostlist) throws Exception {
         // create client
@@ -30,7 +27,7 @@ public class PartitionInfoInit {
             int p_key = (int) partition_map.getLong(1);
 
             _client.callProcedure("PartitionInfoInsert",
-                                  p_id, p_key, -1, "");
+                                  p_key, p_id, -1, "");
         }
 
         String query = "SELECT partition_id, host_id, hostname" +

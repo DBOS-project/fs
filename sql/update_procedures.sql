@@ -10,14 +10,9 @@ DROP PROCEDURE Create IF EXISTS;
 load classes stored_procedures/Create/Create.jar;
 CREATE PROCEDURE PARTITION ON TABLE File COLUMN p_key FROM CLASS Create;
 
-DROP PROCEDURE Register IF EXISTS;
-load classes stored_procedures/Register/Register.jar;
--- CREATE PROCEDURE PARTITION ON TABLE File COLUMN p_key FROM CLASS Register;
-CREATE PROCEDURE FROM CLASS Register;
-
-DROP PROCEDURE CreateDummy IF EXISTS;
-load classes stored_procedures/CreateDummy/CreateDummy.jar;
-CREATE PROCEDURE PARTITION ON TABLE File COLUMN p_key FROM CLASS CreateDummy;
+DROP PROCEDURE CreateAt IF EXISTS;
+load classes stored_procedures/CreateAt/CreateAt.jar;
+CREATE PROCEDURE FROM CLASS CreateAt;
 
 DROP PROCEDURE Create_Big IF EXISTS;
 load classes stored_procedures/Create_Big/Create_Big.jar;

@@ -18,7 +18,7 @@ public class PartitionInfoUpdate extends VoltProcedure {
                      host_id,
                      host_name,
                      p_id);
-        voltExecuteSQL();
+        voltExecuteSQL(true);
 
         return 0;
     }

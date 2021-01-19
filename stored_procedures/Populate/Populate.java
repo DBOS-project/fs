@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 /* 
  * usage:
- * exec Populate file_name, bytes_number, user_name;
+ * exec Populate p_key, user_name, file_name, bytes_number;
  */
 
 public class Populate extends VoltProcedure {
@@ -30,7 +30,7 @@ public class Populate extends VoltProcedure {
                      p_key,
                      user_name,
                      file_name);
-        voltExecuteSQL();
+        voltExecuteSQL(true);
 
         return 0;
     }

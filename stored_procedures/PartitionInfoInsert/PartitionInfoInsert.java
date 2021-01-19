@@ -19,7 +19,7 @@ public class PartitionInfoInsert extends VoltProcedure {
                      p_id,
                      host_id,
                      host_name);
-        voltExecuteSQL();
+        voltExecuteSQL(true);
 
         return 0;
     }

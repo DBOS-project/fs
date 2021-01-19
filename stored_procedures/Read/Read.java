@@ -4,7 +4,7 @@ import java.io.RandomAccessFile;;
 
 /* 
  * usage:
- * exec Read file_name, user_name;
+ * exec Read p_key, user_name, file_name;
  */
 
 public class Read extends VoltProcedure {
@@ -22,7 +22,7 @@ public class Read extends VoltProcedure {
                      p_key,
                      user_name,
                      file_name);
-        VoltTable[] results = voltExecuteSQL();
+        VoltTable[] results = voltExecuteSQL(true);
 
         return results;
     }

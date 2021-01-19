@@ -11,12 +11,3 @@ SRC="PartitionInfoInit"
 javac -cp $CP "$SRC.java"
 jar cvf "$SRC.jar" "$SRC.class"
 
-# if [ ! -z "$SRC" ]; then
-#     mkdir obj
-#     javac -cp $CP -d obj $SRC
-#     # stop if compilation fails
-#     if [ $? != 0 ]; then exit; fi
-
-#     jar cf client.jar -C obj .
-#     rm -rf obj
-# fi
