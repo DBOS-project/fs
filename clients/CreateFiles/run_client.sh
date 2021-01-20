@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+#
+# usage:
+# ./run_client.sh [flags]
+# flags: -h hostlist -u username -f filecnt -t totalsites
+
 SCRIPT_DIR=$(dirname $(readlink -f $0))
 cd ${SCRIPT_DIR}
 

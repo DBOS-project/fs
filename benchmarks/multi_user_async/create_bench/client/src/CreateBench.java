@@ -43,11 +43,13 @@ public class CreateBench {
     private Client _client;
     private BenchmarkStats _stats;
     private int _transactions;
+    private String _username;
     
-    public CreateBench (String hostlist, int transactions)
+    public CreateBench (String hostlist, int transactions, String username)
         throws Exception {
 
-        this._transactions = transactions;
+        _transactions = transactions;
+        _username = username;
     
         // create client
         _client = ClientFactory.createClient();
@@ -62,11 +64,11 @@ public class CreateBench {
 
     public void benchmarkItem(int filenum) throws Exception {
 
-        ProcedureCallback callback = new BenchmarkCallback("CreateAt");
+        ProcedureCallback callback = new BenchmarkCallback("Create");
         _client.callProcedure(callback,
-                              "CreateAt",
+                              "Create",
                               filenum,
-                              "user" + String.valueOf(filenum),
+                              _username,
                               "file" + String.valueOf(filenum)
                               );
     }
@@ -104,17 +106,22 @@ public class CreateBench {
         Options options = new Options();
         options.addOption("h", "hostlist", true, "host servers list, e.g. localhost");
         options.addOption("t", "transactions", true, "number of benchmark executions");
+		options.addOption("u", "username", true, "file owner");
         CommandLine cmd = parser.parse(options, args);
 
         String hostlist = "localhost";
         if (cmd.hasOption("hostlist"))
             hostlist = cmd.getOptionValue("hostlist");
 
+		String username = "user";
+		if (cmd.hasOption("username"))
+			username = cmd.getOptionValue("username");
+
         int transactions = 1;
         if (cmd.hasOption("transactions"))
             transactions = Integer.parseInt(cmd.getOptionValue("transactions"));
         
-        CreateBench benchmark = new CreateBench(hostlist, transactions);
+        CreateBench benchmark = new CreateBench(hostlist, transactions, username);
         benchmark.runBenchmark();
     }
 }

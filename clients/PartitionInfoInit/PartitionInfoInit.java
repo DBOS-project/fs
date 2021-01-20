@@ -22,7 +22,7 @@ public class PartitionInfoInit {
     public void populate () throws Exception {
         VoltTable partition_map = _client.callProcedure("@GetPartitionKeys",
                                                         "integer").getResults()[0];
-        while(partition_map.advanceRow()) {
+        while (partition_map.advanceRow()) {
             int p_id = (int) partition_map.getLong(0);
             int p_key = (int) partition_map.getLong(1);
 

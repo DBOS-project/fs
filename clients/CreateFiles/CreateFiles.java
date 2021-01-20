@@ -8,10 +8,14 @@ import org.voltdb.client.ProcCallException;
 public class CreateFiles {
 
     private Client _client;
+    private String _username;
     private int _filecnt;
     private int _sites;
 
-    public CreateFiles (String hostlist, int filecnt, int totalsites) throws Exception {
+    public CreateFiles (String hostlist, String username, int filecnt, int totalsites)
+        throws Exception {
+
+        _username = username;
         _filecnt = filecnt;
         _sites = totalsites;
 
@@ -28,7 +32,7 @@ public class CreateFiles {
         for (int i=0; i<_filecnt; i++) {
             _client.callProcedure("CreateAt",
                                   i % _sites,
-                                  "user" + String.valueOf(i % _sites),
+                                  _username,
                                   "file" + String.valueOf(i)
                                   );
         }
@@ -39,6 +43,7 @@ public class CreateFiles {
         CommandLineParser parser = new DefaultParser();
         Options options = new Options();
         options.addOption("h", "hostlist", true, "host servers list, e.g. localhost");
+        options.addOption("u", "username", true, "file owner");
         options.addOption("f", "filecnt", true, "number of files to create");
         options.addOption("t", "totalsites", true, "number of total system sites/partitions");
         CommandLine cmd = parser.parse(options, args);
@@ -47,6 +52,10 @@ public class CreateFiles {
         if (cmd.hasOption("hostlist"))
             hostlist = cmd.getOptionValue("hostlist");
 
+        String username = "user";
+        if (cmd.hasOption("username"))
+            username = cmd.getOptionValue("username");
+        
         int filecnt = 1;
         if (cmd.hasOption("filecnt"))
             filecnt = Integer.parseInt(cmd.getOptionValue("filecnt"));
@@ -55,7 +64,7 @@ public class CreateFiles {
         if (cmd.hasOption("totalsites"))
             totalsites = Integer.parseInt(cmd.getOptionValue("totalsites"));
 
-        CreateFiles file_creator = new CreateFiles(hostlist, filecnt, totalsites);
+        CreateFiles file_creator = new CreateFiles(hostlist, username, filecnt, totalsites);
         file_creator.create();
     }
 }

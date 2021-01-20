@@ -4,7 +4,7 @@ set -ex
 #
 # usage:
 # ./multi_benchmark_read.sh <output suffix> [flags]
-# flags: -h hostname, -f filecnt, -t transactions
+# flags: -h hostname, -u username -f filecnt, -m filemin -t transactions
 #
 
 SCRIPT_DIR=$(dirname $(readlink -f $0))

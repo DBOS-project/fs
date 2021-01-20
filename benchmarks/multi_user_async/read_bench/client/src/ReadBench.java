@@ -29,6 +29,7 @@
 package org.voltdb.read;
 
 import java.util.Random;
+import java.util.HashMap;
 import org.apache.commons.cli.*;
 import org.voltdb.*;
 import org.voltdb.client.Client;
@@ -41,15 +42,25 @@ import org.voltdb.util.BenchmarkStats;
 public class ReadBench {
 
     private Client _client;
+    private HashMap<Integer, Integer> _p_map;
     private BenchmarkStats _stats;
     private int _transactions;
+    private String _username;
     private int _filecnt;
+    private int _filemin;
+    private int _partcnt;
     
-    public ReadBench (String hostlist, int transactions, int filecnt)
+    public ReadBench (String hostlist, int transactions, String username,
+                      int filecnt, int filemin, int partcnt)
 		throws Exception {
 
-		this._transactions = transactions;
-		this._filecnt = filecnt;
+		_transactions = transactions;
+        _username = username;
+		_filecnt = filecnt;
+		_filemin = filemin;
+        _partcnt = partcnt;
+	
+        _p_map = new HashMap<>();
 	
 		// create client
 		_client = ClientFactory.createClient();
@@ -62,15 +73,27 @@ public class ReadBench {
 		_stats = new BenchmarkStats(_client, true);
     }
 
+    public void preprocess () throws Exception {
+
+        VoltTable p_map = _client.callProcedure("PartitionInfoSelect").getResults()[0];
+
+        while (p_map.advanceRow()) {
+            int p_key = (int) p_map.getLong(0);
+            int p_id = (int) p_map.getLong(1);
+
+            _p_map.put(p_id, p_key);
+        }
+    }
+
     public void benchmarkItem(int filenum) throws Exception {
 
 		ProcedureCallback callback = new BenchmarkCallback("Read");
 		_client.callProcedure(callback,
 							  "Read",
-							  "user" + String.valueOf(filenum % _filecnt),
-							  "file" + String.valueOf(filenum % _filecnt)
+                              _p_map.get((_filemin + filenum % _filecnt) % _partcnt),
+							  _username,
+							  "file" + String.valueOf(_filemin + filenum % _filecnt)
 							  );
-
     }
 
     public void runBenchmark() throws Exception {
@@ -107,8 +130,10 @@ public class ReadBench {
 		Options options = new Options();
 		options.addOption("h", "hostlist", true, "host servers list, e.g. localhost");
 		options.addOption("t", "transactions", true, "number of benchmark executions");
+		options.addOption("u", "username", true, "file owner");
 		options.addOption("f", "filecnt", true, "number of files");
-		// options.addOption("s", "filesize", true, "file size in bytes");
+		options.addOption("m", "filemin", true, "first file idx");
+		options.addOption("p", "partcnt", true, "number of system partitions");
 		CommandLine cmd = parser.parse(options, args);
 
 		String hostlist = "localhost";
@@ -119,11 +144,25 @@ public class ReadBench {
 		if (cmd.hasOption("transactions"))
 			transactions = Integer.parseInt(cmd.getOptionValue("transactions"));
 		
+		String username = "user";
+		if (cmd.hasOption("username"))
+			username = cmd.getOptionValue("username");
+
 		int filecnt = 1;
 		if (cmd.hasOption("filecnt"))
 			filecnt = Integer.parseInt(cmd.getOptionValue("filecnt"));
 		
-		ReadBench benchmark = new ReadBench(hostlist, transactions, filecnt);
+		int filemin = 0;
+		if (cmd.hasOption("filemin"))
+			filemin = Integer.parseInt(cmd.getOptionValue("filemin"));
+		
+		int partcnt = 1;
+		if (cmd.hasOption("partcnt"))
+			partcnt = Integer.parseInt(cmd.getOptionValue("partcnt"));
+		
+		ReadBench benchmark = new ReadBench(hostlist, transactions, username,
+                                            filecnt, filemin, partcnt);
+        benchmark.preprocess();
 		benchmark.runBenchmark();
     }
 }

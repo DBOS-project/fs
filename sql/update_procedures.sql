@@ -1,3 +1,7 @@
+DROP PROCEDURE PartitionInfoSelect IF EXISTS;
+load classes stored_procedures/PartitionInfoSelect/PartitionInfoSelect.jar;
+CREATE PROCEDURE FROM CLASS PartitionInfoSelect;
+
 DROP PROCEDURE PartitionInfoInsert IF EXISTS;
 load classes stored_procedures/PartitionInfoInsert/PartitionInfoInsert.jar;
 CREATE PROCEDURE FROM CLASS PartitionInfoInsert;
@@ -17,6 +21,10 @@ CREATE PROCEDURE FROM CLASS CreateAt;
 DROP PROCEDURE Create_Big IF EXISTS;
 load classes stored_procedures/Create_Big/Create_Big.jar;
 CREATE PROCEDURE PARTITION ON TABLE Big_File COLUMN user_name FROM CLASS Create_Big;
+
+DROP PROCEDURE Delete IF EXISTS;
+load classes stored_procedures/Delete/Delete.jar;
+CREATE PROCEDURE FROM CLASS Delete;
 
 DROP PROCEDURE Read IF EXISTS;
 load classes stored_procedures/Read/Read.jar;

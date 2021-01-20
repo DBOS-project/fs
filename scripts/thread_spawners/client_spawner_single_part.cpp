@@ -5,8 +5,10 @@
 
 using namespace std; 
   
-// compile with g++ -o <output> -std=c++11 -pthread client_spawner.cpp
-// usage: ./spawner <benchmark> <output_suffix> <user_id> <threads_cnt> [flags]
+/*
+ * compile with g++ -o <output> -std=c++11 -pthread client_spawner.cpp
+ * usage: ./spawner <benchmark> <output_suffix> <user_id> <threads_cnt> [flags]
+ */
 
 void start_client(string bench, string output_suffix, string args, int user_num) {
     string cmd = "./benchmark_" + bench + ".sh " +
