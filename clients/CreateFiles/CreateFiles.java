@@ -45,7 +45,7 @@ public class CreateFiles {
         options.addOption("h", "hostlist", true, "host servers list, e.g. localhost");
         options.addOption("u", "username", true, "file owner");
         options.addOption("f", "filecnt", true, "number of files to create");
-        options.addOption("t", "totalsites", true, "number of total system sites/partitions");
+        options.addOption("p", "totalsites", true, "number of total system sites/partitions");
         CommandLine cmd = parser.parse(options, args);
 
         String hostlist = "localhost";
