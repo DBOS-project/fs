@@ -19,7 +19,7 @@ public class Create_Big extends VoltProcedure {
             throw new Exception("path to disk could not be found for Create_Big");
         }
         String disk_path = env.get("TMPDIR");
-        String file_ptr = disk_path + "/" + user_name + "/" + file_name;
+        String file_ptr = disk_path + "/" + user_name + "_" + file_name;
         File new_file = new File(file_ptr);
         new_file.createNewFile();
 

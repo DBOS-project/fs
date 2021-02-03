@@ -4,7 +4,11 @@ import java.io.RandomAccessFile;;
 
 /* 
  * usage:
+<<<<<<< HEAD
  * exec Read p_key, user_name, file_name;
+=======
+ * exec Read p_key, file_name, user_name;
+>>>>>>> 84a93e906dbd0856623e6b16194fba5bf76b556c
  */
 
 public class Read extends VoltProcedure {

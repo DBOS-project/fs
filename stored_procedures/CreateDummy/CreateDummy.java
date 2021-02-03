@@ -1,0 +1,38 @@
+import org.voltdb.*;
+import java.io.File;
+import java.io.RandomAccessFile;;
+
+/* 
+ * usage:
+ * exec Create file_name, user_name;
+ */
+
+public class CreateDummy extends VoltProcedure {
+    public final SQLStmt createFile =
+        new SQLStmt("INSERT INTO file VALUES (?, ?, ?, 1, 1, ?, CURRENT_TIMESTAMP);");
+
+    public long run (int p_key, String user_name, String file_name)
+        throws VoltAbortException {
+
+        if (!file_name.startsWith("/")) {
+            // since files are only in the DB, this is totally arbitrary
+            // file_name = "/home/gridsan/groups/DBOS/fs_testfiles/" + file_name;
+            file_name = "/" + user_name + "/" + file_name;
+        }
+
+        // new rule: all new files contain number 42
+        byte[] bytes_array = new byte[1];
+        bytes_array[0] = 42;
+        
+        // populate DB
+        voltQueueSQL(createFile,
+                     p_key,
+                     user_name,
+                     file_name,
+                     bytes_array);
+        voltExecuteSQL();
+
+        return 0;
+    }
+}
+             
