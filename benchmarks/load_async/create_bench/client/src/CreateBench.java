@@ -42,14 +42,14 @@ public class CreateBench {
 
     private Client _client;
     private BenchmarkStats _stats;
-    private int _transactions;
     private String _username;
+    private int _load;
     
-    public CreateBench (String hostlist, int transactions, String username)
+    public CreateBench (String hostlist, String username, int load)
         throws Exception {
 
-        _transactions = transactions;
         _username = username;
+        _load = load;
     
         // create client
         _client = ClientFactory.createClient();
@@ -78,25 +78,37 @@ public class CreateBench {
         // print a heading
         String dashes = new String(new char[80]).replace("\0", "-");
         System.out.println(dashes);
-        System.out.println(" Running Performance Benchmark for " + _transactions + " Transactions");
+        System.out.println(" Running Performance Benchmark for " + _load + " txs per ms");
         System.out.println(dashes);
 
         // start recording statistics for the benchmark, outputting every 5 seconds
         _stats.startBenchmark();
+        int tx = 0;
 
         // main loop for the benchmark
-        for (int i=0; i<_transactions; i++)
-            benchmarkItem(i);
+        while (true) {
 
-        // stop recording, print stats
-        _stats.endBenchmark();
+            long next_time = System.currentTimeMillis() + 1;
 
-        // wait for any outstanding responses to return before closing the client
-        _client.drain();
-        _client.close();
+            // issue _load requests every 1 ms
+            for (int i=0; i<_load; i++) {
+                benchmarkItem(tx);
+                tx++;
+            }
 
-        // print the transaction results tracked by BenchmarkCallback
-        BenchmarkCallback.printAllResults();
+            while (System.currentTimeMillis() < next_time)
+                ; // busy wait
+
+        }
+        // // stop recording, print stats
+        // _stats.endBenchmark();
+
+        // // wait for any outstanding responses to return before closing the client
+        // _client.drain();
+        // _client.close();
+
+        // // print the transaction results tracked by BenchmarkCallback
+        // BenchmarkCallback.printAllResults();
     }
 
 
@@ -105,8 +117,8 @@ public class CreateBench {
         CommandLineParser parser = new DefaultParser();
         Options options = new Options();
         options.addOption("h", "hostlist", true, "host servers list, e.g. localhost");
-        options.addOption("t", "transactions", true, "number of benchmark executions");
 		options.addOption("u", "username", true, "file owner");
+		options.addOption("l", "load", true, "load in txpms to be generated");
         CommandLine cmd = parser.parse(options, args);
 
         String hostlist = "localhost";
@@ -117,11 +129,11 @@ public class CreateBench {
 		if (cmd.hasOption("username"))
 			username = cmd.getOptionValue("username");
 
-        int transactions = 1;
-        if (cmd.hasOption("transactions"))
-            transactions = Integer.parseInt(cmd.getOptionValue("transactions"));
+        int load = 1;
+        if (cmd.hasOption("load"))
+            load = Integer.parseInt(cmd.getOptionValue("load"));
         
-        CreateBench benchmark = new CreateBench(hostlist, transactions, username);
+        CreateBench benchmark = new CreateBench(hostlist, username, load);
         benchmark.runBenchmark();
     }
 }

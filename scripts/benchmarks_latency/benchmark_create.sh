@@ -4,7 +4,7 @@ set -ex
 #
 # usage:
 # ./benchmark_create.sh <output suffix> [flags]
-# flags: -h hostname, -u username -t filecnt
+# flags: -h hostname -u username -t filecnt
 #
 
 SCRIPT_DIR=$(dirname $(readlink -f $0))

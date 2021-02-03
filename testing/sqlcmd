@@ -1,0 +1,1 @@
+-bash: select * from file where file_size = 65;: command not found
