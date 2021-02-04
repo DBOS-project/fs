@@ -66,9 +66,13 @@ DROP PROCEDURE Write_Big IF EXISTS;
 load classes stored_procedures/Write_Big/Write_Big.jar;
 CREATE PROCEDURE FROM CLASS Write_Big;
 
-DROP PROCEDURE Check_Storage IF EXISTS;
-load classes stored_procedures/Check_Storage/Check_Storage.jar;
-CREATE PROCEDURE FROM CLASS Check_Storage;
+DROP PROCEDURE CheckStorage IF EXISTS;
+load classes stored_procedures/CheckStorage/CheckStorage.jar;
+CREATE PROCEDURE FROM CLASS CheckStorage;
+
+DROP PROCEDURE SendToDisk IF EXISTS;
+load classes stored_procedures/SendToDisk/SendToDisk.jar;
+CREATE PROCEDURE FROM CLASS SendToDisk;
 
 DROP PROCEDURE Delete IF EXISTS;
 load classes stored_procedures/Delete/Delete.jar;

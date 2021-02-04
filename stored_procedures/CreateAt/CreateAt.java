@@ -12,7 +12,7 @@ public class CreateAt extends VoltProcedure {
         new SQLStmt("SELECT p_key FROM PartitionInfo WHERE partition_id = ?;");
     public final SQLStmt createFile =
         // p_key, user_name, file_name, block_number, file_size, bytes
-        new SQLStmt("INSERT INTO File VALUES (?, ?, ?, 1, 0, ?);");
+        new SQLStmt("INSERT INTO File VALUES (?, ?, ?, 1, 0, ?, 1, CURRENT_TIMESTAMP);");
 
     public long run (int site_id, String user_name, String file_name)
         throws VoltAbortException {

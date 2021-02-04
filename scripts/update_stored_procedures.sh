@@ -3,7 +3,7 @@
 SCRIPT_DIR=$(dirname $(readlink -f $0))
 cd ${SCRIPT_DIR}/..
 
-all_procs="Create CreateAt Delete PartitionInfoSelect PartitionInfoInsert PartitionInfoUpdate Create_Big Read Read_Big Populate Populate_Big Write Write_Big Empty CountFiles CountBytes CountLargerThan CountLargestK Check_Storage"
+all_procs="Create CreateAt Delete PartitionInfoSelect PartitionInfoInsert PartitionInfoUpdate Create_Big Read Read_Big Populate Populate_Big Write Write_Big Empty CountFiles CountBytes CountLargerThan CountLargestK CheckStorage SendToDisk"
 
 if [ -z $@ ]
 then

@@ -8,15 +8,15 @@ import java.nio.charset.StandardCharsets;
 
 /* 
  * usage:
- * exec Check_Storage threshold;
+ * exec CheckStorage threshold;
  */
 
-public class Check_Storage extends VoltProcedure {
+public class CheckStorage extends VoltProcedure {
     public final SQLStmt check_thresh =
-		new SQLStmt("select sum(file_size) as total from file where block_number = 1;");
+		new SQLStmt("select sum(file_size) as total from file where block_number = 1 and present = 1;");
 
 	public final SQLStmt get_oldest =
-		new SQLStmt("select * from file order by last_access asc limit 1;");
+		new SQLStmt("select * from file where present = 1 order by last_access asc limit 1;");
 
     public VoltTable[] run (int threshold)
 		throws VoltAbortException {
