@@ -5,11 +5,8 @@ CREATE TABLE File (
        block_number INTEGER NOT NULL,
        file_size INTEGER,
        bytes VARBINARY(1048576),
-<<<<<<< HEAD
+       last_access TIMESTAMP,       
        -- CONSTRAINT prim_key PRIMARY KEY (user_name, file_name, block_number)
-=======
-       last_access TIMESTAMP,
->>>>>>> 84a93e906dbd0856623e6b16194fba5bf76b556c
 );
        
 CREATE TABLE Big_File (
