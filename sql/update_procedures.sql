@@ -10,10 +10,18 @@ DROP PROCEDURE PartitionInfoUpdate IF EXISTS;
 load classes stored_procedures/PartitionInfoUpdate/PartitionInfoUpdate.jar;
 CREATE PROCEDURE FROM CLASS PartitionInfoUpdate;
 
+DROP PROCEDURE GetPartitionInfo IF EXISTS;
+load classes stored_procedures/GetPartitionInfo/GetPartitionInfo.jar;
+CREATE PROCEDURE FROM CLASS GetPartitionInfo;
+
 DROP PROCEDURE CreateUser IF EXISTS;
 load classes stored_procedures/CreateUser/CreateUser.jar;
 -- CREATE PROCEDURE PARTITION ON TABLE UserInfo COLUMN home_partition FROM CLASS CreateUser;
 CREATE PROCEDURE FROM CLASS CreateUser;
+
+DROP PROCEDURE GetUserPartition IF EXISTS;
+load classes stored_procedures/GetUserPartition/GetUserPartition.jar;
+CREATE PROCEDURE FROM CLASS GetUserPartition;
 
 DROP PROCEDURE Create IF EXISTS;
 load classes stored_procedures/Create/Create.jar;
