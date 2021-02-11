@@ -1,0 +1,175 @@
+
+CREATE TABLE File (
+       p_key INTEGER NOT NULL,
+       user_name VARCHAR(16) NOT NULL,
+       file_name VARCHAR(1024) NOT NULL,
+       block_number INTEGER NOT NULL,
+       file_size INTEGER,
+       bytes VARBINARY(1048576),
+<<<<<<< HEAD
+       
+=======
+       last_access TIMESTAMP,
+>>>>>>> 84a93e906dbd0856623e6b16194fba5bf76b556c
+);
+[Ad Hoc DDL Input:1]: DDL Error: "unexpected token: <"
+Create.java:12: error: illegal start of expression
+<<<<<<< HEAD
+^
+Create.java:12: error: illegal start of expression
+<<<<<<< HEAD
+  ^
+Create.java:12: error: illegal start of expression
+<<<<<<< HEAD
+    ^
+Create.java:14: error: > expected
+        new SQLStmt("INSERT INTO file VALUES (?, ?, ?, 1, 0, ?);");
+        ^
+Create.java:14: error: ';' expected
+        new SQLStmt("INSERT INTO file VALUES (?, ?, ?, 1, 0, ?);");
+           ^
+Create.java:14: error: illegal start of type
+        new SQLStmt("INSERT INTO file VALUES (?, ?, ?, 1, 0, ?);");
+                   ^
+Create.java:14: error: <identifier> expected
+        new SQLStmt("INSERT INTO file VALUES (?, ?, ?, 1, 0, ?);");
+                    ^
+Create.java:14: error: ';' expected
+        new SQLStmt("INSERT INTO file VALUES (?, ?, ?, 1, 0, ?);");
+                                                                 ^
+Create.java:15: error: illegal start of type
+=======
+^
+Create.java:15: error: ';' expected
+=======
+  ^
+Create.java:15: error: illegal start of type
+=======
+    ^
+Create.java:15: error: <identifier> expected
+=======
+      ^
+Create.java:15: error: ';' expected
+=======
+       ^
+Create.java:16: error: invalid method declaration; return type required
+        new SQLStmt("INSERT INTO file VALUES (?, ?, ?, 1, 0, ?, CURRENT_TIMESTAMP);");
+            ^
+Create.java:16: error: illegal start of type
+        new SQLStmt("INSERT INTO file VALUES (?, ?, ?, 1, 0, ?, CURRENT_TIMESTAMP);");
+                    ^
+Create.java:17: error: illegal start of type
+>>>>>>> 84a93e906dbd0856623e6b16194fba5bf76b556c
+^
+Create.java:17: error: ';' expected
+>>>>>>> 84a93e906dbd0856623e6b16194fba5bf76b556c
+   ^
+Create.java:17: error: illegal start of type
+>>>>>>> 84a93e906dbd0856623e6b16194fba5bf76b556c
+      ^
+Create.java:17: error: <identifier> expected
+>>>>>>> 84a93e906dbd0856623e6b16194fba5bf76b556c
+       ^
+Create.java:17: error: ';' expected
+>>>>>>> 84a93e906dbd0856623e6b16194fba5bf76b556c
+          ^
+20 errors
+added manifest
+adding: Create.class(in = 1156) (out= 680)(deflated 41%)
+added manifest
+adding: CreateAt.class(in = 1550) (out= 890)(deflated 42%)
+Delete.java:20: error: illegal start of expression
+=======
+^
+Delete.java:20: error: illegal start of expression
+=======
+  ^
+Delete.java:20: error: illegal start of expression
+=======
+    ^
+Delete.java:20: error: illegal start of expression
+=======
+      ^
+Delete.java:21: error: illegal start of expression
+ * exec Delete p_key, file_name, user_name;
+ ^
+Delete.java:21: error: ';' expected
+ * exec Delete p_key, file_name, user_name;
+       ^
+Delete.java:22: error: illegal start of expression
+ */
+ ^
+Delete.java:22: error: illegal start of expression
+ */
+  ^
+Delete.java:24: error: illegal start of expression
+public class Delete extends VoltProcedure {
+^
+Delete.java:36: error: illegal start of expression
+>>>>>>> 84a93e906dbd0856623e6b16194fba5bf76b556c
+^
+Delete.java:36: error: illegal start of expression
+>>>>>>> 84a93e906dbd0856623e6b16194fba5bf76b556c
+   ^
+Delete.java:36: error: illegal start of expression
+>>>>>>> 84a93e906dbd0856623e6b16194fba5bf76b556c
+      ^
+Delete.java:36: error: ';' expected
+>>>>>>> 84a93e906dbd0856623e6b16194fba5bf76b556c
+          ^
+Delete.java:36: error: ';' expected
+>>>>>>> 84a93e906dbd0856623e6b16194fba5bf76b556c
+                                                ^
+Delete.java:40: error: reached end of file while parsing
+}
+ ^
+15 errors
+added manifest
+adding: Delete.class(in = 695) (out= 444)(deflated 36%)
+added manifest
+adding: PartitionInfoSelect.class(in = 779) (out= 469)(deflated 39%)
+added manifest
+adding: PartitionInfoInsert.class(in = 887) (out= 536)(deflated 39%)
+added manifest
+adding: PartitionInfoUpdate.class(in = 903) (out= 545)(deflated 39%)
+added manifest
+adding: Create_Big.class(in = 1337) (out= 814)(deflated 39%)
+added manifest
+adding: Read.class(in = 1188) (out= 686)(deflated 42%)
+added manifest
+adding: Read_Big.class(in = 787) (out= 493)(deflated 37%)
+added manifest
+adding: Populate.class(in = 1276) (out= 758)(deflated 40%)
+added manifest
+adding: Populate_Big.class(in = 1574) (out= 912)(deflated 42%)
+added manifest
+adding: Write.class(in = 995) (out= 609)(deflated 38%)
+added manifest
+adding: Write_Big.class(in = 1561) (out= 892)(deflated 42%)
+added manifest
+adding: Empty.class(in = 420) (out= 276)(deflated 34%)
+added manifest
+adding: CountFiles.class(in = 778) (out= 472)(deflated 39%)
+added manifest
+adding: CountBytes.class(in = 776) (out= 474)(deflated 38%)
+added manifest
+adding: CountLargerThan.class(in = 896) (out= 537)(deflated 40%)
+added manifest
+adding: CountLargestK.class(in = 878) (out= 525)(deflated 40%)
+added manifest
+adding: Check_Storage.class(in = 1172) (out= 687)(deflated 41%)
+
+DROP PROCEDURE PartitionInfoSelect IF EXISTS;
+Command succeeded.
+
+load classes stored_procedures/PartitionInfoSelect/PartitionInfoSelect.jar;
+Command succeeded.
+
+CREATE PROCEDURE FROM CLASS PartitionInfoSelect;
+[PartitionInfoSelect.class]: Failed to plan for statement (getPartitionInfo) "SELECT p_key, partition_id from PartitionInfo;". Error: "Error in "SELECT p_key, partition_id from PartitionInfo;" - object not found: PARTITIONINFO"
+Exception in thread "main" org.voltdb.client.ProcCallException: Procedure PartitionInfoInsert was not found
+	at org.voltdb.client.ClientImpl.internalSyncCallProcedure(ClientImpl.java:461)
+	at org.voltdb.client.ClientImpl.callProcedureWithClientTimeoutImpl(ClientImpl.java:311)
+	at org.voltdb.client.ClientImpl.callProcedure(ClientImpl.java:254)
+	at PartitionInfoInit.populate(PartitionInfoInit.java:29)
+	at PartitionInfoInit.main(PartitionInfoInit.java:59)

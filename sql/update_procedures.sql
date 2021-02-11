@@ -10,6 +10,11 @@ DROP PROCEDURE PartitionInfoUpdate IF EXISTS;
 load classes stored_procedures/PartitionInfoUpdate/PartitionInfoUpdate.jar;
 CREATE PROCEDURE FROM CLASS PartitionInfoUpdate;
 
+DROP PROCEDURE CreateUser IF EXISTS;
+load classes stored_procedures/CreateUser/CreateUser.jar;
+-- CREATE PROCEDURE PARTITION ON TABLE UserInfo COLUMN home_partition FROM CLASS CreateUser;
+CREATE PROCEDURE FROM CLASS CreateUser;
+
 DROP PROCEDURE Create IF EXISTS;
 load classes stored_procedures/Create/Create.jar;
 CREATE PROCEDURE PARTITION ON TABLE File COLUMN p_key FROM CLASS Create;
@@ -17,6 +22,28 @@ CREATE PROCEDURE PARTITION ON TABLE File COLUMN p_key FROM CLASS Create;
 DROP PROCEDURE CreateAt IF EXISTS;
 load classes stored_procedures/CreateAt/CreateAt.jar;
 CREATE PROCEDURE FROM CLASS CreateAt;
+
+DROP PROCEDURE CreateBlock IF EXISTS;
+load classes stored_procedures/CreateBlock/CreateBlock.jar;
+CREATE PROCEDURE PARTITION ON TABLE File COLUMN p_key FROM CLASS CreateBlock;
+
+DROP PROCEDURE CreateBlockAt IF EXISTS;
+load classes stored_procedures/CreateBlockAt/CreateBlockAt.jar;
+CREATE PROCEDURE FROM CLASS CreateBlockAt;
+
+DROP PROCEDURE CreateDir IF EXISTS;
+load classes stored_procedures/CreateDir/CreateDir.jar;
+-- CREATE PROCEDURE PARTITION ON TABLE UserInfo COLUMN home_partition FROM CLASS CreateDir;
+CREATE PROCEDURE FROM CLASS CreateDir;
+
+DROP PROCEDURE ChangeDir IF EXISTS;
+load classes stored_procedures/ChangeDir/ChangeDir.jar;
+-- CREATE PROCEDURE PARTITION ON TABLE UserInfo COLUMN home_partition FROM CLASS ChangeDir;
+CREATE PROCEDURE FROM CLASS ChangeDir;
+
+DROP PROCEDURE List IF EXISTS;
+load classes stored_procedures/List/List.jar;
+CREATE PROCEDURE FROM CLASS List;
 
 DROP PROCEDURE Create_Big IF EXISTS;
 load classes stored_procedures/Create_Big/Create_Big.jar;
@@ -66,9 +93,13 @@ DROP PROCEDURE Write_Big IF EXISTS;
 load classes stored_procedures/Write_Big/Write_Big.jar;
 CREATE PROCEDURE FROM CLASS Write_Big;
 
-DROP PROCEDURE Check_Storage IF EXISTS;
-load classes stored_procedures/Check_Storage/Check_Storage.jar;
-CREATE PROCEDURE FROM CLASS Check_Storage;
+DROP PROCEDURE CheckStorage IF EXISTS;
+load classes stored_procedures/CheckStorage/CheckStorage.jar;
+CREATE PROCEDURE FROM CLASS CheckStorage;
+
+DROP PROCEDURE SendToDisk IF EXISTS;
+load classes stored_procedures/SendToDisk/SendToDisk.jar;
+CREATE PROCEDURE FROM CLASS SendToDisk;
 
 DROP PROCEDURE Delete IF EXISTS;
 load classes stored_procedures/Delete/Delete.jar;

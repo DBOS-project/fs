@@ -43,24 +43,21 @@ public class Daemon {
 		}
 
 		while (true) {
-			VoltTable[] results = client.callProcedure("Check_Storage", threshold).getResults();
+			VoltTable[] results = client.callProcedure("CheckStorage", threshold).getResults();
 			if (results.length > 0) {
+
+                // so if we are 1TB over threshold, we will send to disk 1MB and we're ok?
+                
 				VoltTableRow oldest = results[0].fetchRow(0);
 				byte[] bytes = oldest.getVarbinary("bytes");
-				String data = new String(bytes, StandardCharsets.UTF_8);
 				long p_key = oldest.getLong("p_key");
-				String user = oldest.getString("user_name");
+				String user_name = oldest.getString("user_name");
 				String file_name = oldest.getString("file_name");
-				String file = file_name.substring(file_name.indexOf(user) + user.length() + 1);
-
-				client.callProcedure("Create_Big", user, file);
-				client.callProcedure("Write_Big", user, file, data);
-				client.callProcedure("Delete", p_key, user, file_name);
+				client.callProcedure("SendToDisk", p_key, user_name, file_name);
 			}
 			
 			Thread.sleep(freq * 1000);
 		}
-    }
-    
+    }    
 }
 
