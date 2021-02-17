@@ -26,9 +26,9 @@ public class Daemon {
 		if (cmd.hasOption("hostlist"))
 			hostlist = cmd.getOptionValue("hostlist");
 
-		int threshold = 5;
+		long threshold = 5;
 		if (cmd.hasOption("threshold"))
-			threshold = Integer.parseInt(cmd.getOptionValue("threshold"));
+			threshold = Long.parseLong(cmd.getOptionValue("threshold"));
 
 		int freq = 5;
 		if (cmd.hasOption("frequency"))
@@ -43,6 +43,7 @@ public class Daemon {
 		}
 
 		while (true) {
+			System.out.println("checking");
 			client.callProcedure("CheckStorage", threshold);
 			Thread.sleep(freq * 1000);
 		}

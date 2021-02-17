@@ -14,19 +14,19 @@ import java.nio.charset.StandardCharsets;
 
 public class CheckStorage extends VoltProcedure {
     public final SQLStmt check_thresh =
-		new SQLStmt("select sum(file_size) as total from file where block_number = 0 and present = 1;");
+		new SQLStmt("select sum(file_size) as total from file where present = 1;");
 
 	public final SQLStmt get_oldest =
-		new SQLStmt("select p_key, user_name, file_name, file_size from file where present = 1 order by last_access asc;");
+		new SQLStmt("select p_key, user_name, file_name, block_number, file_size from file where present = 1 order by last_access asc limit 10000;");
 
 	public final SQLStmt read =
-        new SQLStmt("SELECT present, bytes FROM file WHERE p_key = ? AND user_name = ? AND file_name = ?;");
+        new SQLStmt("SELECT present, bytes FROM file WHERE p_key = ? AND user_name = ? AND file_name = ? AND block_number = ?;");
 
     public final SQLStmt write =
         new SQLStmt("UPDATE file SET bytes = ?, present = 0 " +
-                    "WHERE p_key = ? AND user_name = ? AND file_name = ?;");
+                    "WHERE p_key = ? AND user_name = ? AND file_name = ? AND block_number = ?;");
 
-    public long run (int threshold)
+    public long run (long threshold)
 		throws Exception {
 		// check how much of MM is being used
 		voltQueueSQL(check_thresh);
@@ -48,10 +48,12 @@ public class CheckStorage extends VoltProcedure {
 				long p_key = file_info.getLong("p_key");
 				String user_name = file_info.getString("user_name");
 				String file_name = file_info.getString("file_name");
+				long block_number = file_info.getLong("block_number");
 				voltQueueSQL(read,
                      p_key,
                      user_name,
-                     file_name);
+                     file_name,
+		     block_number);
         		VoltTable[] read_results = voltExecuteSQL();
         		if (read_results.length > 0) {
 		            VoltTableRow file_contents = read_results[0].fetchRow(0);
@@ -64,7 +66,7 @@ public class CheckStorage extends VoltProcedure {
 		                }
 		                String disk_path = env.get("TMPDIR");
 						String original_name = file_name.substring(file_name.indexOf(user_name) + user_name.length() + 1);
-		                String file_ptr = disk_path + "/" + user_name + "_" + original_name;
+		                String file_ptr = disk_path + "/" + user_name + "_" + original_name + "_" + Long.toString(block_number);
 		                File new_file = new File(file_ptr);
 		                new_file.createNewFile();
 		                // write data
@@ -81,7 +83,8 @@ public class CheckStorage extends VoltProcedure {
 		                             file_ptr.getBytes(),
 		                             p_key,
 		                             user_name,
-		                             file_name);
+		                             file_name,
+					     block_number);
 		                voltExecuteSQL();
 		                amount_moved += file_info.getLong("file_size");
 		            }
