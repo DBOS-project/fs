@@ -15,7 +15,7 @@ public class Read extends VoltProcedure {
         new SQLStmt("SELECT current_directory FROM UserInfo " +
                     "WHERE user_name = ?;");
     public final SQLStmt read_info =
-        new SQLStmt("SELECT present, file_size, bytes FROM file " +
+        new SQLStmt("SELECT present, file_size FROM file " +
                     "WHERE p_key = ? AND file_name = ? AND block_number = ? AND user_name = ? ;");
     public final SQLStmt read_content =
         new SQLStmt("SELECT bytes FROM file " +
@@ -41,7 +41,7 @@ public class Read extends VoltProcedure {
         String current_directory = user_info.fetchRow(0).getString(0);
         file_name = current_directory + file_name;
         
-        // read file present, size, and bytes info
+        // read file present and size info
         voltQueueSQL(read_info,
                      p_key,
                      file_name,
@@ -53,15 +53,26 @@ public class Read extends VoltProcedure {
             return file_query;
         VoltTableRow file_info = file_query[0].fetchRow(0);
 
-        // make a VoltTable to return
-        VoltTable file_content = new VoltTable(
-            new VoltTable.ColumnInfo("bytes", VoltType.VARBINARY));
+        // REVIEW: I'm not sure if the alternative way has better performance
+        // because you copy a big field in the file_content data structure
+        
+        // // make a VoltTable to return
+        // VoltTable file_content = new VoltTable(
+        //     new VoltTable.ColumnInfo("bytes", VoltType.VARBINARY));
 
         // load file from disk
         if (file_info.getLong("present") == 0) {
+            // in this case, content is a pointer to data in disk
+            voltQueueSQL(read_content,
+                         p_key,
+                         file_name,
+                         block_number,
+                         user_name);
+            
             // get content from disk
-            byte[] bytes = new byte[(int) file_info.getLong("file_size")];           
-            String file_ptr = new String(file_info.getVarbinary("bytes"));
+            byte[] bytes = new byte[(int) file_info.getLong("file_size")];
+            VoltTableRow bytes_ptr = voltExecuteSQL()[0].fetchRow(0);            
+            String file_ptr = new String(bytes_ptr.getVarbinary("bytes"));
 
             try {
                 File disk_file = new File(file_ptr);
@@ -73,8 +84,6 @@ public class Read extends VoltProcedure {
                 System.out.println("failed to restore file from disk");
                 e.printStackTrace();
             }
-            // save bytes to return
-            file_content.addRow(bytes);
 
             // restore file from disk and update timestamp
             voltQueueSQL(write,
@@ -88,9 +97,6 @@ public class Read extends VoltProcedure {
         }
         // file is present, only update timestamp
         else {
-            // save bytes to return
-            file_content.addRow(file_info.getVarbinary("bytes"));
-
             voltQueueSQL(update_time,
                          p_key,
                          file_name,
@@ -99,7 +105,13 @@ public class Read extends VoltProcedure {
             voltExecuteSQL();
         }
 
-        return new VoltTable[]{file_content};
+        // read (full) file content
+        voltQueueSQL(read_content,
+                     p_key,
+                     file_name,
+                     block_number,
+                     user_name);
+        return voltExecuteSQL(true);
     }
 }
              

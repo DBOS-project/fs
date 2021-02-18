@@ -3,7 +3,7 @@
 #
 # usage:
 # ./run_client.sh [flags]
-# flags: -h hostlist -u username -f filecnt -p totalsites
+# flags: -h hostlist -u usercnt -p totalsites
 
 SCRIPT_DIR=$(dirname $(readlink -f $0))
 cd ${SCRIPT_DIR}

@@ -17,8 +17,8 @@ public class Daemon {
 		CommandLineParser parser = new DefaultParser();
 		Options options = new Options();
 		options.addOption("h", "hostlist", true, "host servers list, e.g. localhost");
-		options.addOption("t", "threshold", true, "the threshold at which files should be moved to the raw disk");
-		options.addOption("f", "frequency", true, "how often to check");
+		options.addOption("t", "threshold_gb", true, "the threshold of data in memory");
+		options.addOption("p", "period_ms", true, "check period in miliseconds");
 
 		CommandLine cmd = parser.parse(options, args);
 
@@ -26,13 +26,13 @@ public class Daemon {
 		if (cmd.hasOption("hostlist"))
 			hostlist = cmd.getOptionValue("hostlist");
 
-		long threshold = 5;
-		if (cmd.hasOption("threshold"))
-			threshold = Long.parseLong(cmd.getOptionValue("threshold"));
+		long threshold_gb = 320;
+		if (cmd.hasOption("threshold_gb"))
+			threshold_gb = Long.parseLong(cmd.getOptionValue("threshold_gb"));
 
-		int freq = 5;
-		if (cmd.hasOption("frequency"))
-			freq = Integer.parseInt(cmd.getOptionValue("frequency"));
+		int period_ms = 1000;
+		if (cmd.hasOption("period_ms"))
+			period_ms = Integer.parseInt(cmd.getOptionValue("period_ms"));
 
 		// create client
 		Client client = ClientFactory.createClient();
@@ -42,10 +42,10 @@ public class Daemon {
 		    client.createConnection(server);
 		}
 
+        System.out.println("spill to disk daemon working...");
 		while (true) {
-			System.out.println("checking");
-			client.callProcedure("CheckStorage", threshold);
-			Thread.sleep(freq * 1000);
+			client.callProcedure("CheckStorage", threshold_gb * 1024 * 1024 * 1024);
+			Thread.sleep(period_ms);
 		}
     }    
 }
