@@ -18,7 +18,7 @@ public class CheckStorage extends VoltProcedure {
 
     public final SQLStmt get_oldest =
         new SQLStmt("SELECT p_key, user_name, file_name, block_number, file_size FROM File " +
-                    "WHERE present = 1 ORDER BY last_access ASC LIMIT 10000;");
+                    "WHERE present = 1 ORDER BY last_access ASC LIMIT ?;");
 
     public final SQLStmt read =
         new SQLStmt("SELECT present, bytes FROM File " +
@@ -28,7 +28,7 @@ public class CheckStorage extends VoltProcedure {
         new SQLStmt("UPDATE File SET bytes = ?, present = 0 " +
                     "WHERE p_key = ? AND user_name = ? AND file_name = ? AND block_number = ?;");
 
-    public long run (long threshold)
+    public long run (long threshold, int batch_size)
         throws Exception {
         // check how much of MM is being used
         voltQueueSQL(check_thresh);
@@ -39,11 +39,12 @@ public class CheckStorage extends VoltProcedure {
         // check if we need to move files to the disk
         if (total > threshold * .8) {
             // get file metadata in date order
-            voltQueueSQL(get_oldest);
+            voltQueueSQL(get_oldest, batch_size);
             VoltTable[] oldest_results = voltExecuteSQL();
             // move files until we go back down to 80% of the threshold
             long amount_to_move = total - (long)(threshold * .8);
             long amount_moved = 0;
+	    // file_info starts at the first row of the results of the query and is incremented at the end of the loop
             VoltTableRow file_info = oldest_results[0].fetchRow(0);
             while (amount_moved < amount_to_move) {
                 // get the contents of this file
@@ -63,15 +64,15 @@ public class CheckStorage extends VoltProcedure {
                         byte[] data = file_contents.getVarbinary("bytes");
                         // make file on raw device
                         Map<String, String> env = System.getenv();
-                        if (!env.containsKey("PWD")) {
+                        if (!env.containsKey("TMPDIR")) {
                             throw new Exception("path to disk could not be found for Create_Big");
                         }
-                        String disk_path = env.get("PWD");
+                        String disk_path = env.get("TMPDIR");
                         String original_name = file_name.substring(file_name.indexOf(user_name) + user_name.length() + 1);
                         String file_ptr = disk_path + "/" + user_name + "_" + original_name + "_" + Long.toString(block_number);
                         File new_file = new File(file_ptr);
                         new_file.createNewFile();
-                        // write data
+                        // write data to disk
                         try {
                             OutputStream os = new FileOutputStream(new_file);
                             os.write(data);
@@ -91,6 +92,7 @@ public class CheckStorage extends VoltProcedure {
                         amount_moved += file_info.getLong("file_size");
                     }
                 }
+		// advance to the next file
                 if (!file_info.advanceRow()) {
                     break;
                 }
