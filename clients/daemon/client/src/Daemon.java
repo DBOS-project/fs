@@ -50,7 +50,7 @@ public class Daemon {
         System.out.println("spill to disk daemon working...");
 		while (true) {
 			// long startTime = System.currentTimeMillis();
-			client.callProcedure("CheckStorage", threshold_gb, batch_size);
+			client.callProcedure("CheckStorage", threshold_gb * 1024 * 1024 * 1024, batch_size);
 			// long endTime = System.currentTimeMillis();
 			// System.out.println("Took " + (endTime - startTime) + " milliseconds");
 			Thread.sleep(period_ms);
