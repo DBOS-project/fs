@@ -8,7 +8,28 @@ import org.voltdb.client.ClientResponse;
 import org.voltdb.client.ProcedureCallback;
 import java.nio.charset.StandardCharsets;
 
+class SendToDiskWorker implements Runnable {
 
+   private Client _client;
+   private VoltTableRow _file_info;
+
+   public SendToDiskWorker(Client client, VoltTableRow file_info) {
+	_client = client;
+	_file_info = file_info;
+   }
+
+   public void run() {
+	long p_key = _file_info.getLong("p_key");
+	String user_name = _file_info.getString("user_name");
+	String file_name = _file_info.getString("file_name");
+	long block_number = _file_info.getLong("block_number");
+	try {
+		_client.callProcedure("SendToDisk", p_key, user_name, file_name, block_number);
+	} catch (Exception e) {
+		System.out.println("failed to write");
+	}
+   }
+}
 
 public class Daemon {
 
@@ -35,7 +56,7 @@ public class Daemon {
 		if (cmd.hasOption("period_ms"))
 			period_ms = Integer.parseInt(cmd.getOptionValue("period_ms"));
 
-		int batch_size = 10;
+		int batch_size = 20;
 		if (cmd.hasOption("batch_size"))
 			batch_size = Integer.parseInt(cmd.getOptionValue("batch_size"));
 
@@ -47,10 +68,31 @@ public class Daemon {
 		    client.createConnection(server);
 		}
 
-        System.out.println("spill to disk daemon working...");
+		// create clients for workers
+		Client[] worker_clients = new Client[batch_size];
+		for (int i =0; i < batch_size; i++) {
+			Client worker_client = ClientFactory.createClient();
+                	for (String server : serverArray) {
+                    		worker_client.createConnection(server);
+                	}
+			worker_clients[i] = worker_client;
+		}
+
+        	System.out.println("spill to disk daemon working...");
 		while (true) {
 			// long startTime = System.currentTimeMillis();
-			client.callProcedure("CheckStorage", threshold_gb * 1024 * 1024 * 1024, batch_size);
+
+			// if the amount of memory being used is greater than the threshold, then this call will return
+			// a list of the size batch_size of the oldest blocks
+			VoltTable[] response = client.callProcedure("CheckStorage", threshold_gb * 1024 * 1024 * 1024, batch_size).getResults();
+			if (response.length > 0) {
+				// send the oldest blocks to disk
+				VoltTable oldest = response[0];
+				for (int i = 0; i < oldest.getRowCount(); i++) {
+					Runnable worker = new SendToDiskWorker(worker_clients[i], oldest.fetchRow(i));
+					new Thread(worker).start();
+				}
+			}
 			// long endTime = System.currentTimeMillis();
 			// System.out.println("Took " + (endTime - startTime) + " milliseconds");
 			Thread.sleep(period_ms);
