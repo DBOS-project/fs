@@ -2,6 +2,5 @@
 log
 logs
 testing/voltdbroot/*
-testing/scripts/*
 testing/stats/*
 .DS_Store
