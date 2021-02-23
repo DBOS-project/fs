@@ -19,7 +19,7 @@ public class SendToDisk extends VoltProcedure {
         new SQLStmt("UPDATE file SET bytes = ?, present = 0 " +
                     "WHERE p_key = ? AND user_name = ? AND file_name = ? AND block_number = ?;");
 
-    public long run (long p_key, String user_name, String file_name, long block_number)
+    public long run (int p_key, String user_name, String file_name, long block_number)
         throws Exception {
         voltQueueSQL(read,
                      p_key,

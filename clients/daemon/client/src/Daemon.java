@@ -25,7 +25,7 @@ class SendToDiskWorker implements Runnable {
    public void run() {
 	for (int i = 0; i < _batch_size; i++) {
 		// send this file to disk
-		long p_key = _file_info.getLong("p_key");
+		int p_key = (int)_file_info.getLong("p_key");
 		String user_name = _file_info.getString("user_name");
 		String file_name = _file_info.getString("file_name");
 		long block_number = _file_info.getLong("block_number");
