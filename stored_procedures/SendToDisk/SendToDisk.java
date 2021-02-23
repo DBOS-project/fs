@@ -8,23 +8,24 @@ import java.io.RandomAccessFile;;
 
 /* 
  * usage:
- * exec SendToDisk p_key, file_name, user_name;
+ * exec SendToDisk p_key, file_name, user_name, block_number;
  */
 
 public class SendToDisk extends VoltProcedure {
     public final SQLStmt read =
-        new SQLStmt("SELECT * FROM file WHERE p_key = ? AND user_name = ? AND file_name = ?;");
+        new SQLStmt("SELECT * FROM file WHERE p_key = ? AND user_name = ? AND file_name = ? AND block_number = ?;");
 
     public final SQLStmt write =
         new SQLStmt("UPDATE file SET bytes = ?, present = 0 " +
-                    "WHERE p_key = ? AND user_name = ? AND file_name = ?;");
+                    "WHERE p_key = ? AND user_name = ? AND file_name = ? AND block_number = ?;");
 
-    public long run (long p_key, String user_name, String file_name)
+    public long run (long p_key, String user_name, String file_name, long block_number)
         throws Exception {
         voltQueueSQL(read,
                      p_key,
                      user_name,
-                     file_name);
+                     file_name,
+		     block_number);
         VoltTable[] results = voltExecuteSQL();
         if (results.length > 0) {
             VoltTableRow file = results[0].fetchRow(0);
@@ -37,7 +38,7 @@ public class SendToDisk extends VoltProcedure {
                 }
                 String disk_path = env.get("TMPDIR");
 		String original_name = file_name.substring(file_name.indexOf(user_name) + user_name.length() + 1);
-                String file_ptr = disk_path + "/" + user_name + "_" + original_name;
+                String file_ptr = disk_path + "/" + user_name + "_" + original_name + "_" + Long.toString(block_number);
                 File new_file = new File(file_ptr);
                 new_file.createNewFile();
                 // write data
@@ -54,7 +55,8 @@ public class SendToDisk extends VoltProcedure {
                              file_ptr.getBytes(),
                              p_key,
                              user_name,
-                             file_name);
+                             file_name,
+			     block_number);
                 voltExecuteSQL();
             }
         }

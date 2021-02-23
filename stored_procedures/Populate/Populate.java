@@ -21,7 +21,7 @@ public class Populate extends VoltProcedure {
         new SQLStmt("SELECT bytes FROM file " +
                     "WHERE p_key = ? AND file_name = ? AND block_number = ? AND user_name = ? ;");
     public final SQLStmt write =
-        new SQLStmt("UPDATE file SET bytes = ?, file_size = ?, last_access = CURRENT_TIMESTAMP " +
+        new SQLStmt("UPDATE file SET present = 1, bytes = ?, file_size = ?, last_access = CURRENT_TIMESTAMP " +
                     "WHERE p_key = ? AND file_name = ? AND block_number = ? AND user_name = ?; ");
 
     public long run (int p_key, String file_name, int block_number, int size, String user_name)
