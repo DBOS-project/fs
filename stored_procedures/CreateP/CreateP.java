@@ -47,6 +47,7 @@ public class CreateP extends VoltProcedure {
                      p_key,
                      user_name,
                      current_directory + file_name,
+                     block_number,
                      bytes_array);
         voltExecuteSQL(true);
 

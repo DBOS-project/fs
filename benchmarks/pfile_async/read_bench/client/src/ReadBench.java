@@ -34,6 +34,7 @@ import org.voltdb.*;
 import org.voltdb.client.Client;
 import org.voltdb.client.ClientFactory;
 import org.voltdb.client.ClientResponse;
+import org.voltdb.client.SyncCallback;
 import org.voltdb.client.ProcedureCallback;
 import org.voltdb.util.BenchmarkCallback;
 import org.voltdb.util.BenchmarkStats;
@@ -43,7 +44,6 @@ public class ReadBench {
     private Client _client;
     private BenchmarkStats _stats;
     private int _time_sec;
-    private int _p_key_list[];
     private int _filecnt;
     private int _blockcnt;
     private String _username;
@@ -68,31 +68,25 @@ public class ReadBench {
 		_stats = new BenchmarkStats(_client, true);
     }
 
-    public void preprocess(int startpart) throws Exception {
+    public void benchmarkFileBatch (int filenum) throws Exception {
 
-        VoltTable p_key_table = _client.callProcedure("GetPartitionRange",
-                                                      startpart,
-                                                      startpart + _blockcnt
-                                                      ).getResults()[0];
+        SyncCallback[] callbacks =  new SyncCallback[_blockcnt];
 
-        _p_key_list = new int[_blockcnt];
-        for (int idx=0; idx<_blockcnt; idx++) {
-            p_key_table.advanceRow();
-            int p_key = (int) p_key_table.getLong(0);
-            _p_key_list[idx] = p_key;
+        // invoke asyncronously (parallel block-level)
+        for (int blocknum=0; blocknum<_blockcnt; blocknum++) {
+            callbacks[blocknum] = new SyncCallback();
+            _client.callProcedure(callbacks[blocknum],
+                                  "Read",
+                                  blocknum,
+                                  "file" + String.valueOf(filenum),
+                                  blocknum,
+                                  _username
+                                  );
         }
-    }
-
-    public void benchmarkItem (int filenum, int blocknum) throws Exception {
-
-		ProcedureCallback callback = new BenchmarkCallback("Read");
-		_client.callProcedure(callback,
-                              "Read",
-                              _p_key_list[blocknum],
-                              "file" + String.valueOf(filenum),
-                              blocknum,
-                              _username
-							  );
+        // wait for all callbacks to return (serial file-level)
+        for (int blocknum=0; blocknum<_blockcnt; blocknum++) {
+            callbacks[blocknum].waitForResponse();
+        }
     }
 
     public void runBenchmark() throws Exception {
@@ -112,13 +106,11 @@ public class ReadBench {
         // main loop for the benchmark
         while (true) {
             for (int i=0; i<_filecnt; i++) {
-                for (int j=0; j<_blockcnt; j++) {
-                    benchmarkItem(i, j);
-                    txs++;
-                }
+                benchmarkFileBatch(i);
+                txs += _blockcnt;
             }
 
-            if (txs % _filecnt * _blockcnt * 1000 == 0)
+            if (txs % _filecnt * _blockcnt * 400 == 0)
                 if (System.currentTimeMillis() - start_time > _time_sec * 1000)
                     break;
         }
@@ -144,7 +136,6 @@ public class ReadBench {
         options.addOption("t", "time_sec", true, "running time of benchmark in seconds");
         options.addOption("f", "filecnt", true, "number of files");
         options.addOption("b", "blockcnt", true, "number of blocks per file");
-        options.addOption("p", "startpart", true, "starting physical partition id for blocks");
         options.addOption("u", "username", true, "file owner");
         CommandLine cmd = parser.parse(options, args);
 
@@ -164,17 +155,12 @@ public class ReadBench {
         if (cmd.hasOption("blockcnt"))
             blockcnt = Integer.parseInt(cmd.getOptionValue("blockcnt"));
         
-        int startpart = 1;
-        if (cmd.hasOption("startpart"))
-            startpart = Integer.parseInt(cmd.getOptionValue("startpart"));
-
         String username = "user";
         if (cmd.hasOption("username"))
             username = cmd.getOptionValue("username");
 
         ReadBench benchmark = new ReadBench(hostlist, time_sec, filecnt, blockcnt,
                                             username);
-        benchmark.preprocess(startpart);
         benchmark.runBenchmark();
     }
 }

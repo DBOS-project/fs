@@ -1,0 +1,93 @@
+Time: 2021-02-23 15:12:39.124000
+Message: Cluster contains nodes running VoltDB version 10.1 which is incompatibile with local version 9.3.2.
+
+
+Platform Properties:
+CPU INFO:         40 Cores, 2 Sockets, 80 Hardware Threads
+CPU DESC:         Intel(R) Xeon(R) Gold 6248 CPU @ 2.50GHz 28160 KB cache
+HOST MEMORY (MB): 386647
+OS PROFILE:       Linux 4.14.206-llgrid-10ms amd64 en_US
+DB VERSION:       9.3.2
+JAVA VERSION:     1.8.0_275
+JAVA RUNTIME:     OpenJDK Runtime Environment (1.8.0_275-8u275-b01-0ubuntu1~18.04-b01)
+JAVA VM:          OpenJDK 64-Bit Server VM (25.275-b01, mixed mode)
+
+****** Current Thread ****** 
+Stack trace from crashLocalVoltDB() method:
+java.lang.Thread.dumpThreads(Native Method)
+java.lang.Thread.getAllStackTraces(Thread.java:1610)
+org.voltdb.VoltDB.printStackTraces(VoltDB.java:1166)
+org.voltdb.VoltDB.crashLocalVoltDB(VoltDB.java:1315)
+org.voltdb.VoltDB.crashLocalVoltDB(VoltDB.java:1229)
+org.voltcore.messaging.SocketJoiner.processJSONResponse(SocketJoiner.java:686)
+org.voltcore.messaging.SocketJoiner.requestHostId(SocketJoiner.java:797)
+org.voltcore.messaging.SocketJoiner.connectToPrimary(SocketJoiner.java:915)
+org.voltcore.messaging.SocketJoiner.start(SocketJoiner.java:222)
+org.voltcore.messaging.HostMessenger.start(HostMessenger.java:670)
+org.voltdb.RealVoltDB.buildClusterMesh(RealVoltDB.java:3291)
+org.voltdb.RealVoltDB.initialize(RealVoltDB.java:1171)
+org.voltdb.VoltDB.initialize(VoltDB.java:1450)
+org.voltdb.VoltDB.main(VoltDB.java:1435)
+****** All Threads ******
+"process reaper" Id=30 TIMED_WAITING on java.util.concurrent.SynchronousQueue$TransferStack@1b1cfb87
+	at sun.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.SynchronousQueue$TransferStack@1b1cfb87
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:460)
+	at java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)
+	at java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:941)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	...
+
+
+"Async Logger" Id=29 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@821330f
+	at sun.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@821330f
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:442)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Estimated Time Updater" Id=25 TIMED_WAITING
+	at java.lang.Thread.sleep(Native Method)
+	at org.voltcore.utils.EstTimeUpdater$1.run(EstTimeUpdater.java:42)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Signal Dispatcher" Id=5 RUNNABLE
+
+
+"Finalizer" Id=3 WAITING on java.lang.ref.ReferenceQueue$Lock@6f43c82
+	at java.lang.Object.wait(Native Method)
+	-  waiting on java.lang.ref.ReferenceQueue$Lock@6f43c82
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:144)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:165)
+	at java.lang.ref.Finalizer$FinalizerThread.run(Finalizer.java:216)
+
+
+"Reference Handler" Id=2 WAITING on java.lang.ref.Reference$Lock@5db6b9cd
+	at java.lang.Object.wait(Native Method)
+	-  waiting on java.lang.ref.Reference$Lock@5db6b9cd
+	at java.lang.Object.wait(Object.java:502)
+	at java.lang.ref.Reference.tryHandlePending(Reference.java:191)
+	at java.lang.ref.Reference$ReferenceHandler.run(Reference.java:153)
+
+
+"main" Id=1 RUNNABLE
+	at sun.management.ThreadImpl.dumpThreads0(Native Method)
+	at sun.management.ThreadImpl.dumpAllThreads(ThreadImpl.java:454)
+	at org.voltdb.VoltDB.printStackTraces(VoltDB.java:1180)
+	at org.voltdb.VoltDB.crashLocalVoltDB(VoltDB.java:1315)
+	at org.voltdb.VoltDB.crashLocalVoltDB(VoltDB.java:1229)
+	at org.voltcore.messaging.SocketJoiner.processJSONResponse(SocketJoiner.java:686)
+	at org.voltcore.messaging.SocketJoiner.requestHostId(SocketJoiner.java:797)
+	at org.voltcore.messaging.SocketJoiner.connectToPrimary(SocketJoiner.java:915)
+	...
+
+

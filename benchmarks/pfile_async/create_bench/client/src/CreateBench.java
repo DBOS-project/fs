@@ -66,7 +66,9 @@ public class CreateBench {
 
     public void benchmarkItem(int filenum, int blocknum) throws Exception {
 
-        _client.callProcedure("CreateP",
+        ProcedureCallback callback = new BenchmarkCallback("Create");
+        _client.callProcedure(callback,
+                              "CreateP",
                               blocknum,
                               "file" + String.valueOf(filenum),
                               _username

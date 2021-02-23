@@ -29,11 +29,13 @@
 package org.voltdb.write;
 
 import java.util.Random;
+import java.util.Arrays;
 import org.apache.commons.cli.*;
 import org.voltdb.*;
 import org.voltdb.client.Client;
 import org.voltdb.client.ClientFactory;
 import org.voltdb.client.ClientResponse;
+import org.voltdb.client.SyncCallback;
 import org.voltdb.client.ProcedureCallback;
 import org.voltdb.util.BenchmarkCallback;
 import org.voltdb.util.BenchmarkStats;
@@ -46,6 +48,7 @@ public class WriteBench {
     private int _filecnt;
     private int _blockcnt;
     private int _filesize;
+    private byte[] _data;
     private String _username;
     
     public WriteBench (String hostlist, int time_sec, int filecnt, int blockcnt,
@@ -58,6 +61,9 @@ public class WriteBench {
         _filesize = filesize;
         _username = username;
 
+        _data = new byte[filesize];
+        Arrays.fill(_data, (byte) 1);
+
         // create client
         _client = ClientFactory.createClient();
 
@@ -69,15 +75,27 @@ public class WriteBench {
         _stats = new BenchmarkStats(_client, true);
     }
 
-    public void benchmarkItem (int filenum, int blocknum) throws Exception {
+    public void benchmarkFileBatch (int filenum) throws Exception {
 
-		ProcedureCallback callback = new BenchmarkCallback("Write");
-		_client.callProcedure(callback,
-                              "CreateP",
-                              blocknum,
-                              "file" + String.valueOf(filenum),
-                              _username
-                              );
+        SyncCallback[] callbacks =  new SyncCallback[_blockcnt];
+
+        // invoke asyncronously (parallel block-level)
+        for (int blocknum=0; blocknum<_blockcnt; blocknum++) {
+            callbacks[blocknum] = new SyncCallback();
+            _client.callProcedure(callbacks[blocknum],
+                                  "PopulateWithBuffer",
+                                  blocknum,
+                                  "file" + String.valueOf(filenum),
+                                  blocknum,
+                                  _filesize,
+                                  _data,
+                                  _username
+                                  );
+        }
+        // wait for all callbacks to return (serial file-level)
+        for (int blocknum=0; blocknum<_blockcnt; blocknum++) {
+            callbacks[blocknum].waitForResponse();
+        }
     }
 
     public void runBenchmark() throws Exception {
@@ -97,13 +115,11 @@ public class WriteBench {
         // main loop for the benchmark
         while (true) {
             for (int i=0; i<_filecnt; i++) {
-                for (int j=0; j<_blockcnt; j++) {
-                    benchmarkItem(i, j);
-                    txs++;
-                }
+                benchmarkFileBatch(i);
+                txs += _blockcnt;
             }
 
-            if (txs % _filecnt * _blockcnt * 1000 == 0)
+            if (txs % _filecnt * _blockcnt * 400 == 0)
                 if (System.currentTimeMillis() - start_time > _time_sec * 1000)
                     break;
         }
