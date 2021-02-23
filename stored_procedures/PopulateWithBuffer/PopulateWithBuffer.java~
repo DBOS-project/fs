@@ -10,7 +10,7 @@ import java.util.Arrays;
  * exec Populate p_key, file_name, block_number, bytes_number, user_name;
  */
 
-public class Populate extends VoltProcedure {
+public class PopulateWithBuffer extends VoltProcedure {
     public final SQLStmt getCurrDir =
         new SQLStmt("SELECT current_directory FROM UserInfo " +
                     "WHERE user_name = ?;");
@@ -21,10 +21,11 @@ public class Populate extends VoltProcedure {
         new SQLStmt("SELECT bytes FROM file " +
                     "WHERE p_key = ? AND file_name = ? AND block_number = ? AND user_name = ? ;");
     public final SQLStmt write =
-        new SQLStmt("UPDATE file SET present = 1, bytes = ?, file_size = ?, last_access = CURRENT_TIMESTAMP " +
+        new SQLStmt("UPDATE file SET present = 1, bytes = ?, file_size = ?, " +
+                    "last_access = CURRENT_TIMESTAMP " +
                     "WHERE p_key = ? AND file_name = ? AND block_number = ? AND user_name = ?; ");
 
-    public long run (int p_key, String file_name, int block_number, int size, String user_name)
+    public long run (int p_key, String file_name, int block_number, int size, int data, String user_name)
         throws VoltAbortException {
         
         // get file absolute path
@@ -47,30 +48,25 @@ public class Populate extends VoltProcedure {
 
         VoltTable[] file_query = voltExecuteSQL();
         if (file_query[0].getRowCount() < 1)
-            return -2;
+            return -1;
         VoltTableRow file_info = file_query[0].fetchRow(0);
 
         // delete old file from disk
         if (file_info.getLong("present") == 0) {
-            // read file content
+            // in this case, content is a pointer to data in disk
             voltQueueSQL(read_content,
                          p_key,
                          file_name,
                          block_number,
                          user_name);
-
-            // delete file form disk
             VoltTableRow bytes_ptr = voltExecuteSQL()[0].fetchRow(0);            
             String file_ptr = new String(bytes_ptr.getVarbinary("bytes"));
 
+            // delete file form disk
             File disk_file = new File(file_ptr);
             disk_file.delete();
         }
 
-        // fill file
-        byte[] data = new byte[size];
-        Arrays.fill(data, (byte) 1);
-    
         voltQueueSQL(write,
                      data,
                      size,

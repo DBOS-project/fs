@@ -42,7 +42,6 @@ public class CreateBench {
 
     private Client _client;
     private BenchmarkStats _stats;
-    private int _p_key_list[];
     private int _filecnt;
     private int _blockcnt;
     private String _username;
@@ -65,27 +64,11 @@ public class CreateBench {
         _stats = new BenchmarkStats(_client, true);
     }
 
-    public void preprocess(int startpart) throws Exception {
-
-        VoltTable p_key_table = _client.callProcedure("GetPartitionRange",
-                                                      startpart,
-                                                      startpart + _blockcnt
-                                                      ).getResults()[0];
-
-        _p_key_list = new int[_blockcnt];
-        for (int idx=0; idx<_blockcnt; idx++) {
-            p_key_table.advanceRow();
-            int p_key = (int) p_key_table.getLong(0);
-            _p_key_list[idx] = p_key;
-        }
-    }
-
     public void benchmarkItem(int filenum, int blocknum) throws Exception {
 
-        _client.callProcedure("CreateBlock",
-                              _p_key_list[blocknum],
-                              "file" + String.valueOf(filenum),
+        _client.callProcedure("CreateP",
                               blocknum,
+                              "file" + String.valueOf(filenum),
                               _username
                               );
     }
@@ -126,7 +109,6 @@ public class CreateBench {
         options.addOption("h", "hostlist", true, "host servers list, e.g. localhost");
         options.addOption("f", "filecnt", true, "number of files");
         options.addOption("b", "blockcnt", true, "number of blocks per file");
-        options.addOption("p", "startpart", true, "starting physical partition id for blocks");
         options.addOption("u", "username", true, "file owner");
         CommandLine cmd = parser.parse(options, args);
 
@@ -142,16 +124,11 @@ public class CreateBench {
         if (cmd.hasOption("blockcnt"))
             blockcnt = Integer.parseInt(cmd.getOptionValue("blockcnt"));
         
-        int startpart = 1;
-        if (cmd.hasOption("startpart"))
-            startpart = Integer.parseInt(cmd.getOptionValue("startpart"));
-        
         String username = "user";
         if (cmd.hasOption("username"))
             username = cmd.getOptionValue("username");
 
         CreateBench benchmark = new CreateBench(hostlist, filecnt, blockcnt, username);
-        benchmark.preprocess(startpart);
         benchmark.runBenchmark();
     }
 }

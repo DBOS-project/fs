@@ -39,6 +39,10 @@ DROP PROCEDURE CreateBlock IF EXISTS;
 load classes stored_procedures/CreateBlock/CreateBlock.jar;
 CREATE PROCEDURE PARTITION ON TABLE File COLUMN p_key FROM CLASS CreateBlock;
 
+DROP PROCEDURE CreateP IF EXISTS;
+load classes stored_procedures/CreateP/CreateP.jar;
+CREATE PROCEDURE PARTITION ON TABLE File COLUMN p_key FROM CLASS CreateP;
+
 DROP PROCEDURE CreateBlockAt IF EXISTS;
 load classes stored_procedures/CreateBlockAt/CreateBlockAt.jar;
 CREATE PROCEDURE FROM CLASS CreateBlockAt;
@@ -73,29 +77,17 @@ DROP PROCEDURE Read_Big IF EXISTS;
 load classes stored_procedures/Read_Big/Read_Big.jar;
 CREATE PROCEDURE PARTITION ON TABLE Big_File COLUMN user_name FROM CLASS Read_Big;
 
-DROP PROCEDURE Populate IF EXISTS;
-load classes stored_procedures/Populate/Populate.jar;
-CREATE PROCEDURE PARTITION ON TABLE File COLUMN p_key FROM CLASS Populate;
+DROP PROCEDURE PopulateWithSize IF EXISTS;
+load classes stored_procedures/PopulateWithSize/PopulateWithSize.jar;
+CREATE PROCEDURE PARTITION ON TABLE File COLUMN p_key FROM CLASS PopulateWithSize;
+
+DROP PROCEDURE PopulateWithBuffer IF EXISTS;
+load classes stored_procedures/PopulateWithBuffer/PopulateWithBuffer.jar;
+CREATE PROCEDURE PARTITION ON TABLE File COLUMN p_key FROM CLASS PopulateWithBuffer;
 
 DROP PROCEDURE Populate_Big IF EXISTS;
 load classes stored_procedures/Populate_Big/Populate_Big.jar;
 CREATE PROCEDURE PARTITION ON TABLE Big_File COLUMN user_name FROM CLASS Populate_Big;
-
-DROP PROCEDURE CountFiles IF EXISTS;
-load classes stored_procedures/CountFiles/CountFiles.jar;
-CREATE PROCEDURE FROM CLASS CountFiles;
-
-DROP PROCEDURE CountBytes IF EXISTS;
-load classes stored_procedures/CountBytes/CountBytes.jar;
-CREATE PROCEDURE FROM CLASS CountBytes;
-
-DROP PROCEDURE CountLargerThan IF EXISTS;
-load classes stored_procedures/CountLargerThan/CountLargerThan.jar;
-CREATE PROCEDURE FROM CLASS CountLargerThan;
-
-DROP PROCEDURE CountLargestK IF EXISTS;
-load classes stored_procedures/CountLargestK/CountLargestK.jar;
-CREATE PROCEDURE FROM CLASS CountLargestK;
 
 DROP PROCEDURE Write IF EXISTS;
 load classes stored_procedures/Write/Write.jar;
@@ -116,3 +108,19 @@ CREATE PROCEDURE FROM CLASS SendToDisk;
 DROP PROCEDURE Delete IF EXISTS;
 load classes stored_procedures/Delete/Delete.jar;
 CREATE PROCEDURE FROM CLASS Delete;
+
+-- DROP PROCEDURE CountFiles IF EXISTS;
+-- load classes stored_procedures/CountFiles/CountFiles.jar;
+-- CREATE PROCEDURE FROM CLASS CountFiles;
+
+-- DROP PROCEDURE CountBytes IF EXISTS;
+-- load classes stored_procedures/CountBytes/CountBytes.jar;
+-- CREATE PROCEDURE FROM CLASS CountBytes;
+
+-- DROP PROCEDURE CountLargerThan IF EXISTS;
+-- load classes stored_procedures/CountLargerThan/CountLargerThan.jar;
+-- CREATE PROCEDURE FROM CLASS CountLargerThan;
+
+-- DROP PROCEDURE CountLargestK IF EXISTS;
+-- load classes stored_procedures/CountLargestK/CountLargestK.jar;
+-- CREATE PROCEDURE FROM CLASS CountLargestK;

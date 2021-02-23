@@ -29,6 +29,7 @@
 package org.voltdb.write;
 
 import java.util.Random;
+import java.util.Arrays;
 import org.apache.commons.cli.*;
 import org.voltdb.*;
 import org.voltdb.client.Client;
@@ -47,6 +48,7 @@ public class WriteBench {
     private int _filecnt;
     private int _blockcnt;
     private int _filesize;
+    private byte[] _data;
     private String _username;
     
     public WriteBench (String hostlist, int time_sec, int filecnt, int blockcnt,
@@ -58,6 +60,9 @@ public class WriteBench {
         _blockcnt = blockcnt;
         _filesize = filesize;
         _username = username;
+
+        _data = new byte[filesize];
+        Arrays.fill(_data, (byte) 1);
 
         // create client
         _client = ClientFactory.createClient();
@@ -79,11 +84,12 @@ public class WriteBench {
     }
 
     public void benchmarkItem (int filenum, int blocknum) throws Exception {
-        _client.callProcedure("Populate",
+        _client.callProcedure("PopulateWithBuffer",
                               _partition,
                               "file" + String.valueOf(filenum),
                               blocknum,
                               _filesize,
+                              _data,
                               _username
                               );
     }

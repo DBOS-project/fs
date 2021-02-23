@@ -12,7 +12,7 @@ CREATE TABLE UserInfo (
 );
 
 CREATE TABLE File (
-       p_key INTEGER NOT NULL,
+       p_key INTEGER NOT NULL, -- p_key = block_id for Pfile
        user_name VARCHAR(16) NOT NULL,
        file_name VARCHAR(1024) NOT NULL, -- full path
        block_number INTEGER NOT NULL,

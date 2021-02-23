@@ -42,7 +42,6 @@ public class WriteBench {
 
     private Client _client;
     private BenchmarkStats _stats;
-    private int _p_key_list[];
     private int _time_sec;
     private int _filecnt;
     private int _blockcnt;
@@ -70,30 +69,13 @@ public class WriteBench {
         _stats = new BenchmarkStats(_client, true);
     }
 
-    public void preprocess(int startpart) throws Exception {
-
-        VoltTable p_key_table = _client.callProcedure("GetPartitionRange",
-                                                      startpart,
-                                                      startpart + _blockcnt
-                                                      ).getResults()[0];
-
-        _p_key_list = new int[_blockcnt];
-        for (int idx=0; idx<_blockcnt; idx++) {
-            p_key_table.advanceRow();
-            int p_key = (int) p_key_table.getLong(0);
-            _p_key_list[idx] = p_key;
-        }
-    }
-
     public void benchmarkItem (int filenum, int blocknum) throws Exception {
 
 		ProcedureCallback callback = new BenchmarkCallback("Write");
 		_client.callProcedure(callback,
-                              "Populate",
-                              _p_key_list[blocknum],
-                              "file" + String.valueOf(filenum),
+                              "CreateP",
                               blocknum,
-                              _filesize,
+                              "file" + String.valueOf(filenum),
                               _username
                               );
     }
@@ -147,7 +129,6 @@ public class WriteBench {
         options.addOption("t", "time_sec", true, "number of benchmark executions");
         options.addOption("f", "filecnt", true, "number of files");
         options.addOption("b", "blockcnt", true, "number of blocks per file");
-        options.addOption("p", "startpart", true, "starting physical partition id for blocks");
         options.addOption("s", "filesize", true, "file size in bytes");
         options.addOption("u", "username", true, "file owner");
         CommandLine cmd = parser.parse(options, args);
@@ -168,10 +149,6 @@ public class WriteBench {
         if (cmd.hasOption("blockcnt"))
             blockcnt = Integer.parseInt(cmd.getOptionValue("blockcnt"));
         
-        int startpart = 1;
-        if (cmd.hasOption("startpart"))
-            startpart = Integer.parseInt(cmd.getOptionValue("startpart"));
-        
         int filesize = 1024*1024;
         if (cmd.hasOption("filesize"))
             filesize = Integer.parseInt(cmd.getOptionValue("filesize"));
@@ -182,7 +159,6 @@ public class WriteBench {
 
         WriteBench benchmark = new WriteBench(hostlist, time_sec, filecnt, blockcnt,
                                               filesize, username);
-        benchmark.preprocess(startpart);
         benchmark.runBenchmark();
     }
 }

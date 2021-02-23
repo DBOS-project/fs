@@ -20,7 +20,7 @@ while getopts ":c:" opt; do
                 voltdb init -f --dir=testing --config=testing/deployment_n2.xml
             fi
             if [ $OPTARG = "2s" ]; then
-                echo "Initializing VoltDB for 2 nodes, with 20 partitions in each..." >&2
+                echo "Initializing VoltDB for 2 nodes, with 20 partitions in each one..." >&2
                 voltdb init -f --dir=testing --config=testing/deployment_n2s.xml
             fi
             if [ $OPTARG = "3" ]; then

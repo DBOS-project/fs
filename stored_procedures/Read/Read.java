@@ -21,7 +21,7 @@ public class Read extends VoltProcedure {
         new SQLStmt("SELECT bytes FROM file " +
                     "WHERE p_key = ? AND file_name = ? AND block_number = ? AND user_name = ? ;");
     public final SQLStmt write =
-        new SQLStmt("UPDATE file SET bytes = ?, present = 1, last_access = CURRENT_TIMESTAMP " +
+        new SQLStmt("UPDATE file SET present = 1, bytes = ?, last_access = CURRENT_TIMESTAMP " +
                     "WHERE p_key = ? AND file_name = ? AND block_number = ? AND user_name = ? ;");
     public final SQLStmt update_time =
         new SQLStmt("UPDATE file SET last_access = CURRENT_TIMESTAMP " +
@@ -53,13 +53,6 @@ public class Read extends VoltProcedure {
             return file_query;
         VoltTableRow file_info = file_query[0].fetchRow(0);
 
-        // REVIEW: I'm not sure if the alternative way has better performance
-        // because you copy a big field in the file_content data structure
-        
-        // // make a VoltTable to return
-        // VoltTable file_content = new VoltTable(
-        //     new VoltTable.ColumnInfo("bytes", VoltType.VARBINARY));
-
         // load file from disk
         if (file_info.getLong("present") == 0) {
             // in this case, content is a pointer to data in disk
@@ -68,12 +61,11 @@ public class Read extends VoltProcedure {
                          file_name,
                          block_number,
                          user_name);
-            
-            // get content from disk
             byte[] bytes = new byte[(int) file_info.getLong("file_size")];
             VoltTableRow bytes_ptr = voltExecuteSQL()[0].fetchRow(0);            
             String file_ptr = new String(bytes_ptr.getVarbinary("bytes"));
 
+            // get content from disk
             try {
                 File disk_file = new File(file_ptr);
                 FileInputStream fis = new FileInputStream(disk_file);
