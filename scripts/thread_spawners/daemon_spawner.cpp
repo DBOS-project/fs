@@ -9,7 +9,7 @@ using namespace std;
  *  compile with g++ -o <output> -std=c++11 -pthread client_spawner.cpp
  *  usage: ./spawner <user_cnt> [flags]
  *
- *  example: ./spawner 2 -h hostlist -t threshold_gb -p period -b batch_size
+ *  example: ./spawner 2 -h hostlist -t threshold_gb -p period -w worker_cnt -b batch_size
  */
 
 void start_client(string args, int user_num) {
