@@ -103,7 +103,7 @@ CREATE PROCEDURE FROM CLASS CheckStorage;
 
 DROP PROCEDURE SendToDisk IF EXISTS;
 load classes stored_procedures/SendToDisk/SendToDisk.jar;
-CREATE PROCEDURE FROM CLASS SendToDisk;
+CREATE PROCEDURE PARTITION ON TABLE File COLUMN p_key FROM CLASS SendToDisk;
 
 DROP PROCEDURE Delete IF EXISTS;
 load classes stored_procedures/Delete/Delete.jar;
