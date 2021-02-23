@@ -15,7 +15,7 @@ public class Write extends VoltProcedure {
         new SQLStmt("SELECT * FROM file WHERE p_key = ? AND user_name = ? AND file_name = ?;");
         
     public final SQLStmt write =
-        new SQLStmt("UPDATE file SET bytes = ?, file_size = ?, last_access = CURRENT_TIMESTAMP " +
+        new SQLStmt("UPDATE file SET present = 1, bytes = ?, file_size = ?, last_access = CURRENT_TIMESTAMP " +
                     "WHERE p_key = ? AND user_name = ? AND file_name = ?;");
 
     public long run (int p_key, String user_name, String file_name, String data)
