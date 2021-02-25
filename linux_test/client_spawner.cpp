@@ -2,6 +2,7 @@
 #include <vector> 
 #include <string>
 #include <thread>
+#include <iostream>
 
 using namespace std; 
   
@@ -16,25 +17,27 @@ using namespace std;
  */
 
 void start_client(string bench, string args, int user_num) {
-    string cmd = "./" + bench + " " + to_string(user_num) + " " + args;
+    string cmd = "./" + bench + " " + args + to_string(user_num);
+    std::cout << cmd << std::endl;
     system(cmd.c_str());
 }
 
 int main(int argc, char** argv) {
     string bench = argv[1]; 
     int user_cnt = atoi(argv[2]);
-    int user_min = atoi(argv[3]);
 
     string args = "";
-    int arg_cnt = 4;
+    int arg_cnt = 3;
     while (arg_cnt < argc) {
         args += argv[arg_cnt++];
+        if (arg_cnt == 8)
+            break;
         args += " ";
     }
 
     vector<thread> clients;
     for (int i = 0; i < user_cnt; i++)
-        clients.push_back(thread(start_client, bench, args, user_min + i));
+        clients.push_back(thread(start_client, bench, args, i));
 
     for (thread & client : clients)
         client.join();
