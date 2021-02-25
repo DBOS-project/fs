@@ -110,9 +110,8 @@ public class ReadBench {
                 txs += _blockcnt;
             }
 
-            if (txs % _filecnt * _blockcnt * 400 == 0)
-                if (System.currentTimeMillis() - start_time > _time_sec * 1000)
-                    break;
+            if (System.currentTimeMillis() - start_time > _time_sec * 1000)
+                break;
         }
 
 		// stop recording, print stats
