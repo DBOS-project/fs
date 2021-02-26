@@ -26,8 +26,7 @@ int main (int argc, char **argv) {
     const string suffix = argv[5];
     long long unsigned txs = 0;    
 
-    chrono::duration<double> elapsed_best;
-    chrono::duration<double> elapsed_avg;
+    chrono::duration<double> elapsed;
     ofstream stats;
     string sfname = "./stats/lnx" + suffix + dir_id + ".out";
     stats.open(sfname.c_str());
@@ -38,10 +37,6 @@ int main (int argc, char **argv) {
 
     // ext4 mount point
     const string tmpdir = getenv("TMPDIR");
-
-    
-    // measure time including file open/close
-    auto start_avg = chrono::high_resolution_clock::now();
 
     // open all files
     vector<std::shared_ptr<ofstream>> files;
@@ -54,8 +49,8 @@ int main (int argc, char **argv) {
 
     
     // measure read/write time only
-    auto start_best = chrono::high_resolution_clock::now();
-    
+    auto start = chrono::high_resolution_clock::now();
+   
     // transactions
     for (;;) {
         for (int i=0; i<file_cnt; i++) {
@@ -65,9 +60,9 @@ int main (int argc, char **argv) {
         }
         
         if (txs % (file_cnt) == 0) {
-            auto stop_best = chrono::high_resolution_clock::now();
-            elapsed_best = stop_best - start_best;
-            if (elapsed_best.count() > time_sec)
+            auto stop = chrono::high_resolution_clock::now();
+            elapsed = stop - start;
+            if (elapsed.count() > time_sec)
                 break;
         }
     }    
@@ -78,14 +73,9 @@ int main (int argc, char **argv) {
         files[i]->close();
     }
 
-    auto stop_avg = chrono::high_resolution_clock::now();
-    elapsed_avg = stop_avg - start_avg;
-
     stats << "transactions: " << txs << endl;
-    stats << "elapsed time (best): " << elapsed_best.count() << endl;
-    stats << "elapsed time (avg): " << elapsed_avg.count() << endl << endl;
-    stats << "throughput (best) " << 1.0*txs / (1.0*elapsed_best.count()) << endl;
-    stats << "throughput (avg) " << 1.0*txs / (1.0*elapsed_avg.count()) << endl;
+    stats << "elapsed time: " << elapsed.count() << endl;
+    stats << "throughput " << 1.0*txs / (1.0*elapsed.count()) << endl;
     stats.close();
     
     return 0;

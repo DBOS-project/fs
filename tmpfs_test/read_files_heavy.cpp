@@ -32,8 +32,7 @@ int main (int argc, char **argv) {
     const string suffix = argv[5];
     long long unsigned txs = 0;    
 
-    chrono::duration<double> elapsed_best;
-    chrono::duration<double> elapsed_avg;
+    chrono::duration<double> elapsed;
     ofstream stats;
     string sfname = "./stats/lnx" + suffix + dir_id + ".out";
     stats.open(sfname.c_str());
@@ -43,45 +42,36 @@ int main (int argc, char **argv) {
     char *inbuffer = new char[byte_cnt];
 
     // ext4 mount point
-    const string tmpdir = getenv("TMPDIR");
+    const string tmpdir = getenv("SHM");
 
     
-    // measure time including file open/close
-    auto start_avg = chrono::high_resolution_clock::now();
-
-    // measure read/write time only
-    auto start_best = chrono::high_resolution_clock::now();
+    // measure open + read/write + close time
+    auto start = chrono::high_resolution_clock::now();
 
     // cerr.setstate(ios_base::badbit);
     // transactions
     for (;;) {
         for (int i=0; i<file_cnt; i++) {
-            shared_ptr<ifstream> file(new ifstream);
             string fname = tmpdir + "/dir" + dir_id + "/file" + to_string(i);
+            shared_ptr<ifstream> file(new ifstream);
             file->open(fname.c_str());
-            memset(buffer, '0', byte_cnt);
+            // memset(buffer, '0', byte_cnt);
             buffer = operation(inbuffer, byte_cnt, file);
             file->close();
-
             txs++;
         }
         
         if (txs % (file_cnt) == 0) {
-            auto stop_best = chrono::high_resolution_clock::now();
-            elapsed_best = stop_best - start_best;
-            if (elapsed_best.count() > time_sec)
+            auto stop = chrono::high_resolution_clock::now();
+            elapsed = stop - start;
+            if (elapsed.count() > time_sec)
                 break;
         }
     }    
 
-    auto stop_avg = chrono::high_resolution_clock::now();
-    elapsed_avg = stop_avg - start_avg;
-
     stats << "transactions: " << txs << endl;
-    stats << "elapsed time (best): " << elapsed_best.count() << endl;
-    stats << "elapsed time (avg): " << elapsed_avg.count() << endl << endl;
-    stats << "throughput (best) " << 1.0*txs / (1.0*elapsed_best.count()) << endl;
-    stats << "throughput (avg) " << 1.0*txs / (1.0*elapsed_avg.count()) << endl;
+    stats << "elapsed time: " << elapsed.count() << endl;
+    stats << "throughput: " << 1.0*txs / (1.0*elapsed.count()) << endl;
     stats.close();
     
     return 0;
