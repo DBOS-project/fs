@@ -15,8 +15,8 @@ public class Create extends VoltProcedure {
         // p_key, directory_name, content_name, content_type, user_name
         new SQLStmt("INSERT INTO Directory VALUES (?, ?, ?, 0, ?);");
     public final SQLStmt createFile =
-        // p_key, user_name, file_name, block_number, file_size, bytes, present, timestamp
-        new SQLStmt("INSERT INTO file VALUES (?, ?, ?, 0, 0, ?, 1, CURRENT_TIMESTAMP);");
+        // p_key, user_name, file_name, block_number, file_size, bytes
+        new SQLStmt("INSERT INTO file VALUES (?, ?, ?, 0, 0, ?);");
 
     public long run (int p_key, String file_name, String user_name)
         throws VoltAbortException {

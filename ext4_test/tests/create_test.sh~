@@ -1,0 +1,6 @@
+#!/bin/bash
+
+i=0
+
+cd ..
+{ time ./spawner create_files.sh 40 $i 10000 ; } &> stats/420/10K_each_$1

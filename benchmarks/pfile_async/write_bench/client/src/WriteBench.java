@@ -75,27 +75,19 @@ public class WriteBench {
         _stats = new BenchmarkStats(_client, true);
     }
 
-    public void benchmarkFileBatch (int filenum) throws Exception {
-
-        SyncCallback[] callbacks =  new SyncCallback[_blockcnt];
-
-        // invoke asyncronously (parallel block-level)
-        for (int blocknum=0; blocknum<_blockcnt; blocknum++) {
-            callbacks[blocknum] = new SyncCallback();
-            _client.callProcedure(callbacks[blocknum],
-                                  "PopulateWithBuffer",
-                                  blocknum,
-                                  "file" + String.valueOf(filenum),
-                                  blocknum,
-                                  _filesize,
-                                  _data,
-                                  _username
-                                  );
-        }
-        // wait for all callbacks to return (serial file-level)
-        for (int blocknum=0; blocknum<_blockcnt; blocknum++) {
-            callbacks[blocknum].waitForResponse();
-        }
+    public void benchmarkItem (int filenum, int blocknum) throws Exception {
+        
+        ProcedureCallback callback = new BenchmarkCallback("Write");
+        
+        _client.callProcedure(callback,
+                              "PopulateWithBuffer",
+                              blocknum,
+                              "file" + String.valueOf(filenum),
+                              blocknum,
+                              _filesize,
+                              _data,
+                              _username
+                              );
     }
 
     public void runBenchmark() throws Exception {
@@ -115,7 +107,9 @@ public class WriteBench {
         // main loop for the benchmark
         while (true) {
             for (int i=0; i<_filecnt; i++) {
-                benchmarkFileBatch(i);
+                for (int j=0; j<_blockcnt; j++) {
+                    benchmarkItem(i, j);
+                }                
                 txs += _blockcnt;
             }
 

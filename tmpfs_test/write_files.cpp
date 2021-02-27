@@ -56,7 +56,6 @@ int main (int argc, char **argv) {
         for (int i=0; i<file_cnt; i++) {
             files[i]->seekp(0);
             files[i]->write(buffer, byte_cnt);
-            cout << "wrote file " << i << endl;
             txs++;
         }
         

@@ -1,6 +1,8 @@
 *.log
 log
 logs
+ext4_test/stats/*
+tmpfs_test/stats/*
 testing/voltdbroot/*
 testing/stats/*
 .DS_Store

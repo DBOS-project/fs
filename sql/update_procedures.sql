@@ -61,9 +61,9 @@ DROP PROCEDURE List IF EXISTS;
 load classes stored_procedures/List/List.jar;
 CREATE PROCEDURE FROM CLASS List;
 
-DROP PROCEDURE Create_Big IF EXISTS;
-load classes stored_procedures/Create_Big/Create_Big.jar;
-CREATE PROCEDURE PARTITION ON TABLE Big_File COLUMN user_name FROM CLASS Create_Big;
+-- DROP PROCEDURE Create_Big IF EXISTS;
+-- load classes stored_procedures/Create_Big/Create_Big.jar;
+-- CREATE PROCEDURE PARTITION ON TABLE Big_File COLUMN user_name FROM CLASS Create_Big;
 
 DROP PROCEDURE Delete IF EXISTS;
 load classes stored_procedures/Delete/Delete.jar;
@@ -73,9 +73,9 @@ DROP PROCEDURE Read IF EXISTS;
 load classes stored_procedures/Read/Read.jar;
 CREATE PROCEDURE PARTITION ON TABLE File COLUMN p_key FROM CLASS Read;
 
-DROP PROCEDURE Read_Big IF EXISTS;
-load classes stored_procedures/Read_Big/Read_Big.jar;
-CREATE PROCEDURE PARTITION ON TABLE Big_File COLUMN user_name FROM CLASS Read_Big;
+-- DROP PROCEDURE Read_Big IF EXISTS;
+-- load classes stored_procedures/Read_Big/Read_Big.jar;
+-- CREATE PROCEDURE PARTITION ON TABLE Big_File COLUMN user_name FROM CLASS Read_Big;
 
 DROP PROCEDURE PopulateWithSize IF EXISTS;
 load classes stored_procedures/PopulateWithSize/PopulateWithSize.jar;
@@ -85,25 +85,25 @@ DROP PROCEDURE PopulateWithBuffer IF EXISTS;
 load classes stored_procedures/PopulateWithBuffer/PopulateWithBuffer.jar;
 CREATE PROCEDURE PARTITION ON TABLE File COLUMN p_key FROM CLASS PopulateWithBuffer;
 
-DROP PROCEDURE Populate_Big IF EXISTS;
-load classes stored_procedures/Populate_Big/Populate_Big.jar;
-CREATE PROCEDURE PARTITION ON TABLE Big_File COLUMN user_name FROM CLASS Populate_Big;
+-- DROP PROCEDURE Populate_Big IF EXISTS;
+-- load classes stored_procedures/Populate_Big/Populate_Big.jar;
+-- CREATE PROCEDURE PARTITION ON TABLE Big_File COLUMN user_name FROM CLASS Populate_Big;
 
-DROP PROCEDURE Write IF EXISTS;
-load classes stored_procedures/Write/Write.jar;
-CREATE PROCEDURE FROM CLASS Write;
+-- DROP PROCEDURE Write IF EXISTS;
+-- load classes stored_procedures/Write/Write.jar;
+-- CREATE PROCEDURE FROM CLASS Write;
 
-DROP PROCEDURE Write_Big IF EXISTS;
-load classes stored_procedures/Write_Big/Write_Big.jar;
-CREATE PROCEDURE FROM CLASS Write_Big;
+-- DROP PROCEDURE Write_Big IF EXISTS;
+-- load classes stored_procedures/Write_Big/Write_Big.jar;
+-- CREATE PROCEDURE FROM CLASS Write_Big;
 
-DROP PROCEDURE CheckStorage IF EXISTS;
-load classes stored_procedures/CheckStorage/CheckStorage.jar;
-CREATE PROCEDURE FROM CLASS CheckStorage;
+-- DROP PROCEDURE CheckStorage IF EXISTS;
+-- load classes stored_procedures/CheckStorage/CheckStorage.jar;
+-- CREATE PROCEDURE FROM CLASS CheckStorage;
 
-DROP PROCEDURE SendToDisk IF EXISTS;
-load classes stored_procedures/SendToDisk/SendToDisk.jar;
-CREATE PROCEDURE PARTITION ON TABLE File COLUMN p_key FROM CLASS SendToDisk;
+-- DROP PROCEDURE SendToDisk IF EXISTS;
+-- load classes stored_procedures/SendToDisk/SendToDisk.jar;
+-- CREATE PROCEDURE PARTITION ON TABLE File COLUMN p_key FROM CLASS SendToDisk;
 
 DROP PROCEDURE Delete IF EXISTS;
 load classes stored_procedures/Delete/Delete.jar;
