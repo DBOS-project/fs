@@ -56,6 +56,9 @@ int main (int argc, char **argv) {
         for (int i=0; i<file_cnt; i++) {
             string fname = tmpdir + "/dir" + dir_id + "/file" + to_string(i);
             ofstream file;
+
+            buffer[i % byte_cnt]++;                   
+            
             file.open(fname.c_str());
             file.seekp(0);
             file.write(buffer, byte_cnt);

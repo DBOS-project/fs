@@ -73,6 +73,14 @@ DROP PROCEDURE Read IF EXISTS;
 load classes stored_procedures/Read/Read.jar;
 CREATE PROCEDURE PARTITION ON TABLE File COLUMN p_key FROM CLASS Read;
 
+DROP PROCEDURE Read1FileNBlocks IF EXISTS;
+load classes stored_procedures/Read1FileNBlocks/Read1FileNBlocks.jar;
+CREATE PROCEDURE PARTITION ON TABLE File COLUMN p_key FROM CLASS Read1FileNBlocks;
+
+DROP PROCEDURE Write1FileNBlocks IF EXISTS;
+load classes stored_procedures/Write1FileNBlocks/Write1FileNBlocks.jar;
+CREATE PROCEDURE PARTITION ON TABLE File COLUMN p_key FROM CLASS Write1FileNBlocks;
+
 -- DROP PROCEDURE Read_Big IF EXISTS;
 -- load classes stored_procedures/Read_Big/Read_Big.jar;
 -- CREATE PROCEDURE PARTITION ON TABLE Big_File COLUMN user_name FROM CLASS Read_Big;
