@@ -1,0 +1,9 @@
+*.o
+*.swp
+stats/
+spawner
+read_files_many
+read_files
+write_files
+write_files_many
+write_files_once
