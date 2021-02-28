@@ -7,3 +7,4 @@ read_files
 write_files
 write_files_many
 write_files_once
+ls_files
