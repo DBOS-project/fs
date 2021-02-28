@@ -3,17 +3,17 @@ set -ex
 
 #
 # usage:
-# ./benchmark_read.sh <output suffix> [flags]
-# flags: -h hostname -t transactions -f filecnt -b blockcnt -u username
+# ./benchmark_write.sh <output suffix> [flags]
+# flags: -h hostname -t exec_time -f filecnt -b blockcnt -s filesize -u username
 #
 
 SCRIPT_DIR=$(dirname $(readlink -f $0))
 cd ${SCRIPT_DIR}/../..
 
 cd benchmarks/lfile_sync
-benchmarks="read_bench"
+benchmarks="write_bench"
 
-# read files cyclically
+# write files cyclically
 for bench in $benchmarks;
 do
     cd $bench
