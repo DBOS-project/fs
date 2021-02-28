@@ -16,13 +16,12 @@ public class Write1FileNBlocks extends VoltProcedure {
                     "WHERE user_name = ?;");
     public final SQLStmt write =
         new SQLStmt("UPDATE file SET bytes = ?, file_size = ?" +
-                    "WHERE p_key = ? AND file_name = ? AND block_number IN (?,?,?,?,?) " +
+                    "WHERE p_key = ? AND file_name = ? AND block_number = ? " +
                     "AND user_name = ? ;");
 
-    // TODO: INLIST_OF_BIGINT instead of 5 hardcoded params
-    public VoltTable[] run (int p_key, String file_name, int size, byte[] data,
-                            int blk1, int blk2, int blk3, int blk4, int blk5,
-                            String user_name) throws VoltAbortException {
+    public VoltTable[] run (int p_key, int size, byte[] data,
+                            String file_name, int block_numbers[],
+                            String user_name, int rand_size) throws VoltAbortException {
         
         // get file absolute path
         voltQueueSQL(getCurrDir,
@@ -35,14 +34,16 @@ public class Write1FileNBlocks extends VoltProcedure {
         String current_directory = user_info.fetchRow(0).getString(0);
         file_name = current_directory + file_name;
 
-        voltQueueSQL(write,
-                     data,
-                     size,
-                     p_key,
-                     file_name,
-                     blk1, blk2, blk3, blk4, blk5,
-                     user_name);
-        return voltExecuteSQL(true);
+        for (int i=0; i<rand_size; i++) {
+            voltQueueSQL(write,
+                         data,
+                         size,
+                         p_key,
+                         file_name,
+                         block_numbers[i],
+                         user_name);
+        }
+        return voltExecuteSQL(true);                
     }
 }
              

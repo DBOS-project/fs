@@ -47,18 +47,17 @@ public class ReadBench {
     private int _partition;
     private int _filecnt;
     private int _blockcnt;
-    // private int _random_blockcnt;
+    private int _randcnt;
     private String _username;
     
     public ReadBench (String hostlist, int time_sec, int filecnt, int blockcnt,
-                      // int random_blockcnt,
-                      String username)
+                      int randcnt, String username)
 		throws Exception {
 
 		_time_sec = time_sec;
         _filecnt = filecnt;
         _blockcnt = blockcnt;
-        // _random_blockcnt = random_blockcnt;
+        _randcnt = randcnt;
         _username = username;
 
         _rand = new Random(11);
@@ -82,13 +81,14 @@ public class ReadBench {
         _partition = (int) user_info.fetchRow(0).getLong(0);
     }
 
-    public void benchmarkItem (int filenum, int blk1, int blk2, int blk3, int blk4, int blk5)
+    public void benchmarkItem (int filenum, int blocknums[])
         throws Exception {
 		_client.callProcedure("Read1FileNBlocks",
                               _partition,
                               "file" + String.valueOf(filenum),
-                              blk1, blk2, blk3, blk4, blk5, 
-                              _username
+                              blocknums,
+                              _username,
+                              _randcnt
 							  );
     }
 
@@ -102,7 +102,9 @@ public class ReadBench {
 
         int txs = 0;
         long start_time = System.currentTimeMillis();
-        int rand_file_idx, blk1, blk2, blk3, blk4, blk5;
+        int rand_file_idx, rand_block_idx;
+        int blocknums[];
+        blocknums = new int[_randcnt];
 
         // start recording statistics for the benchmark, outputting every 5 seconds
         _stats.startBenchmark();
@@ -113,17 +115,15 @@ public class ReadBench {
             rand_file_idx = _rand.nextInt(_filecnt);
 
             // pick blocks at random
-            blk1 = _rand.nextInt(_blockcnt);
-            blk2 = _rand.nextInt(_blockcnt);
-            blk3 = _rand.nextInt(_blockcnt);
-            blk4 = _rand.nextInt(_blockcnt);
-            blk5 = _rand.nextInt(_blockcnt);
+            for (int i=0; i<_randcnt; i++)
+                blocknums[i] = _rand.nextInt(_filecnt);
 
-            benchmarkItem(rand_file_idx, blk1, blk2, blk3, blk4, blk5);
+            benchmarkItem(rand_file_idx, blocknums);
             txs++;
 
-            if (System.currentTimeMillis() - start_time > _time_sec * 1000)
-                break;
+            if (txs % 10000 == 0)
+                if (System.currentTimeMillis() - start_time > _time_sec * 1000)
+                    break;
         }
 
 		// stop recording, print stats
@@ -147,7 +147,7 @@ public class ReadBench {
         options.addOption("t", "time_sec", true, "running time of benchmark in seconds");
         options.addOption("f", "filecnt", true, "number of files");
         options.addOption("b", "blockcnt", true, "number of blocks per file");
-        // options.addOption("r", "randblockcnt", true, "number of random blocks to access");
+        options.addOption("r", "randcnt", true, "number random objects per transaction");
         options.addOption("u", "username", true, "file owner");
         CommandLine cmd = parser.parse(options, args);
 
@@ -167,17 +167,16 @@ public class ReadBench {
         if (cmd.hasOption("blockcnt"))
             blockcnt = Integer.parseInt(cmd.getOptionValue("blockcnt"));
         
-        // int random_blockcnt = 1;
-        // if (cmd.hasOption("randblockcnt"))
-        //     random_blockcnt = Integer.parseInt(cmd.getOptionValue("randblockcnt"));
+        int randcnt = 5;
+        if (cmd.hasOption("randcnt"))
+            randcnt = Integer.parseInt(cmd.getOptionValue("randcnt"));
         
         String username = "user";
         if (cmd.hasOption("username"))
             username = cmd.getOptionValue("username");
 
         ReadBench benchmark = new ReadBench(hostlist, time_sec, filecnt, blockcnt,
-                                            // random_blockcnt,
-                                            username);
+                                            randcnt, username);
         benchmark.preprocess();
         benchmark.runBenchmark();
     }

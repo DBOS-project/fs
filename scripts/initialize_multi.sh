@@ -39,6 +39,10 @@ while getopts ":c:" opt; do
                 echo "Initializing VoltDB for 8 nodes..." >&2
                 voltdb init -f --dir=testing --config=testing/deployment_n8.xml
             fi
+            if [ $OPTARG = "10" ]; then
+                echo "Initializing VoltDB for 10 nodes..." >&2
+                voltdb init -f --dir=testing --config=testing/deployment_n10.xml
+            fi
             exit 1
             ;;
         \?)

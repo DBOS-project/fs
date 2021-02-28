@@ -89,7 +89,7 @@ public class ReadBench {
 		System.out.println(" Running Performance Benchmark for " + _time_sec + " seconds");
 		System.out.println(dashes);
 
-        int txs = 0;
+        // int txs = 0;
         long start_time = System.currentTimeMillis();
 
         // start recording statistics for the benchmark, outputting every 5 seconds
@@ -101,7 +101,7 @@ public class ReadBench {
                 for (int j=0; j<_blockcnt; j++) {
                     benchmarkItem(i, j);
                 }                
-                txs += _blockcnt;
+                // txs += _blockcnt;
             }
 
             if (System.currentTimeMillis() - start_time > _time_sec * 1000)

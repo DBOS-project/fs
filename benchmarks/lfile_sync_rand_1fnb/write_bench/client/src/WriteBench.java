@@ -48,17 +48,19 @@ public class WriteBench {
     private int _partition;
     private int _filecnt;
     private int _blockcnt;
+    private int _randcnt;
     private int _filesize;
     private byte[] _data;
     private String _username;
     
     public WriteBench (String hostlist, int time_sec, int filecnt, int blockcnt,
-                       int filesize, String username)
+                       int randcnt, int filesize, String username)
         throws Exception {
 
         _time_sec = time_sec;
         _filecnt = filecnt;
         _blockcnt = blockcnt;
+        _randcnt = randcnt;
         _filesize = filesize;
         _username = username;
 
@@ -86,15 +88,16 @@ public class WriteBench {
         _partition = (int) user_info.fetchRow(0).getLong(0);
     }
 
-    public void benchmarkItem (int filenum, int blk1, int blk2, int blk3, int blk4, int blk5)
+    public void benchmarkItem (int filenum, int blocknums[])
         throws Exception {
         _client.callProcedure("Write1FileNBlocks",
                               _partition,
-                              "file" + String.valueOf(filenum),
                               _filesize,
                               _data,
-                              blk1, blk2, blk3, blk4, blk5, 
-                              _username
+                              "file" + String.valueOf(filenum),
+                              blocknums,
+                              _username,
+                              _randcnt
                               );
     }
 
@@ -108,7 +111,9 @@ public class WriteBench {
 
         int txs = 0;
         long start_time = System.currentTimeMillis();
-        int rand_file_idx, blk1, blk2, blk3, blk4, blk5;
+        int rand_file_idx, rand_block_idx;
+        int blocknums[];
+        blocknums = new int[_randcnt];
 
         // start recording statistics for the benchmark, outputting every 5 seconds
         _stats.startBenchmark();
@@ -119,17 +124,15 @@ public class WriteBench {
             rand_file_idx = _rand.nextInt(_filecnt);
 
             // pick blocks at random
-            blk1 = _rand.nextInt(_blockcnt);
-            blk2 = _rand.nextInt(_blockcnt);
-            blk3 = _rand.nextInt(_blockcnt);
-            blk4 = _rand.nextInt(_blockcnt);
-            blk5 = _rand.nextInt(_blockcnt);
+            for (int i=0; i<_randcnt; i++)
+                blocknums[i] = _rand.nextInt(_filecnt);
 
-            benchmarkItem(rand_file_idx, blk1, blk2, blk3, blk4, blk5);
+            benchmarkItem(rand_file_idx, blocknums);
             txs++;
 
-            if (System.currentTimeMillis() - start_time > _time_sec * 1000)
-                break;
+            if (txs % 10000 == 0)
+                if (System.currentTimeMillis() - start_time > _time_sec * 1000)
+                    break;
         }
 
         // stop recording, print stats
@@ -154,6 +157,7 @@ public class WriteBench {
         options.addOption("f", "filecnt", true, "number of files");
         options.addOption("b", "blockcnt", true, "number of blocks per file");
         options.addOption("s", "filesize", true, "file size in bytes");
+        options.addOption("r", "randcnt", true, "number random objects per transaction");
         options.addOption("u", "username", true, "file owner");
         CommandLine cmd = parser.parse(options, args);
 
@@ -173,6 +177,10 @@ public class WriteBench {
         if (cmd.hasOption("blockcnt"))
             blockcnt = Integer.parseInt(cmd.getOptionValue("blockcnt"));
         
+        int randcnt = 5;
+        if (cmd.hasOption("randcnt"))
+            randcnt = Integer.parseInt(cmd.getOptionValue("randcnt"));
+        
         int filesize = 1024*1024;
         if (cmd.hasOption("filesize"))
             filesize = Integer.parseInt(cmd.getOptionValue("filesize"));
@@ -182,7 +190,7 @@ public class WriteBench {
             username = cmd.getOptionValue("username");
 
         WriteBench benchmark = new WriteBench(hostlist, time_sec, filecnt, blockcnt,
-                                              filesize, username);
+                                              randcnt, filesize, username);
         benchmark.preprocess();
         benchmark.runBenchmark();
     }

@@ -47,18 +47,17 @@ public class ReadBench {
     private int _partition;
     private int _filecnt;
     private int _blockcnt;
-    // private int _random_blockcnt;
+    private int _randcnt;
     private String _username;
     
     public ReadBench (String hostlist, int time_sec, int filecnt, int blockcnt,
-                      // int random_blockcnt,
-                      String username)
+                      int randcnt, String username)
 		throws Exception {
 
 		_time_sec = time_sec;
         _filecnt = filecnt;
         _blockcnt = blockcnt;
-        // _random_blockcnt = random_blockcnt;
+        _randcnt = randcnt;
         _username = username;
 
         _rand = new Random(11);
@@ -82,14 +81,14 @@ public class ReadBench {
         _partition = (int) user_info.fetchRow(0).getLong(0);
     }
 
-    public void benchmarkItem (int fnm1, int fnm2, int fnm3, int fnm4, int fnm5, int blocknum)
+    public void benchmarkItem (String filenames[], int blocknum)
         throws Exception {
 		_client.callProcedure("ReadNFiles1Block",
                               _partition,
-                              "file" + String.valueOf(fnm1), "file" + String.valueOf(fnm2),
-                              "file" + String.valueOf(fnm3), "file" + String.valueOf(fnm4),
-                              "file" + String.valueOf(fnm5), blocknum,
-                              _username
+                              filenames,
+                              blocknum,
+                              _username,
+                              _randcnt
 							  );
     }
 
@@ -103,24 +102,25 @@ public class ReadBench {
 
         int txs = 0;
         long start_time = System.currentTimeMillis();
-        int fnm1, fnm2, fnm3, fnm4, fnm5, rand_block_idx;
+        int rand_file_idx, rand_block_idx;
+        String filenames[];
+        filenames = new String[_randcnt];
 
         // start recording statistics for the benchmark, outputting every 5 seconds
         _stats.startBenchmark();
 
         // main loop for the benchmark
         while (true) {
-            // pick blocks at random
-            fnm1 = _rand.nextInt(_filecnt);
-            fnm2 = _rand.nextInt(_filecnt);
-            fnm3 = _rand.nextInt(_filecnt);
-            fnm4 = _rand.nextInt(_filecnt);
-            fnm5 = _rand.nextInt(_filecnt);
+            // pick files at random
+            for (int i=0; i<_randcnt; i++) {
+                rand_file_idx = _rand.nextInt(_filecnt);
+                filenames[i] = "file" + String.valueOf(rand_file_idx);
+            }
 
             // pick a block at random
             rand_block_idx = _rand.nextInt(_blockcnt);
 
-            benchmarkItem(fnm1, fnm2, fnm3, fnm4, fnm5, rand_block_idx);
+            benchmarkItem(filenames, rand_block_idx);
             txs++;
 
             if (txs % 10000 == 0)
@@ -149,7 +149,7 @@ public class ReadBench {
         options.addOption("t", "time_sec", true, "running time of benchmark in seconds");
         options.addOption("f", "filecnt", true, "number of files");
         options.addOption("b", "blockcnt", true, "number of blocks per file");
-        // options.addOption("r", "randblockcnt", true, "number of random blocks to access");
+        options.addOption("r", "randcnt", true, "number random objects per transaction");
         options.addOption("u", "username", true, "file owner");
         CommandLine cmd = parser.parse(options, args);
 
@@ -169,17 +169,16 @@ public class ReadBench {
         if (cmd.hasOption("blockcnt"))
             blockcnt = Integer.parseInt(cmd.getOptionValue("blockcnt"));
         
-        // int random_blockcnt = 1;
-        // if (cmd.hasOption("randblockcnt"))
-        //     random_blockcnt = Integer.parseInt(cmd.getOptionValue("randblockcnt"));
+        int randcnt = 5;
+        if (cmd.hasOption("randcnt"))
+            randcnt = Integer.parseInt(cmd.getOptionValue("randcnt"));
         
         String username = "user";
         if (cmd.hasOption("username"))
             username = cmd.getOptionValue("username");
 
         ReadBench benchmark = new ReadBench(hostlist, time_sec, filecnt, blockcnt,
-                                            // random_blockcnt,
-                                            username);
+                                            randcnt, username);
         benchmark.preprocess();
         benchmark.runBenchmark();
     }

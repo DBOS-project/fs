@@ -12,7 +12,7 @@
 	<frequency/>
   </commandlog>
   <systemsettings>
-	<temptables maxsize="100"/>
+	<temptables/>
 	<snapshot/>
 	<elastic/>
 	<query/>

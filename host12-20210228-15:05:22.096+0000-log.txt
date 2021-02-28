@@ -1,0 +1,516 @@
+Received remote hangup from foreign host d-12-8-2
+
+****** Current Thread ****** 
+java.lang.Thread.dumpThreads(Native Method)
+java.lang.Thread.getAllStackTraces(Thread.java:1610)
+org.voltdb.VoltDB.printStackTraces(VoltDB.java:1166)
+org.voltdb.VoltDB.printStackTraces(VoltDB.java:1154)
+org.voltdb.VoltDB.dropStackTrace(VoltDB.java:1137)
+org.voltcore.messaging.ForeignHost.connectionStopping(ForeignHost.java:298)
+org.voltcore.messaging.Subconnection$PicoInputHandler.stopping(Subconnection.java:78)
+org.voltcore.network.PicoNetwork.safeStopping(PicoNetwork.java:316)
+org.voltcore.network.PicoNetwork.p_shutdown(PicoNetwork.java:352)
+org.voltcore.network.PicoNetwork.run(PicoNetwork.java:228)
+java.lang.Thread.run(Thread.java:748)
+****** All Threads ******
+"Pico Network - d-12-8-2" Id=62 RUNNABLE
+	at sun.management.ThreadImpl.dumpThreads0(Native Method)
+	at sun.management.ThreadImpl.dumpAllThreads(ThreadImpl.java:454)
+	at org.voltdb.VoltDB.printStackTraces(VoltDB.java:1180)
+	at org.voltdb.VoltDB.printStackTraces(VoltDB.java:1154)
+	at org.voltdb.VoltDB.dropStackTrace(VoltDB.java:1137)
+	at org.voltcore.messaging.ForeignHost.connectionStopping(ForeignHost.java:298)
+	at org.voltcore.messaging.Subconnection$PicoInputHandler.stopping(Subconnection.java:78)
+	at org.voltcore.network.PicoNetwork.safeStopping(PicoNetwork.java:316)
+	...
+
+
+"Pico Network - d-9-4-1" Id=61 RUNNABLE
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked sun.nio.ch.Util$3@63d7df69
+	-  locked java.util.Collections$UnmodifiableSet@26309283
+	-  locked sun.nio.ch.EPollSelectorImpl@49e346eb
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.PicoNetwork.run(PicoNetwork.java:194)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Socket Joiner" Id=60 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked sun.nio.ch.Util$3@4deb5465
+	-  locked java.util.Collections$UnmodifiableSet@109af626
+	-  locked sun.nio.ch.EPollSelectorImpl@321cca3c
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.messaging.SocketJoiner.runPrimary(SocketJoiner.java:619)
+	at org.voltcore.messaging.SocketJoiner.access$000(SocketJoiner.java:79)
+	...
+
+	Number of locked synchronizers = 1
+	- java.util.concurrent.ThreadPoolExecutor$Worker@4e07b95f
+
+
+"main-EventThread" Id=59 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@619b168a
+	at sun.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@619b168a
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:442)
+	at org.apache.zookeeper_voltpatches.ClientCnxn$EventThread.run(ClientCnxn.java:514)
+
+
+"main-SendThread(localhost.localdomain:7181)" Id=58 RUNNABLE
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked sun.nio.ch.Util$3@76443ea0
+	-  locked java.util.Collections$UnmodifiableSet@3128dd88
+	-  locked sun.nio.ch.EPollSelectorImpl@6531bcbb
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.apache.zookeeper_voltpatches.ClientCnxn$SendThread.run(ClientCnxn.java:1130)
+
+
+"ZooKeeperServer" Id=57 TIMED_WAITING on org.voltcore.messaging.SiteMailbox@5c27d9d1
+	at java.lang.Object.wait(Native Method)
+	-  waiting on org.voltcore.messaging.SiteMailbox@5c27d9d1
+	at org.voltcore.messaging.SiteMailbox.recvBlocking(SiteMailbox.java:138)
+	at org.voltcore.messaging.SiteMailbox.recvBlocking(SiteMailbox.java:74)
+	at org.voltcore.agreement.AgreementSite.run(AgreementSite.java:277)
+	at org.apache.zookeeper_voltpatches.server.ZooKeeperServer.run(ZooKeeperServer.java:1199)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"NIOServerCxn.Factory:/127.0.0.1:7181" Id=56 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked sun.nio.ch.Util$3@bc15dcb
+	-  locked java.util.Collections$UnmodifiableSet@7c7205a6
+	-  locked sun.nio.ch.EPollSelectorImpl@144ebaf7
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at org.apache.zookeeper_voltpatches.server.NIOServerCnxn$Factory.run(NIOServerCnxn.java:244)
+
+
+"Pico Network - d-9-1-1" Id=55 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked sun.nio.ch.Util$3@76c510fe
+	-  locked java.util.Collections$UnmodifiableSet@77eb24e8
+	-  locked sun.nio.ch.EPollSelectorImpl@1b585086
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.PicoNetwork.run(PicoNetwork.java:194)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Pico Network - d-9-2-2" Id=54 RUNNABLE
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked sun.nio.ch.Util$3@7a20c818
+	-  locked java.util.Collections$UnmodifiableSet@24bc7542
+	-  locked sun.nio.ch.EPollSelectorImpl@aded959
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.PicoNetwork.run(PicoNetwork.java:194)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Pico Network - d-9-2-1" Id=53 RUNNABLE
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked sun.nio.ch.Util$3@53db74e4
+	-  locked java.util.Collections$UnmodifiableSet@2f47168f
+	-  locked sun.nio.ch.EPollSelectorImpl@68967040
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.PicoNetwork.run(PicoNetwork.java:194)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Pico Network - d-12-8-2" Id=52 RUNNABLE
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked sun.nio.ch.Util$3@14fe781a
+	-  locked java.util.Collections$UnmodifiableSet@1c0a5235
+	-  locked sun.nio.ch.EPollSelectorImpl@b6edc55
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.PicoNetwork.run(PicoNetwork.java:194)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Pico Network - d-12-15-2" Id=51 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked sun.nio.ch.Util$3@50a1b908
+	-  locked java.util.Collections$UnmodifiableSet@377835ae
+	-  locked sun.nio.ch.EPollSelectorImpl@792d528e
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.PicoNetwork.run(PicoNetwork.java:194)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Volt Server Network - 19" Id=50 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked io.netty_voltpatches.NinjaKeySet@4dcb58a
+	-  locked java.util.Collections$UnmodifiableSet@596835e0
+	-  locked sun.nio.ch.EPollSelectorImpl@2f4bae26
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:316)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Volt Server Network - 18" Id=49 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked io.netty_voltpatches.NinjaKeySet@3c612063
+	-  locked java.util.Collections$UnmodifiableSet@5d70b280
+	-  locked sun.nio.ch.EPollSelectorImpl@45af4bfb
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:316)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Volt Server Network - 17" Id=48 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked io.netty_voltpatches.NinjaKeySet@3767e7f6
+	-  locked java.util.Collections$UnmodifiableSet@230ab41
+	-  locked sun.nio.ch.EPollSelectorImpl@5a0ced35
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:316)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Volt Server Network - 16" Id=47 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked io.netty_voltpatches.NinjaKeySet@65c3851c
+	-  locked java.util.Collections$UnmodifiableSet@6d138605
+	-  locked sun.nio.ch.EPollSelectorImpl@6a7e5245
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:316)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Volt Server Network - 15" Id=46 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked io.netty_voltpatches.NinjaKeySet@57266f7a
+	-  locked java.util.Collections$UnmodifiableSet@2eb4fbe7
+	-  locked sun.nio.ch.EPollSelectorImpl@5fe6639a
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:316)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Volt Server Network - 14" Id=45 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked io.netty_voltpatches.NinjaKeySet@4712ee59
+	-  locked java.util.Collections$UnmodifiableSet@23ab147e
+	-  locked sun.nio.ch.EPollSelectorImpl@2ac9b82f
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:316)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Volt Server Network - 13" Id=44 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked io.netty_voltpatches.NinjaKeySet@46dff45f
+	-  locked java.util.Collections$UnmodifiableSet@16efaafb
+	-  locked sun.nio.ch.EPollSelectorImpl@6d9c54bc
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:316)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Volt Server Network - 12" Id=43 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked io.netty_voltpatches.NinjaKeySet@af381e0
+	-  locked java.util.Collections$UnmodifiableSet@33b7e1ed
+	-  locked sun.nio.ch.EPollSelectorImpl@58e43d12
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:316)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Volt Server Network - 11" Id=42 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked io.netty_voltpatches.NinjaKeySet@57d2bb06
+	-  locked java.util.Collections$UnmodifiableSet@4138cc9d
+	-  locked sun.nio.ch.EPollSelectorImpl@4d8cf5de
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:316)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Volt Server Network - 10" Id=41 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked io.netty_voltpatches.NinjaKeySet@34f95dd0
+	-  locked java.util.Collections$UnmodifiableSet@7631dac2
+	-  locked sun.nio.ch.EPollSelectorImpl@71eabcbd
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:316)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Volt Server Network - 9" Id=40 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked io.netty_voltpatches.NinjaKeySet@5be2955b
+	-  locked java.util.Collections$UnmodifiableSet@250b542a
+	-  locked sun.nio.ch.EPollSelectorImpl@5d946d83
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:316)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Volt Server Network - 8" Id=39 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked io.netty_voltpatches.NinjaKeySet@79bf2dd8
+	-  locked java.util.Collections$UnmodifiableSet@36b837f9
+	-  locked sun.nio.ch.EPollSelectorImpl@49ed8f00
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:316)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Volt Server Network - 7" Id=38 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked io.netty_voltpatches.NinjaKeySet@376b0bcb
+	-  locked java.util.Collections$UnmodifiableSet@37ba3113
+	-  locked sun.nio.ch.EPollSelectorImpl@40cacfe2
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:316)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Volt Server Network - 6" Id=37 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked io.netty_voltpatches.NinjaKeySet@657add74
+	-  locked java.util.Collections$UnmodifiableSet@a20b743
+	-  locked sun.nio.ch.EPollSelectorImpl@6cf42dbd
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:316)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Volt Server Network - 5" Id=36 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked io.netty_voltpatches.NinjaKeySet@7a575a1e
+	-  locked java.util.Collections$UnmodifiableSet@4975a95d
+	-  locked sun.nio.ch.EPollSelectorImpl@46e0959f
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:316)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Volt Server Network - 4" Id=35 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked io.netty_voltpatches.NinjaKeySet@b34c13b
+	-  locked java.util.Collections$UnmodifiableSet@4bf3ede9
+	-  locked sun.nio.ch.EPollSelectorImpl@2f289a8b
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:316)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Volt Server Network - 3" Id=34 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked io.netty_voltpatches.NinjaKeySet@6d26ae9c
+	-  locked java.util.Collections$UnmodifiableSet@40b6971a
+	-  locked sun.nio.ch.EPollSelectorImpl@14fea640
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:316)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Volt Server Network - 2" Id=33 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked io.netty_voltpatches.NinjaKeySet@7fe98a96
+	-  locked java.util.Collections$UnmodifiableSet@276399b9
+	-  locked sun.nio.ch.EPollSelectorImpl@5399c408
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:316)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Volt Server Network - 1" Id=32 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked io.netty_voltpatches.NinjaKeySet@3234a49d
+	-  locked java.util.Collections$UnmodifiableSet@1ba2577
+	-  locked sun.nio.ch.EPollSelectorImpl@3aafdaa8
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:316)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Volt Server Network - 0" Id=31 RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:93)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:86)
+	-  locked io.netty_voltpatches.NinjaKeySet@278bf071
+	-  locked java.util.Collections$UnmodifiableSet@300ca851
+	-  locked sun.nio.ch.EPollSelectorImpl@604db2ba
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:97)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:101)
+	at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:316)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"process reaper" Id=30 TIMED_WAITING on java.util.concurrent.SynchronousQueue$TransferStack@24f35e81
+	at sun.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.SynchronousQueue$TransferStack@24f35e81
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:460)
+	at java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)
+	at java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:941)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	...
+
+
+"ZooKeeperServer" Id=29 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@5c833a16
+	at sun.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@5c833a16
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:442)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Estimated Time Updater" Id=25 TIMED_WAITING
+	at java.lang.Thread.sleep(Native Method)
+	at org.voltcore.utils.EstTimeUpdater$1.run(EstTimeUpdater.java:42)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+"Signal Dispatcher" Id=5 RUNNABLE
+
+
+"Finalizer" Id=3 WAITING on java.lang.ref.ReferenceQueue$Lock@9184ff7
+	at java.lang.Object.wait(Native Method)
+	-  waiting on java.lang.ref.ReferenceQueue$Lock@9184ff7
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:144)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:165)
+	at java.lang.ref.Finalizer$FinalizerThread.run(Finalizer.java:216)
+
+
+"Reference Handler" Id=2 WAITING on java.lang.ref.Reference$Lock@4cdf40c
+	at java.lang.Object.wait(Native Method)
+	-  waiting on java.lang.ref.Reference$Lock@4cdf40c
+	at java.lang.Object.wait(Object.java:502)
+	at java.lang.ref.Reference.tryHandlePending(Reference.java:191)
+	at java.lang.ref.Reference$ReferenceHandler.run(Reference.java:153)
+
+
+"main" Id=1 WAITING on org.apache.zookeeper_voltpatches.ClientCnxn$Packet@7f627b80
+	at java.lang.Object.wait(Native Method)
+	-  waiting on org.apache.zookeeper_voltpatches.ClientCnxn$Packet@7f627b80
+	at java.lang.Object.wait(Object.java:502)
+	at org.apache.zookeeper_voltpatches.ClientCnxn.submitRequest(ClientCnxn.java:1373)
+	at org.apache.zookeeper_voltpatches.ZooKeeper.exists(ZooKeeper.java:840)
+	at org.apache.zookeeper_voltpatches.ZooKeeper.exists(ZooKeeper.java:875)
+	at org.voltdb.RealVoltDB.validateStartAction(RealVoltDB.java:2069)
+	at org.voltdb.RealVoltDB.initialize(RealVoltDB.java:1216)
+	-  locked java.lang.Object@3af4a542
+	at org.voltdb.VoltDB.initialize(VoltDB.java:1450)
+	...
+
+

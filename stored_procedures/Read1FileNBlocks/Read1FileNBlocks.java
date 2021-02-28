@@ -14,15 +14,13 @@ public class Read1FileNBlocks extends VoltProcedure {
     public final SQLStmt getCurrDir =
         new SQLStmt("SELECT current_directory FROM UserInfo " +
                     "WHERE user_name = ?;");
-    public final SQLStmt read_content =
+    public final SQLStmt read =
         new SQLStmt("SELECT bytes from file " +
-                    "WHERE p_key = ? AND file_name = ? AND block_number IN (?,?,?,?,?) " +
+                    "WHERE p_key = ? AND file_name = ? AND block_number = ? " +
                     "AND user_name = ? ;");
 
-    // TODO: INLIST_OF_BIGINT instead of 5 hardcoded params
-    public VoltTable[] run (int p_key, String file_name,
-                            int blk1, int blk2, int blk3, int blk4, int blk5,
-                            String user_name) throws VoltAbortException {
+    public VoltTable[] run (int p_key, String file_name, int block_numbers[],
+                            String user_name, int rand_size) throws VoltAbortException {
         
         // get file absolute path
         voltQueueSQL(getCurrDir,
@@ -35,12 +33,13 @@ public class Read1FileNBlocks extends VoltProcedure {
         String current_directory = user_info.fetchRow(0).getString(0);
         file_name = current_directory + file_name;
 
-        // read file content
-        voltQueueSQL(read_content,
-                     p_key,
-                     file_name,
-                     blk1, blk2, blk3, blk4, blk5,
-                     user_name);
+        for (int i=0; i<rand_size; i++) {
+            voltQueueSQL(read,
+                         p_key,
+                         file_name,
+                         block_numbers[i],
+                         user_name);
+        }
         return voltExecuteSQL(true);
     }
 }
