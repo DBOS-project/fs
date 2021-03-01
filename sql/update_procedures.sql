@@ -121,10 +121,6 @@ CREATE PROCEDURE PARTITION ON TABLE File COLUMN p_key FROM CLASS PopulateWithBuf
 -- load classes stored_procedures/SendToDisk/SendToDisk.jar;
 -- CREATE PROCEDURE PARTITION ON TABLE File COLUMN p_key FROM CLASS SendToDisk;
 
-DROP PROCEDURE Delete IF EXISTS;
-load classes stored_procedures/Delete/Delete.jar;
-CREATE PROCEDURE FROM CLASS Delete;
-
 DROP PROCEDURE SumLargerThan IF EXISTS;
 load classes stored_procedures/SumLargerThan/SumLargerThan.jar;
 CREATE PROCEDURE PARTITION ON TABLE File COLUMN p_key FROM CLASS SumLargerThan;

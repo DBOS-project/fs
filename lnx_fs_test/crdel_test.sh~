@@ -1,0 +1,3 @@
+#!/bin/bash
+
+./spawner create_files.sh 40 0 100 

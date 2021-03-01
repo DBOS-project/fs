@@ -1,0 +1,14 @@
+#!/bin/bash
+set -ex
+
+time ./benchmark_create.sh _crt_1 -h localhost -u user1 -f $1 -b 1
+time ./benchmark_delete.sh _del_1 -h localhost -u user1 -f $1
+time ./benchmark_create.sh _crt_2 -h localhost -u user1 -f $1 -b 1
+time ./benchmark_delete.sh _del_2 -h localhost -u user1 -f $1
+time ./benchmark_create.sh _crt_3 -h localhost -u user1 -f $1 -b 1
+time ./benchmark_delete.sh _del_3 -h localhost -u user1 -f $1
+time ./benchmark_create.sh _crt_4 -h localhost -u user1 -f $1 -b 1
+time ./benchmark_delete.sh _del_4 -h localhost -u user1 -f $1
+time ./benchmark_create.sh _crt_5 -h localhost -u user1 -f $1 -b 1
+time ./benchmark_delete.sh _del_5 -h localhost -u user1 -f $1
+
