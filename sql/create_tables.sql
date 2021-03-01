@@ -58,6 +58,6 @@ CREATE UNIQUE INDEX file_unq_idx ON File (p_key, user_name, file_name, block_num
 -- CREATE INDEX file_idx0 ON File (user_name, file_name);
 -- CREATE INDEX file_idx1 ON File (user_name, file_name, block_number);
 -- CREATE UNIQUE INDEX big_file_unq_idx ON Big_File (user_name, file_name);
-CREATE INDEX dir_idx ON Directory (user_name, directory_name);
+CREATE UNIQUE INDEX dir_idx ON Directory (p_key, user_name, directory_name, content_name);
 -- CREATE UNIQUE INDEX permission_unq_idx ON Permission (user_name, file_name);
 

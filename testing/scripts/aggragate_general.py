@@ -9,8 +9,11 @@ user_max = user_min + user_cnt
 print("%s aggregation for users %d to %d" %(prefix, user_min, user_max))
 
 data = []
-for user_num in range(user_min, user_max):    
-    file_name = "../stats/"+ prefix+"_user"+str(user_num)+".out"
+for user_num in range(user_min, user_max):
+    if prefix.endswith("worker"):
+        file_name = "../stats/"+ prefix+str(user_num)+".out"
+    else:
+        file_name = "../stats/"+ prefix+"_user"+str(user_num)+".out"
     with open(file_name, 'r') as f:
         for l in f:
             if l.startswith("Average throughput"):

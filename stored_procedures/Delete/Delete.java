@@ -8,17 +8,39 @@ import java.io.RandomAccessFile;;
  */
 
 public class Delete extends VoltProcedure {
-    public final SQLStmt delete =
+    public final SQLStmt getCurrDir =
+        new SQLStmt("SELECT current_directory FROM  UserInfo " +
+                    "WHERE user_name = ?;");
+    public final SQLStmt deleteFile =
         new SQLStmt("DELETE FROM file WHERE p_key = ? AND user_name = ? AND file_name = ?;");
+    public final SQLStmt deleteFromDir =
+        new SQLStmt("DELETE FROM directory WHERE p_key = ? AND user_name = ? " +
+                    "AND directory_name = ? AND content_name = ?");
 
-    public long run (int p_key, String user_name, String file_name)
+    public long run (int p_key, String file_name, String user_name)
         throws VoltAbortException {
         
-        voltQueueSQL(delete,
+        if (file_name.startsWith("/"))
+            return -1;
+
+        // get file absolute path
+        voltQueueSQL(getCurrDir,
+                     user_name);
+        VoltTable user_info = voltExecuteSQL()[0];
+        if (user_info.getRowCount() < 1)
+            return -1;
+        String current_directory = user_info.fetchRow(0).getString(0);
+
+        voltQueueSQL(deleteFile,
                      p_key,
                      user_name,
+                     current_directory + file_name);
+        voltQueueSQL(deleteFromDir,
+                     p_key,
+                     user_name,
+                     current_directory,
                      file_name);
-        voltExecuteSQL();
+        voltExecuteSQL(true);
 
         return 0;
     }

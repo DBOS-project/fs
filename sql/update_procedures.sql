@@ -47,6 +47,10 @@ DROP PROCEDURE CreateBlockAt IF EXISTS;
 load classes stored_procedures/CreateBlockAt/CreateBlockAt.jar;
 CREATE PROCEDURE FROM CLASS CreateBlockAt;
 
+DROP PROCEDURE Delete IF EXISTS;
+load classes stored_procedures/Delete/Delete.jar;
+CREATE PROCEDURE PARTITION ON TABLE File COLUMN p_key FROM CLASS Delete;
+
 DROP PROCEDURE CreateDir IF EXISTS;
 load classes stored_procedures/CreateDir/CreateDir.jar;
 -- CREATE PROCEDURE PARTITION ON TABLE UserInfo COLUMN home_partition FROM CLASS CreateDir;
@@ -64,10 +68,6 @@ CREATE PROCEDURE FROM CLASS List;
 -- DROP PROCEDURE Create_Big IF EXISTS;
 -- load classes stored_procedures/Create_Big/Create_Big.jar;
 -- CREATE PROCEDURE PARTITION ON TABLE Big_File COLUMN user_name FROM CLASS Create_Big;
-
-DROP PROCEDURE Delete IF EXISTS;
-load classes stored_procedures/Delete/Delete.jar;
-CREATE PROCEDURE FROM CLASS Delete;
 
 DROP PROCEDURE Read IF EXISTS;
 load classes stored_procedures/Read/Read.jar;

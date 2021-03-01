@@ -103,7 +103,7 @@ public class ReadBench {
                 }                
                 // txs += _blockcnt;
             }
-
+            
             if (System.currentTimeMillis() - start_time > _time_sec * 1000)
                 break;
         }
