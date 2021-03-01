@@ -3,7 +3,7 @@
 SCRIPT_DIR=$(dirname $(readlink -f $0))
 cd ${SCRIPT_DIR}/..
 
-all_procs="Create CreateAt CreateBlock CreateBlockAt CreateP CreateUser GetUserPartition CreateDir ChangeDir List Delete PartitionInfoSelect PartitionInfoInsert PartitionInfoUpdate GetPartitionInfo GetPartitionRange Read PopulateWithSize PopulateWithBuffer Read1FileNBlocks Write1FileNBlocks ReadNFiles1Block WriteNFiles1Block"
+all_procs="Create CreateAt CreateBlock CreateBlockAt CreateP CreateUser GetUserPartition CreateDir ChangeDir List Delete PartitionInfoSelect PartitionInfoInsert PartitionInfoUpdate GetPartitionInfo GetPartitionRange Read PopulateWithSize PopulateWithBuffer Read1FileNBlocks Write1FileNBlocks ReadNFiles1Block WriteNFiles1Block SumLargerThan"
 # "SendToDisk CheckStorage"
 # "Write Read_Big Populate_Big Write_Big Create_Big"
 # "CountFiles CountBytes CountLargerThan CountLargestK"

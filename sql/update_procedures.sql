@@ -125,6 +125,10 @@ DROP PROCEDURE Delete IF EXISTS;
 load classes stored_procedures/Delete/Delete.jar;
 CREATE PROCEDURE FROM CLASS Delete;
 
+DROP PROCEDURE SumLargerThan IF EXISTS;
+load classes stored_procedures/SumLargerThan/SumLargerThan.jar;
+CREATE PROCEDURE PARTITION ON TABLE File COLUMN p_key FROM CLASS SumLargerThan;
+
 -- DROP PROCEDURE CountFiles IF EXISTS;
 -- load classes stored_procedures/CountFiles/CountFiles.jar;
 -- CREATE PROCEDURE FROM CLASS CountFiles;
