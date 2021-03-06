@@ -6,3 +6,12 @@ tmpfs_test/stats/*
 testing/voltdbroot/*
 testing/stats/*
 .DS_Store
+tmp
+hs_err_pid*
+.mtj.tmp/
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+*.o
