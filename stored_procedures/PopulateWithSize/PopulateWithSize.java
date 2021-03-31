@@ -14,12 +14,6 @@ public class PopulateWithSize extends VoltProcedure {
     public final SQLStmt getCurrDir =
         new SQLStmt("SELECT current_directory FROM UserInfo " +
                     "WHERE user_name = ?;");
-    // public final SQLStmt read_info =
-    //     new SQLStmt("SELECT present, file_size FROM file " +
-    //                 "WHERE p_key = ? AND file_name = ? AND block_number = ? AND user_name = ? ;");
-    // public final SQLStmt read_content =
-    //     new SQLStmt("SELECT bytes FROM file " +
-    //                 "WHERE p_key = ? AND file_name = ? AND block_number = ? AND user_name = ? ;");
     public final SQLStmt write =
         new SQLStmt("UPDATE file SET bytes = ?, file_size = ? " +
                     "WHERE p_key = ? AND file_name = ? AND block_number = ? AND user_name = ?; ");
@@ -37,35 +31,6 @@ public class PopulateWithSize extends VoltProcedure {
             return -3;
         String current_directory = user_info.fetchRow(0).getString(0);
         file_name = current_directory + file_name;
-
-        // // read file present info
-        // voltQueueSQL(read_info,
-        //              p_key,
-        //              file_name,
-        //              block_number,
-        //              user_name);
-
-        // VoltTable[] file_query = voltExecuteSQL();
-        // if (file_query[0].getRowCount() < 1)
-        //     return -2;
-        // VoltTableRow file_info = file_query[0].fetchRow(0);
-
-        // // delete old file from disk
-        // if (file_info.getLong("present") == 0) {
-        //     // read file content
-        //     voltQueueSQL(read_content,
-        //                  p_key,
-        //                  file_name,
-        //                  block_number,
-        //                  user_name);
-
-        //     // delete file form disk
-        //     VoltTableRow bytes_ptr = voltExecuteSQL()[0].fetchRow(0);            
-        //     String file_ptr = new String(bytes_ptr.getVarbinary("bytes"));
-
-        //     File disk_file = new File(file_ptr);
-        //     disk_file.delete();
-        // }
 
         // fill file
         byte[] data = new byte[size];
