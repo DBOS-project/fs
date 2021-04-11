@@ -6,42 +6,48 @@
 #include <chrono>
 #include <vector>
 #include <random>
+#include <future>
 
 using namespace std;
 
 /*
- * randomly choose a file and write all its blocks
+ * randomly choose a file and read random blocks asynchronously
  */
 
+void read_block(shared_ptr<fstream> file, char *buffer, int block_size) {
+    file->read(buffer, block_size);
+}
+
 int main (int argc, char **argv) {
-    if (argc != 7) {
+    if (argc != 8) {
         printf("[Error] usage:\n./write_files <dir_id> <file_cnt> <block_cnt> "
-               "<block_size> <exec_time> <output_suffix>\n");
+               "<block_rnd_cnt> <block_size> <exec_time> <output_suffix>\n");
         return -1;
     }
 
     const string dir_id =  argv[1];
     const int file_cnt = atoi(argv[2]);
     const int block_cnt = atoi(argv[3]);
-    const int block_size = atoi(argv[4]);
-    const int time_sec = atoi(argv[5]);
-    const string suffix = argv[6];
+    const int block_rnd_cnt = atoi(argv[4]);
+    const int block_size = atoi(argv[5]);
+    const int time_sec = atoi(argv[6]);
+    const string suffix = argv[7];
     long long unsigned txs = 0;
 
     chrono::duration<double> elapsed;
     ofstream stats;
-    string sfname = "../stats/wr_all" + suffix + dir_id + ".out";
+    string sfname = "./stats/rd_rnd_asc" + suffix + dir_id + ".out";
     stats.open(sfname.c_str());
 
-    // create data buffer to write
+    // create data buffer to read
     char *buffer = new char[block_size];
     memset(buffer, '1', block_size);
 
     // mount point
     const string tmpdir = getenv("TARGET");
-   
+
     // transactions
-    printf("worker %s writes...\n", dir_id.c_str());
+    printf("worker %s randomly reads asynchronously...\n", dir_id.c_str());
     auto start = chrono::high_resolution_clock::now();
     for (;;) {
         // open a random file
@@ -50,17 +56,18 @@ int main (int argc, char **argv) {
         string fname = tmpdir + "/dir" + dir_id + "/file" + to_string(file_id);
         file->open(fname.c_str());
 
-        // iterate all blocks
-        for (int i=0; i < block_cnt; i++) {
-            // modify what we write
-            int change_index = rand() % block_size;
-            buffer[change_index]++;
-
-            // select block
-            int block_id = i;
-            file->seekp(block_id * block_size);
-            file->write(buffer, block_size);
+        // iterate random blocks
+        future<void> fut[block_cnt];
+        for (int i=0; i < block_rnd_cnt; i++) {
+            // randomly select block
+            int block_id = rand() % block_cnt;
+            file->seekg(block_id * block_size);
+            fut[i] = async(launch::async, read_block, file, buffer, block_size);
         }
+        for (int i=0; i < block_cnt; i++) {
+            fut[i].get();
+        }
+
         txs++;
 
         // close file

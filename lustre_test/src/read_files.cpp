@@ -10,7 +10,7 @@
 using namespace std;
 
 /*
- * randomly choose a file and write all its blocks
+ * randomly choose a file and read all its blocks
  */
 
 int main (int argc, char **argv) {
@@ -30,18 +30,18 @@ int main (int argc, char **argv) {
 
     chrono::duration<double> elapsed;
     ofstream stats;
-    string sfname = "../stats/wr_all" + suffix + dir_id + ".out";
+    string sfname = "./stats/rd_all" + suffix + dir_id + ".out";
     stats.open(sfname.c_str());
 
-    // create data buffer to write
+    // create data buffer to read
     char *buffer = new char[block_size];
-    memset(buffer, '1', block_size);
+    memset(buffer, '0', block_size);
 
     // mount point
     const string tmpdir = getenv("TARGET");
-   
+
     // transactions
-    printf("worker %s writes...\n", dir_id.c_str());
+    printf("worker %s reads...\n", dir_id.c_str());
     auto start = chrono::high_resolution_clock::now();
     for (;;) {
         // open a random file
@@ -52,14 +52,10 @@ int main (int argc, char **argv) {
 
         // iterate all blocks
         for (int i=0; i < block_cnt; i++) {
-            // modify what we write
-            int change_index = rand() % block_size;
-            buffer[change_index]++;
-
             // select block
             int block_id = i;
-            file->seekp(block_id * block_size);
-            file->write(buffer, block_size);
+            file->seekg(block_id * block_size);
+            file->read(buffer, block_size);
         }
         txs++;
 

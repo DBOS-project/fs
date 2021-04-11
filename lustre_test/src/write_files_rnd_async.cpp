@@ -11,11 +11,11 @@
 using namespace std;
 
 /*
- * blocks refer to logic partition of a file
  * randomly choose a file and write random blocks asynchronously
  */
 
-void write_block(shared_ptr<fstream> file, char *buffer, int block_size) {
+void write_block(shared_ptr<fstream> file, char *buffer, int block_id, int block_size) {
+    file->seekp(block_id * block_size);
     file->write(buffer, block_size);
 }
 
@@ -66,8 +66,7 @@ int main (int argc, char **argv) {
 
             // randomly select a block
             int block_id = rand() % block_cnt;
-            file->seekp(block_id * block_size);
-            fut[i] = async(launch::async, write_block, file, buffer, block_size);
+            fut[i] = async(launch::async, write_block, file, buffer, block_id, block_size);
         }
         for (int i=0; i < block_rnd_cnt; i++) {
             fut[i].get();

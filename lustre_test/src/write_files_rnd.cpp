@@ -10,7 +10,6 @@
 using namespace std;
 
 /*
- * blocks refer to logic partition of a file
  * randomly choose a file and write random blocks
  */
 

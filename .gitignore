@@ -3,6 +3,7 @@ log
 logs
 testing/voltdbroot/*
 stats
+workdir
 .DS_Store
 tmp
 hs_err_pid*
