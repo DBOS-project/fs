@@ -20,23 +20,23 @@ cd ${SCRIPT_DIR}
 cd src
 # make clean; make  ### run once somewhere
 
-exec_time=3
-rand_blocks=5
+exec_time=1
+rand_blocks=2
 
 ./spawner create_files.sh $1 $2 $3
 ./spawner write_files_once $1 $2 $3 $[$4*$5]
 
-# ./spawner write_files $1 $2 $3 $4 $5 $exec_time _$6_1_
-# ./spawner write_files $1 $2 $3 $4 $5 $exec_time _$6_2_
-# # ./spawner write_files $1 $2 $3 $4 $5 $exec_time _$6_3_
-# # ./spawner write_files $1 $2 $3 $4 $5 $exec_time _$6_4_
-# # ./spawner write_files $1 $2 $3 $4 $5 $exec_time _$6_5_
+./spawner write_files $1 $2 $3 $4 $5 $exec_time _$6_1_
+./spawner write_files $1 $2 $3 $4 $5 $exec_time _$6_2_
+# ./spawner write_files $1 $2 $3 $4 $5 $exec_time _$6_3_
+# ./spawner write_files $1 $2 $3 $4 $5 $exec_time _$6_4_
+# ./spawner write_files $1 $2 $3 $4 $5 $exec_time _$6_5_
 
-# ./spawner write_files_rnd $1 $2 $3 $4 $rand_blocks $5 $exec_time _$6_1_
-# ./spawner write_files_rnd $1 $2 $3 $4 $rand_blocks $5 $exec_time _$6_2_
-# # ./spawner write_files_rnd $1 $2 $3 $4 $rand_blocks $5 $exec_time _$6_3_
-# # ./spawner write_files_rnd $1 $2 $3 $4 $rand_blocks $5 $exec_time _$6_4_
-# # ./spawner write_files_rnd $1 $2 $3 $4 $rand_blocks $5 $exec_time _$6_5_
+./spawner write_files_rnd $1 $2 $3 $4 $rand_blocks $5 $exec_time _$6_1_
+./spawner write_files_rnd $1 $2 $3 $4 $rand_blocks $5 $exec_time _$6_2_
+# ./spawner write_files_rnd $1 $2 $3 $4 $rand_blocks $5 $exec_time _$6_3_
+# ./spawner write_files_rnd $1 $2 $3 $4 $rand_blocks $5 $exec_time _$6_4_
+# ./spawner write_files_rnd $1 $2 $3 $4 $rand_blocks $5 $exec_time _$6_5_
 
 ./spawner write_files_async $1 $2 $3 $4 $5 $exec_time _$6_1_
 ./spawner write_files_async $1 $2 $3 $4 $5 $exec_time _$6_2_
@@ -44,24 +44,24 @@ rand_blocks=5
 # ./spawner write_files_async $1 $2 $3 $4 $5 $exec_time _$6_4_
 # ./spawner write_files_async $1 $2 $3 $4 $5 $exec_time _$6_5_
 
-# ./spawner write_files_rnd_async $1 $2 $3 $4 $rand_blocks $5 $exec_time _$6_1_
-# ./spawner write_files_rnd_async $1 $2 $3 $4 $rand_blocks $5 $exec_time _$6_2_
-# # ./spawner write_files_rnd_async $1 $2 $3 $4 $rand_blocks $5 $exec_time _$6_3_
-# # ./spawner write_files_rnd_async $1 $2 $3 $4 $rand_blocks $5 $exec_time _$6_4_
-# # ./spawner write_files_rnd_async $1 $2 $3 $4 $rand_blocks $5 $exec_time _$6_5_
+./spawner write_files_rnd_async $1 $2 $3 $4 $rand_blocks $5 $exec_time _$6_1_
+./spawner write_files_rnd_async $1 $2 $3 $4 $rand_blocks $5 $exec_time _$6_2_
+# ./spawner write_files_rnd_async $1 $2 $3 $4 $rand_blocks $5 $exec_time _$6_3_
+# ./spawner write_files_rnd_async $1 $2 $3 $4 $rand_blocks $5 $exec_time _$6_4_
+# ./spawner write_files_rnd_async $1 $2 $3 $4 $rand_blocks $5 $exec_time _$6_5_
 
 
-# ./spawner read_files $1 $2 $3 $4 $5 $exec_time _$6_1_
-# ./spawner read_files $1 $2 $3 $4 $5 $exec_time _$6_2_
-# # ./spawner read_files $1 $2 $3 $4 $5 $exec_time _$6_3_
-# # ./spawner read_files $1 $2 $3 $4 $5 $exec_time _$6_4_
-# # ./spawner read_files $1 $2 $3 $4 $5 $exec_time _$6_5_
+./spawner read_files $1 $2 $3 $4 $5 $exec_time _$6_1_
+./spawner read_files $1 $2 $3 $4 $5 $exec_time _$6_2_
+# ./spawner read_files $1 $2 $3 $4 $5 $exec_time _$6_3_
+# ./spawner read_files $1 $2 $3 $4 $5 $exec_time _$6_4_
+# ./spawner read_files $1 $2 $3 $4 $5 $exec_time _$6_5_
 
-# ./spawner read_files_rnd $1 $2 $3 $4 $rand_blocks $5 $exec_time _$6_1_
-# ./spawner read_files_rnd $1 $2 $3 $4 $rand_blocks $5 $exec_time _$6_2_
-# # ./spawner read_files_rnd $1 $2 $3 $4 $rand_blocks $5 $exec_time _$6_3_
-# # ./spawner read_files_rnd $1 $2 $3 $4 $rand_blocks $5 $exec_time _$6_4_
-# # ./spawner read_files_rnd $1 $2 $3 $4 $rand_blocks $5 $exec_time _$6_5_
+./spawner read_files_rnd $1 $2 $3 $4 $rand_blocks $5 $exec_time _$6_1_
+./spawner read_files_rnd $1 $2 $3 $4 $rand_blocks $5 $exec_time _$6_2_
+# ./spawner read_files_rnd $1 $2 $3 $4 $rand_blocks $5 $exec_time _$6_3_
+# ./spawner read_files_rnd $1 $2 $3 $4 $rand_blocks $5 $exec_time _$6_4_
+# ./spawner read_files_rnd $1 $2 $3 $4 $rand_blocks $5 $exec_time _$6_5_
 
 ./spawner read_files_async $1 $2 $3 $4 $5 $exec_time _$6_1_
 ./spawner read_files_async $1 $2 $3 $4 $5 $exec_time _$6_2_

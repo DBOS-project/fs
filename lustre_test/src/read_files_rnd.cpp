@@ -31,7 +31,7 @@ int main (int argc, char **argv) {
 
     chrono::duration<double> elapsed;
     ofstream stats;
-    string sfname = "./stats/rd_rnd" + suffix + dir_id + ".out";
+    string sfname = "../stats/rd_rnd" + suffix + dir_id + ".out";
     stats.open(sfname.c_str());
 
     // create data buffer to read

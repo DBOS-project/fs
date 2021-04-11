@@ -14,8 +14,11 @@ using namespace std;
  * randomly choose a file and read random blocks asynchronously
  */
 
-void read_block(shared_ptr<fstream> file, char *buffer, int block_size) {
-    file->read(buffer, block_size);
+void read_block(shared_ptr<fstream> file, int block_id, int block_size) {
+    file->seekg(block_id * block_size);
+    char *buffer = new char[block_size];
+    file->read(buffer, block_size); 
+    free(buffer);
 }
 
 int main (int argc, char **argv) {
@@ -36,12 +39,8 @@ int main (int argc, char **argv) {
 
     chrono::duration<double> elapsed;
     ofstream stats;
-    string sfname = "./stats/rd_rnd_asc" + suffix + dir_id + ".out";
+    string sfname = "../stats/rd_rnd_asc" + suffix + dir_id + ".out";
     stats.open(sfname.c_str());
-
-    // create data buffer to read
-    char *buffer = new char[block_size];
-    memset(buffer, '1', block_size);
 
     // mount point
     const string tmpdir = getenv("TARGET");
@@ -57,14 +56,13 @@ int main (int argc, char **argv) {
         file->open(fname.c_str());
 
         // iterate random blocks
-        future<void> fut[block_cnt];
+        future<void> fut[block_rnd_cnt];
         for (int i=0; i < block_rnd_cnt; i++) {
-            // randomly select block
+            // select block
             int block_id = rand() % block_cnt;
-            file->seekg(block_id * block_size);
-            fut[i] = async(launch::async, read_block, file, buffer, block_size);
+            fut[i] = async(launch::async, read_block, file, block_id, block_size);
         }
-        for (int i=0; i < block_cnt; i++) {
+        for (int i=0; i < block_rnd_cnt; i++) {
             fut[i].get();
         }
 
