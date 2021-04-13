@@ -107,44 +107,44 @@ block_cnt=40
 ./spawner create_files.sh $1 $2 $3
 ./spawner write_files_once $1 $2 $3 $[$block_cnt*$block_size]
 
-./spawner write_files $1 $2 $3 $block_cnt $block_size $exec_time _$5_1_
-./spawner write_files $1 $2 $3 $block_cnt $block_size $exec_time _$5_2_
-./spawner write_files $1 $2 $3 $block_cnt $block_size $exec_time _$5_3_
-./spawner write_files $1 $2 $3 $block_cnt $block_size $exec_time _$5_4_
+./spawner write_files $1 $2 $3 $block_cnt $block_size $exec_time _$4_1_
+./spawner write_files $1 $2 $3 $block_cnt $block_size $exec_time _$4_2_
+./spawner write_files $1 $2 $3 $block_cnt $block_size $exec_time _$4_3_
+./spawner write_files $1 $2 $3 $block_cnt $block_size $exec_time _$4_4_
 
-./spawner write_files_rnd $1 $2 $3 $block_cnt $rand_blocks $block_size $exec_time _$5_1_
-./spawner write_files_rnd $1 $2 $3 $block_cnt $rand_blocks $block_size $exec_time _$5_2_
-./spawner write_files_rnd $1 $2 $3 $block_cnt $rand_blocks $block_size $exec_time _$5_3_
-./spawner write_files_rnd $1 $2 $3 $block_cnt $rand_blocks $block_size $exec_time _$5_4_
+./spawner write_files_rnd $1 $2 $3 $block_cnt $rand_blocks $block_size $exec_time _$4_1_
+./spawner write_files_rnd $1 $2 $3 $block_cnt $rand_blocks $block_size $exec_time _$4_2_
+./spawner write_files_rnd $1 $2 $3 $block_cnt $rand_blocks $block_size $exec_time _$4_3_
+./spawner write_files_rnd $1 $2 $3 $block_cnt $rand_blocks $block_size $exec_time _$4_4_
 
-./spawner write_files_async $1 $2 $3 $block_cnt $block_size $exec_time _$5_1_
-./spawner write_files_async $1 $2 $3 $block_cnt $block_size $exec_time _$5_2_
-./spawner write_files_async $1 $2 $3 $block_cnt $block_size $exec_time _$5_3_
-./spawner write_files_async $1 $2 $3 $block_cnt $block_size $exec_time _$5_4_
+./spawner write_files_async $1 $2 $3 $block_cnt $block_size $exec_time _$4_1_
+./spawner write_files_async $1 $2 $3 $block_cnt $block_size $exec_time _$4_2_
+./spawner write_files_async $1 $2 $3 $block_cnt $block_size $exec_time _$4_3_
+./spawner write_files_async $1 $2 $3 $block_cnt $block_size $exec_time _$4_4_
 
-./spawner write_files_rnd_async $1 $2 $3 $block_cnt $rand_blocks $block_size $exec_time _$5_1_
-./spawner write_files_rnd_async $1 $2 $3 $block_cnt $rand_blocks $block_size $exec_time _$5_2_
-./spawner write_files_rnd_async $1 $2 $3 $block_cnt $rand_blocks $block_size $exec_time _$5_3_
-./spawner write_files_rnd_async $1 $2 $3 $block_cnt $rand_blocks $block_size $exec_time _$5_4_
+./spawner write_files_rnd_async $1 $2 $3 $block_cnt $rand_blocks $block_size $exec_time _$4_1_
+./spawner write_files_rnd_async $1 $2 $3 $block_cnt $rand_blocks $block_size $exec_time _$4_2_
+./spawner write_files_rnd_async $1 $2 $3 $block_cnt $rand_blocks $block_size $exec_time _$4_3_
+./spawner write_files_rnd_async $1 $2 $3 $block_cnt $rand_blocks $block_size $exec_time _$4_4_
 
-./spawner read_files $1 $2 $3 $block_cnt $block_size $exec_time _$5_1_
-./spawner read_files $1 $2 $3 $block_cnt $block_size $exec_time _$5_2_
-./spawner read_files $1 $2 $3 $block_cnt $block_size $exec_time _$5_3_
-./spawner read_files $1 $2 $3 $block_cnt $block_size $exec_time _$5_4_
+./spawner read_files $1 $2 $3 $block_cnt $block_size $exec_time _$4_1_
+./spawner read_files $1 $2 $3 $block_cnt $block_size $exec_time _$4_2_
+./spawner read_files $1 $2 $3 $block_cnt $block_size $exec_time _$4_3_
+./spawner read_files $1 $2 $3 $block_cnt $block_size $exec_time _$4_4_
 
-./spawner read_files_rnd $1 $2 $3 $block_cnt $rand_blocks $block_size $exec_time _$5_1_
-./spawner read_files_rnd $1 $2 $3 $block_cnt $rand_blocks $block_size $exec_time _$5_2_
-./spawner read_files_rnd $1 $2 $3 $block_cnt $rand_blocks $block_size $exec_time _$5_3_
-./spawner read_files_rnd $1 $2 $3 $block_cnt $rand_blocks $block_size $exec_time _$5_4_
+./spawner read_files_rnd $1 $2 $3 $block_cnt $rand_blocks $block_size $exec_time _$4_1_
+./spawner read_files_rnd $1 $2 $3 $block_cnt $rand_blocks $block_size $exec_time _$4_2_
+./spawner read_files_rnd $1 $2 $3 $block_cnt $rand_blocks $block_size $exec_time _$4_3_
+./spawner read_files_rnd $1 $2 $3 $block_cnt $rand_blocks $block_size $exec_time _$4_4_
 
-./spawner read_files_async $1 $2 $3 $block_cnt $block_size $exec_time _$5_1_
-./spawner read_files_async $1 $2 $3 $block_cnt $block_size $exec_time _$5_2_
-./spawner read_files_async $1 $2 $3 $block_cnt $block_size $exec_time _$5_3_
-./spawner read_files_async $1 $2 $3 $block_cnt $block_size $exec_time _$5_4_
+./spawner read_files_async $1 $2 $3 $block_cnt $block_size $exec_time _$4_1_
+./spawner read_files_async $1 $2 $3 $block_cnt $block_size $exec_time _$4_2_
+./spawner read_files_async $1 $2 $3 $block_cnt $block_size $exec_time _$4_3_
+./spawner read_files_async $1 $2 $3 $block_cnt $block_size $exec_time _$4_4_
 
-./spawner read_files_rnd_async $1 $2 $3 $block_cnt $rand_blocks $block_size $exec_time _$5_1_
-./spawner read_files_rnd_async $1 $2 $3 $block_cnt $rand_blocks $block_size $exec_time _$5_2_
-./spawner read_files_rnd_async $1 $2 $3 $block_cnt $rand_blocks $block_size $exec_time _$5_3_
-./spawner read_files_rnd_async $1 $2 $3 $block_cnt $rand_blocks $block_size $exec_time _$5_4_
+./spawner read_files_rnd_async $1 $2 $3 $block_cnt $rand_blocks $block_size $exec_time _$4_1_
+./spawner read_files_rnd_async $1 $2 $3 $block_cnt $rand_blocks $block_size $exec_time _$4_2_
+./spawner read_files_rnd_async $1 $2 $3 $block_cnt $rand_blocks $block_size $exec_time _$4_3_
+./spawner read_files_rnd_async $1 $2 $3 $block_cnt $rand_blocks $block_size $exec_time _$4_4_
 
 ./spawner delete_files.sh $1 $2 $3
