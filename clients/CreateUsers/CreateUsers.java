@@ -69,6 +69,7 @@ public class CreateUsers {
             totalsites = Integer.parseInt(cmd.getOptionValue("totalsites"));
 
         CreateUsers user_creator = new CreateUsers(hostlist, usercnt, totalsites);
+	System.out.println("calling");
         user_creator.create();
     }
 }

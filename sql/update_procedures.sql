@@ -97,9 +97,9 @@ DROP PROCEDURE Write_Big IF EXISTS;
 load classes stored_procedures/Write_Big/Write_Big.jar;
 CREATE PROCEDURE FROM CLASS Write_Big;
 
-DROP PROCEDURE CheckStorage IF EXISTS;
-load classes stored_procedures/CheckStorage/CheckStorage.jar;
-CREATE PROCEDURE FROM CLASS CheckStorage;
+DROP PROCEDURE GetOldestFiles IF EXISTS;
+load classes stored_procedures/GetOldestFiles/GetOldestFiles.jar;
+CREATE PROCEDURE FROM CLASS GetOldestFiles;
 
 DROP PROCEDURE SendToDisk IF EXISTS;
 load classes stored_procedures/SendToDisk/SendToDisk.jar;

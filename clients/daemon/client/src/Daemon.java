@@ -63,6 +63,8 @@ public class Daemon {
 		if (cmd.hasOption("threshold_gb"))
 			threshold_gb = Long.parseLong(cmd.getOptionValue("threshold_gb"));
 
+		long threshold_kb = threshold_gb * 1024 * 1024;
+
 		int period_ms = 1000;
 		if (cmd.hasOption("period_ms"))
 			period_ms = Integer.parseInt(cmd.getOptionValue("period_ms"));
@@ -94,45 +96,67 @@ public class Daemon {
 
 			// if the amount of memory being used is greater than the threshold, then this call will return
 			// a list of the size batch_size of the oldest blocks
-			VoltTable[] response = client.callProcedure("CheckStorage", host, threshold_gb * 1024 * 1024 * 1024, batch_size * worker_cnt).getResults();
-			if (response.length > 0) {
-				// send the oldest blocks to disk
-				VoltTable oldest = response[0];
-				int total = oldest.getRowCount();
-				Thread[] worker_threads = new Thread[worker_cnt];
-				// have each worker process <batch_size> files
-				for (int i = 0; i < worker_cnt; i++) {
-					if (total > i * batch_size) {
-						// get file info to send to worker
-						int[] p_keys = new int[batch_size];
-						String[] user_names = new String[batch_size];
-						String[] file_names = new String[batch_size];
-						int[] block_numbers = new int[batch_size];
-
-						VoltTableRow file_info = oldest.fetchRow(i * batch_size);						
-						for (int j = 0; j < batch_size; j++) {
-							p_keys[j] = (int)file_info.getLong("p_key");
-							user_names[j] = file_info.getString("user_name");
-							file_names[j] = file_info.getString("file_name");
-							block_numbers[j] = (int)file_info.getLong("block_number");
-							if (!file_info.advanceRow()) {
-								break;
-							}
-						}
-						Runnable worker = new SendToDiskWorker(worker_clients[i], p_keys, user_names, file_names, block_numbers);
-						Thread worker_thread = new Thread(worker);
-						worker_thread.start();
-						worker_threads[i] = worker_thread;
-					} else {
+			VoltTable[] memory_response = client.callProcedure("@Statistics", "MEMORY", 0).getResults();
+			long memory_usage = 0;
+			if (memory_response.length > 0) {
+				VoltTable memory_stats = memory_response[0];
+				VoltTableRow node_stats = memory_stats.fetchRow(0);
+				for (int i = 0; i < memory_stats.getRowCount(); i++) {
+					if (node_stats.getString("hostname").equals(host)) {
+						memory_usage = node_stats.getLong("RSS");
 						break;
 					}
+					if (!node_stats.advanceRow()) {
+							System.out.println("Host ID not found");
+							return;
+						}
 				}
-				// wait for workers
-				for (int i = 0; i < worker_cnt; i++) {
-					if (worker_threads[i] != null) {
-						worker_threads[i].join();
-					} else {
-						break;
+			} else {
+				System.out.println("@Statistics call had no response");
+				return;
+			}
+
+			if (memory_usage > threshold_kb * .8) {
+				VoltTable[] response = client.callProcedure("GetOldestFiles", host, batch_size * worker_cnt).getResults();
+				if (response.length > 0) {
+					// send the oldest blocks to disk
+					VoltTable oldest = response[0];
+					int total = oldest.getRowCount();
+					Thread[] worker_threads = new Thread[worker_cnt];
+					// have each worker process <batch_size> files
+					for (int i = 0; i < worker_cnt; i++) {
+						if (total > i * batch_size) {
+							// get file info to send to worker
+							int[] p_keys = new int[batch_size];
+							String[] user_names = new String[batch_size];
+							String[] file_names = new String[batch_size];
+							int[] block_numbers = new int[batch_size];
+
+							VoltTableRow file_info = oldest.fetchRow(i * batch_size);						
+							for (int j = 0; j < batch_size; j++) {
+								p_keys[j] = (int)file_info.getLong("p_key");
+								user_names[j] = file_info.getString("user_name");
+								file_names[j] = file_info.getString("file_name");
+								block_numbers[j] = (int)file_info.getLong("block_number");
+								if (!file_info.advanceRow()) {
+									break;
+								}
+							}
+							Runnable worker = new SendToDiskWorker(worker_clients[i], p_keys, user_names, file_names, block_numbers);
+							Thread worker_thread = new Thread(worker);
+							worker_thread.start();
+							worker_threads[i] = worker_thread;
+						} else {
+							break;
+						}
+					}
+					// wait for workers
+					for (int i = 0; i < worker_cnt; i++) {
+						if (worker_threads[i] != null) {
+							worker_threads[i].join();
+						} else {
+							break;
+						}
 					}
 				}
 			}
